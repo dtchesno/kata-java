@@ -6,5 +6,9 @@ public class KataApp {
         for (String arg: args) {
             System.out.println(arg);
         }
+        double avg;
+        long originalAvg = 63;
+        avg = originalAvg / 1000;
+        System.out.println("result - " + avg);
     }
 }
