@@ -49,17 +49,25 @@ public class TreeTest {
 
     @Test
     public void testMinDepth() {
-
+        TreeNode tree = createTestTree();
+        assertEquals(tree.minDepth(tree), 3);
     }
 
     @Test
     public void testMaxDepth() {
-
+        TreeNode tree = createTestTree();
+        assertEquals(tree.maxDepth(tree), 3);
     }
 
     @Test
     public void testIsBalanced() {
+        TreeNode tree = createTestTree();
+        assertEquals(tree.isBalanced(tree), true);
 
+        tree.insert(75);
+        assertEquals(TreeNode.isBalanced(tree), true);
+        tree.insert(77);
+        assertEquals(TreeNode.isBalanced(tree), false);
     }
 
     @Test
@@ -98,5 +106,16 @@ public class TreeTest {
         ArrayList<Integer> res =  new ArrayList();
         TreeNode.preOrder(tree, res);
         assertEquals(expected, res);
+    }
+
+    @Test
+    public void testBST() {
+        int[] expected = new int[] { 20, 50, 70, 100, 120, 150, 180};
+        TreeNode root = TreeNode.createBST(expected);
+
+        assertEquals(root.key, 100);
+        assertEquals(TreeNode.isBalanced(root), true);
+        assertEquals(TreeNode.minDepth(root), 3);
+        assertEquals(TreeNode.maxDepth(root), 3);
     }
 }

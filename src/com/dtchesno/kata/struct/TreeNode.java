@@ -82,4 +82,19 @@ public class TreeNode {
         preOrder(root.left, res);
         preOrder(root.right, res);
     }
+
+    public static TreeNode createBST(int[] arr) {
+        return addToTree(arr, 0, arr.length - 1);
+    }
+
+    private static TreeNode addToTree(int[] arr, int start, int end) {
+        if (end < start) {
+            return null;
+        }
+        int i = (start + end) / 2;
+        TreeNode root = new TreeNode(arr[i]);
+        root.left = addToTree(arr, start, i - 1);
+        root.right = addToTree(arr, i + 1, end);
+        return root;
+    }
 }
