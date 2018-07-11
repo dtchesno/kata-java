@@ -5,11 +5,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
+//            100
+//          /       \
+//    50              150
+//  /   \           /      \
+//20      70      120     180
 public class TreeTest {
 
     @Before
@@ -117,5 +121,35 @@ public class TreeTest {
         assertEquals(TreeNode.isBalanced(root), true);
         assertEquals(TreeNode.minDepth(root), 3);
         assertEquals(TreeNode.maxDepth(root), 3);
+    }
+
+    @Test
+    public void isSubtree() {
+        TreeNode t1 = createTestTree();
+
+        assertEquals(t1.isSubtree(t1), true);
+        assertEquals(t1.isSubtree(null), true);
+        assertEquals(t1.isSubtree(new TreeNode(100)), false);
+        assertEquals(t1.isSubtree(new TreeNode(20)), true);
+        assertEquals(t1.isSubtree(new TreeNode(180)), true);
+
+        int[] arr = new int[] { 50, 100, 150 };
+        TreeNode t2 = TreeNode.createBST(arr);
+        assertEquals(t1.isSubtree(t2), false);
+        assertEquals(t1.isSubtree(t2.insert(20)), false);
+        assertEquals(t1.isSubtree(t2.insert(70)), false);
+        assertEquals(t1.isSubtree(t2.insert(180)), false);
+        assertEquals(t1.isSubtree(t2.insert(120)), true);
+    }
+    @Test
+    public void findSum() {
+        TreeNode t = createTestTree();
+        t.left.left.insert(-100);
+
+        HashSet<List<Integer>> expected = new HashSet<>();
+        expected.add(Arrays.asList(70));
+        expected.add(Arrays.asList(50, 20));
+        expected.add(Arrays.asList(100, 50, 20, -100));
+        assertEquals(expected, t.findSum(70));
     }
 }

@@ -1,11 +1,10 @@
 package com.dtchesno.kata.struct;
 
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class TreeNode {
-    public TreeNode left;
-    public TreeNode right;
+    public TreeNode left = null;
+    public TreeNode right = null;
     public int key;
 
     public static int minDepth(TreeNode root) {
@@ -30,7 +29,7 @@ public class TreeNode {
         key = value;
     }
 
-    public void insert(int value) {
+    public TreeNode insert(int value) {
         if (value <= key) {
             if (left == null) {
                 left = new TreeNode(value);
@@ -44,6 +43,7 @@ public class TreeNode {
                 right.insert(value);
             }
         }
+        return this;
     }
 
     public static void inOrder(TreeNode root, List<Integer> res) {
@@ -96,5 +96,61 @@ public class TreeNode {
         root.left = addToTree(arr, start, i - 1);
         root.right = addToTree(arr, i + 1, end);
         return root;
+    }
+
+    // is tree is subtree of this
+    public boolean isSubtree(TreeNode tree) {
+        if (tree == null) {
+            return true;
+        }
+        return isSubtree(this, tree);
+    }
+
+    // is t2 subtree of t1
+    private static boolean isSubtree(TreeNode t1, TreeNode t2) {
+        if (t1 == null) {
+            return false;
+        }
+        if (t1.key == t2.key) {
+            return matchTree(t1, t2);
+        }
+        return isSubtree(t1.left, t2) || isSubtree(t1.right, t2);
+    }
+
+    private static boolean matchTree(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) {
+            return true;
+        }
+        if (t1 == null || t2 == null) {
+            return false;
+        }
+        if (t1.key != t2.key) {
+            return false;
+        }
+        return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
+    }
+
+    public Set<ArrayList<Integer>> findSum(int sum) {
+        Set<ArrayList<Integer>> acc = new HashSet<>();
+        findSum(this, sum, new ArrayList<Integer>(), 0, acc);
+        return acc;
+    }
+
+    private static void findSum(TreeNode t, int sum, ArrayList<Integer> buffer, int level, Set<ArrayList<Integer>> acc) {
+        if (t == null) {
+            return;
+        }
+        buffer.add(t.key);
+        int tmpSum = sum;
+        for (int i = level; i > -1; i--) {
+            tmpSum -= buffer.get(i);
+            if (tmpSum == 0) {
+                acc.add(new ArrayList<>(buffer.subList(i, level + 1)));
+            }
+        }
+        ArrayList<Integer> left = (ArrayList<Integer>) buffer.clone();
+        findSum(t.left, sum, left, level + 1, acc);
+        ArrayList<Integer> right = (ArrayList<Integer>) buffer.clone();
+        findSum(t.right, sum, right, level + 1, acc);
     }
 }
