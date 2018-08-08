@@ -1,13 +1,17 @@
 package com.dtchesno.kata.test;
 
 import com.dtchesno.kata.struct.TreeNode;
+import com.dtchesno.kata.careercup.CutTree;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.xml.bind.annotation.XmlElementRef;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 //            100
 //          /       \
@@ -151,5 +155,21 @@ public class TreeTest {
         expected.add(Arrays.asList(50, 20));
         expected.add(Arrays.asList(100, 50, 20, -100));
         assertEquals(expected, t.findSum(70));
+    }
+
+    @Test
+    public void isHalfCuttable() {
+        TreeNode root = new TreeNode(2);
+        assertFalse(CutTree.isHalfCuttable(root));
+
+        root.insert(1);
+        root.insert(3);
+        assertTrue(CutTree.isHalfCuttable(root));
+
+        root.insert(6);
+        assertTrue(CutTree.isHalfCuttable(root));
+
+        root.insert(1);
+        assertFalse(CutTree.isHalfCuttable(root));
     }
 }
