@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -41,6 +42,36 @@ public class BitTest {
 
     @Test
     public void testFindNeighbors() {
-        assertEquals(true, Arrays.equals(new int[] { 0b0001, 0b0100 }, Tasks.findNeighbors(0b0010)));
+        assertEquals(true, Arrays.equals(new int[] { 0b000001, 0b000100 }, Tasks.findNeighbors(0b000010)));
+        assertEquals(true, Arrays.equals(new int[] { 0b001110, 0b010101 }, Tasks.findNeighbors(0b010011)));
+        assertEquals(true, Arrays.equals(new int[] { 0b010011, 0b010110 }, Tasks.findNeighbors(0b010101)));
+        assertEquals(true, Arrays.equals(new int[] { 0b011010, 0b100011 }, Tasks.findNeighbors(0b011100)));
+    }
+
+    @Test
+    public void testSwapNeighbors() {
+        assertEquals(0b101010, Tasks.swapNeighbors(0b010101));
+        assertEquals(0b000110, Tasks.swapNeighbors(0b001001));
+        assertEquals(0b000111, Tasks.swapNeighbors(0b001011));
+    }
+
+    @Test
+    public void testFindMissing() {
+        assertEquals(0, Tasks.findMissingElement(createArrayWithMissingElement(100, 0)));
+        assertEquals(1, Tasks.findMissingElement(createArrayWithMissingElement(100, 1)));
+        assertEquals(11, Tasks.findMissingElement(createArrayWithMissingElement(100, 11)));
+        assertEquals(32, Tasks.findMissingElement(createArrayWithMissingElement(100, 32)));
+        assertEquals(99, Tasks.findMissingElement(createArrayWithMissingElement(100, 99)));
+    }
+
+    private int[] createArrayWithMissingElement(int size, int missing) {
+        int[] array = new int[size];
+        for (int i = 0, j = 0; i < size; i++, j++) {
+            if (i == missing) {
+                j++;
+            }
+            array[i] = j;
+        }
+        return array;
     }
 }
