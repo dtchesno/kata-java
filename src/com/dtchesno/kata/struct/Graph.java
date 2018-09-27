@@ -1,21 +1,80 @@
 package com.dtchesno.kata.struct;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Graph {
 
-    private ArrayList<ArrayList<Edge>> nodes;
+    private boolean mIsDirected;
+    private ArrayList<ArrayList<Edge>> edges;
 
     public static class Edge {
-        int y;
-        int weight;
-    }
+        public int y;
+        public int weight;
 
-    public Graph(int size) {
-        nodes = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            nodes.add(new ArrayList<>());
+        public Edge(int y, int weight) {
+            this.y = y;
+            this.weight = weight;
+        }
+
+        public Edge(int y) {
+            this(y, 1);
         }
     }
 
+    public static class Traversal {
+        public int[] vertices;
+        public int[] parent;
+
+
+        public Traversal(int[] vertices, int[] parent) {
+            this.vertices = vertices;
+            this.parent = parent;
+        }
+    }
+
+    public Graph(boolean isDirected, int size, int[] endpoints) {
+        this.edges = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            this.edges.add(new ArrayList<>());
+        }
+        for (int i = 0; i < endpoints.length; i += 2) {
+            this.edges.get(endpoints[i]).add(new Edge(endpoints[i + 1]));
+            if (!isDirected) {
+                this.edges.get(endpoints[i + 1]).add(new Edge(endpoints[i]));
+            }
+        }
+    }
+
+    public int size() {
+        return edges.size();
+    }
+
+    public Traversal bfs(int start) {
+        int size = edges.size();
+        ArrayList<Integer> vertices = new ArrayList<>(size);
+        int[] parent = new int[size];
+        //boolean[] processed = new boolean[size];
+        boolean[] discovered = new boolean[size];
+
+        LinkedList<Integer> q = new LinkedList<>();
+        q.add(start);
+        discovered[start] = true;
+        while (!q.isEmpty()) {
+            int v = q.poll();
+            vertices.add(v);
+            for (Edge e: edges.get(v)) {
+                if (!discovered[e.y]) {
+                    discovered[e.y] = true;
+                    parent[e.y] = v;
+                    q.add(e.y);
+                }
+            }
+        }
+
+        int[] vArray = new int[vertices.size()];
+        for (int i = 0; i < vArray.length; i++) {
+            vArray[i] = vertices.get(i);
+        }
+        return new Traversal(vArray, parent);
+    }
 }
