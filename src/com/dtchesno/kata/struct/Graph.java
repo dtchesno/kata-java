@@ -32,6 +32,24 @@ public class Graph {
         }
     }
 
+    private static class TraversalCtx {
+        boolean[] discovered;
+        boolean[] processed;
+        int[] parent;
+        ArrayList<Integer> vertices;
+
+        public TraversalCtx(int size) {
+            discovered = new boolean[size];
+            processed = new boolean[size];
+            parent = new int[size];
+            for (int i = 0; i < size; i++) {
+                discovered[i] = processed[i] = false;
+                parent[i] = -1;
+            }
+            vertices = new ArrayList<>(size);
+        }
+    }
+
     public Graph(boolean isDirected, int size, int[] endpoints) {
         this.edges = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
@@ -76,5 +94,27 @@ public class Graph {
             vArray[i] = vertices.get(i);
         }
         return new Traversal(vArray, parent);
+    }
+
+    public Traversal dfs(int start) {
+        TraversalCtx ctx = new TraversalCtx(size());
+        dfs(start, ctx);
+
+        int[] vArray = new int[ctx.vertices.size()];
+        for (int i = 0; i < vArray.length; i++) {
+            vArray[i] = ctx.vertices.get(i);
+        }
+        return new Traversal(vArray, ctx.parent);
+    }
+
+    private void dfs(int v, TraversalCtx ctx) {
+        ctx.discovered[v] = ctx.processed[v] = true;
+        ctx.vertices.add(v);
+        for (Edge e: edges.get(v)) {
+            if (!ctx.discovered[e.y]) {
+                ctx.parent[e.y] = v;
+                dfs(e.y, ctx);
+            }
+        }
     }
 }

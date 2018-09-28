@@ -57,10 +57,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TreeNode.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TreeNode.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
+            <state relative-caret-position="-148">
               <caret line="70" column="34" lean-forward="true" selection-start-line="70" selection-start-column="34" selection-end-line="70" selection-end-column="34" />
             </state>
           </provider>
@@ -69,8 +69,8 @@
       <file leaf-file-name="Graph.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="34" column="60" lean-forward="true" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
+            <state relative-caret-position="302">
+              <caret line="110" column="22" selection-start-line="110" selection-start-column="22" selection-end-line="110" selection-end-column="22" />
               <folding>
                 <element signature="e#386#387#0" expanded="true" />
                 <element signature="e#413#414#0" expanded="true" />
@@ -81,34 +81,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LinkedList.class" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/LinkedList.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GraphTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/GraphTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+            <state relative-caret-position="525">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#436#437#0" expanded="true" />
                 <element signature="e#505#506#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Assert.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/Assert.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="71" column="23" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -389,34 +371,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.10 at 16h 25m 44s.xml">
-      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.10 at 16h 43m 30s.xml">
-      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.10 at 17h 14m 47s.xml">
-      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.10 at 17h 15m 51s.xml">
-      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.25 at 17h 36m 54s.xml">
-      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.25 at 17h 40m 33s.xml">
-      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.26 at 15h 45m 52s.xml">
-      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.26 at 17h 32m 05s.xml">
-      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.26 at 17h 43m 23s.xml">
       <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
     </history-entry>
     <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.26 at 17h 45m 51s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.26 at 17h 47m 32s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.27 at 16h 09m 31s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.27 at 16h 12m 32s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.27 at 16h 12m 39s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.27 at 16h 13m 43s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.27 at 16h 14m 25s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.27 at 16h 16m 29s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2018.09.27 at 16h 16m 40s.xml">
       <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -432,17 +414,17 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32359812" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32359812" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.14671814" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49941927" visible="true" weight="0.15389653" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49941927" visible="true" weight="0.15389653" />
       <window_info id="Structure" order="1" sideWeight="0.5005807" side_tool="true" weight="0.15389653" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.27891156" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.27570093" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -485,7 +467,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/GraphTest.java</url>
+          <line>40</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -722,13 +712,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="70" column="34" lean-forward="true" selection-start-line="70" selection-start-column="34" selection-end-line="70" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/Assert.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="121">
@@ -745,8 +728,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="34" column="60" lean-forward="true" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
+        <state relative-caret-position="302">
+          <caret line="110" column="22" selection-start-line="110" selection-start-column="22" selection-end-line="110" selection-end-column="22" />
           <folding>
             <element signature="e#386#387#0" expanded="true" />
             <element signature="e#413#414#0" expanded="true" />
@@ -758,13 +741,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/GraphTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+        <state relative-caret-position="525">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#436#437#0" expanded="true" />
             <element signature="e#505#506#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-148">
+          <caret line="70" column="34" lean-forward="true" selection-start-line="70" selection-start-column="34" selection-end-line="70" selection-end-column="34" />
         </state>
       </provider>
     </entry>
