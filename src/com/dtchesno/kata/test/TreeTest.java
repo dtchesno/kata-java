@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.bind.annotation.XmlElementRef;
+//import javax.xml.bind.annotation.XmlElementRef;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
