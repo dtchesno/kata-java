@@ -1,7 +1,11 @@
 package com.dtchesno.kata.careercup;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.PriorityQueue;
 
 public class Tasks {
 
@@ -61,5 +65,52 @@ public class Tasks {
         pair.second = String.copyValueOf(buf, 0, evenLen);
 
         return pair;
+    }
+
+    public static void mergeStreams(OutputStream os, InputStream[] inputs) {
+        class Pair {
+            InputStream is;
+            int value;
+
+            Pair(InputStream is, int value) {
+                this.is = is;
+                this.value = value;
+            }
+        }
+
+        //PriorityQueue<Pair> q = new PriorityQueue<>((p1, p2) -> p1.value - p2.value);
+        PriorityQueue<Pair> q = new PriorityQueue<>(Comparator.comparing((p)->p.value));
+
+        for (InputStream is: inputs) {
+            try {
+                int value = is.read();
+                if (value != -1) {
+                    q.add(new Pair(is, value));
+                }
+            } catch (IOException e) {}
+        }
+
+        while (!q.isEmpty()) {
+            try {
+                Pair p = q.poll();
+                os.write(p.value);
+
+                int newValue = p.is.read();
+                if (newValue != -1) {
+                    q.add(new Pair(p.is, newValue));
+                    continue;
+                }
+            } catch (IOException e) {}
+
+            for (InputStream is: inputs) {
+                try {
+                    int value = is.read();
+                    if (value != -1) {
+                        q.add(new Pair(is, value));
+                        continue;
+                    }
+                } catch (IOException e) {}
+            }
+        }
     }
 }
