@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.HashSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class RecursionTest {
@@ -21,14 +22,26 @@ public class RecursionTest {
     }
 
     @Test
-    public void testBraces() {
+    public void testBracePermutations() {
         HashSet<String> expected = new HashSet<>();
         expected.add("()()()");
         expected.add("()(())");
         expected.add("(())()");
         expected.add("((()))");
         expected.add("(()())");
-        assertEquals(expected, Tasks.braces(3));
+        assertEquals(expected, Tasks.permuteBraces(3));
     }
 
+    @Test
+    public void testBracesBalance() {
+        assertTrue(Tasks.isBracesBalanced("()"));
+        assertTrue(Tasks.isBracesBalanced("()()"));
+        assertTrue(Tasks.isBracesBalanced("()(())"));
+
+        assertTrue(!Tasks.isBracesBalanced("(("));
+        assertTrue(!Tasks.isBracesBalanced("("));
+        assertTrue(!Tasks.isBracesBalanced(")"));
+        assertTrue(!Tasks.isBracesBalanced("())("));
+        assertTrue(!Tasks.isBracesBalanced("()(()"));
+    }
 }
