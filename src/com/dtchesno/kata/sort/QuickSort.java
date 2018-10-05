@@ -2,16 +2,16 @@ package com.dtchesno.kata.sort;
 
 public class QuickSort {
     public static void sort(int[] buf) {
-        sortInt(buf, 0, buf.length - 1);
+        sort(buf, 0, buf.length - 1);
     }
 
-    private static void sortInt(int[] buf, int start, int end) {
+    private static void sort(int[] buf, int start, int end) {
         if (start >= end) {
             return;
         }
         int p = partition(buf, start, end);
-        sortInt(buf, start, p - 1);
-        sortInt(buf, p + 1, end);
+        sort(buf, start, p - 1);
+        sort(buf, p + 1, end);
     }
 
     private static void swap(int[] data, int i, int j) {
