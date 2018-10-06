@@ -114,6 +114,31 @@ public class TreeTest {
         ArrayList<Integer> res =  new ArrayList();
         TreeNode.preOrder(tree, res);
         assertEquals(expected, res);
+
+        res.clear();
+        TreeNode.preOrderI(tree, res);
+        assertEquals(expected, res);
+    }
+
+    @Test
+    public void postOrder() {
+        List<Integer> expected = new ArrayList();
+        expected.add(20);
+        expected.add(70);
+        expected.add(50);
+        expected.add(120);
+        expected.add(180);
+        expected.add(150);
+        expected.add(100);
+
+        TreeNode tree = createTestTree();
+        ArrayList<Integer> res =  new ArrayList();
+        TreeNode.postOrder(tree, res);
+        assertEquals(expected, res);
+
+        res.clear();
+        TreeNode.postOrderI(tree, res);
+        assertEquals(expected, res);
     }
 
     @Test

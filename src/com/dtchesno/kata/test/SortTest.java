@@ -1,7 +1,7 @@
 package com.dtchesno.kata.test;
 
-import com.dtchesno.kata.sort.MergeSort;
 import com.dtchesno.kata.sort.HeapSort;
+import com.dtchesno.kata.sort.MergeSort;
 import com.dtchesno.kata.sort.QuickSort;
 import org.junit.After;
 import org.junit.Before;

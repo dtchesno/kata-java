@@ -83,6 +83,58 @@ public class TreeNode {
         preOrder(root.right, res);
     }
 
+    public static void preOrderI(TreeNode root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+
+        Stack<TreeNode> stack = new Stack();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode n = stack.pop();
+            res.add(n.key);
+            if (n.right != null) {
+                stack.push(n.right);
+            }
+            if (n.left != null) {
+                stack.push(n.left);
+            }
+        }
+    }
+
+    public static void postOrder(TreeNode root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left, res);
+        postOrder(root.right, res);
+        res.add(root.key);
+    }
+
+    public static void postOrderI(TreeNode root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+
+        Stack<TreeNode> stack = new Stack();
+        TreeNode node = root;
+        TreeNode last = null;
+        while (!stack.isEmpty() || node != null) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            } else {
+                TreeNode peek = stack.peek();
+                if (peek.right != null && peek.right != last) {
+                    node = peek.right;
+                } else {
+                    last = stack.pop();
+                    res.add(last.key);
+                }
+            }
+        }
+    }
+
     public static TreeNode createBST(int[] arr) {
         return addToTree(arr, 0, arr.length - 1);
     }
