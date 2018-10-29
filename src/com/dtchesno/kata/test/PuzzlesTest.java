@@ -1,11 +1,8 @@
 package com.dtchesno.kata.test;
 
-import com.dtchesno.kata.puzzle.Hanoi;
-import com.dtchesno.kata.puzzle.Knapsack;
+import com.dtchesno.kata.puzzle.*;
 import com.dtchesno.kata.puzzle.Knapsack.Box;
 import com.dtchesno.kata.puzzle.Knapsack.Distribution;
-import com.dtchesno.kata.puzzle.EQueens;
-import com.dtchesno.kata.puzzle.Sudoku;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -98,5 +95,15 @@ public class PuzzlesTest {
                 { 0, 5, 0,   0, 0, 0,   6, 0, 0 }
         };
         assertTrue(Arrays.deepEquals(probe, Sudoku.solve(m, 9)));
+    }
+
+    @Test
+    public void testStoneGame() {
+        assertTrue(StoneGame.isWin(new int[] { 1 }));
+        assertTrue(!StoneGame.isWin(new int[] { 1, 1 }));
+        assertTrue(StoneGame.isWin(new int[] { 1, 13 }));
+        assertTrue(StoneGame.isWin(new int[] { 1, 2, 3 }));
+        assertTrue(!StoneGame.isWin(new int[] { 1, 100, 2 }));
+        assertTrue(StoneGame.isWin(new int[] { 1, 100, 3, 2 }));
     }
 }
