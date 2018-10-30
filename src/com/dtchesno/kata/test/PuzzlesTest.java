@@ -106,4 +106,19 @@ public class PuzzlesTest {
         assertTrue(!StoneGame.isWin(new int[] { 1, 100, 2 }));
         assertTrue(StoneGame.isWin(new int[] { 1, 100, 3, 2 }));
     }
+
+    @Test
+    public void testArrayEquallySplittable() {
+        assertTrue(DivideArray.isSplittable(new int[] { 0 }));
+        assertTrue(!DivideArray.isSplittable(new int[] { 1 }));
+        assertTrue(DivideArray.isSplittable(new int[] { 1, 1 }));
+        assertTrue(!DivideArray.isSplittable(new int[] { 1, 1, 1 }));
+        assertTrue(DivideArray.isSplittable(new int[] { 1, 2, 1 }));
+        assertTrue(DivideArray.isSplittable(new int[] { 1, 2, 3 }));
+        assertTrue(!DivideArray.isSplittable(new int[] { 1, 2, 3, 4, 5 }));
+        assertTrue(!DivideArray.isSplittable(new int[] { 1, 2, 3, 4, 5, 6 }));
+        assertTrue(!DivideArray.isSplittable(new int[] { 2, 1, 6, 5, 3, 4 }));
+        assertTrue(DivideArray.isSplittable(new int[] { 1, 2, 3, 4, 5, 6, 7 }));
+        assertTrue(DivideArray.isSplittable(new int[] { 2, 1, 6, 5, 3, 4, 7 }));
+    }
 }
