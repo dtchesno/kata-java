@@ -1,6 +1,6 @@
 package com.dtchesno.kata.test;
 
-import com.dtchesno.kata.struct.Graph;
+import com.dtchesno.kata.graph.Graph;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,5 +39,19 @@ public class GraphTest {
         Graph g = new Graph(false, 5, new int[] { 0, 2, 0, 3, 1, 3, 1, 4, 2, 4, 4, 0});
         Graph.Traversal t = g.dfs(0);
         assertTrue(Arrays.equals(new int[] { 0, 2, 4, 1, 3 }, t.vertices));
+    }
+
+    @Test
+    public void testEventualSafe() {
+        int[][] g = new int[][] {
+                new int[] { 1, 2 },
+                new int[] { 2, 3 },
+                new int[] { 5 },
+                new int[] { 0 },
+                new int[] { 5 },
+                new int[0],
+                new int[0]
+        };
+        assertTrue(Arrays.equals(new Integer[] { 2, 4, 5, 6 }, Graph.listEventualSafeNodes(g)));
     }
 }

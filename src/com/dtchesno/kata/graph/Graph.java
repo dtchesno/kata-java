@@ -1,4 +1,4 @@
-package com.dtchesno.kata.struct;
+package com.dtchesno.kata.graph;
 
 import java.util.*;
 
@@ -116,5 +116,50 @@ public class Graph {
                 dfs(e.y, ctx);
             }
         }
+    }
+
+
+    // exercises
+
+    // https://leetcode.com/articles/find-eventual-safe-states/
+    public static Integer[] listEventualSafeNodes(int[][] g) {
+        // 0/1/2 - white/gray/black - undiscovered/discovered/processed
+        int[] color = new int[g.length];
+        for (int i = 0; i < color.length; i++) {
+            color[i] = 0;
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = 0; i < g.length; i++) {
+            if (listEventualSafeNodesDFS(i, g, color)) {
+                result.add(i);
+            }
+        }
+
+        return result.toArray(new Integer[0]);
+    }
+
+    private static boolean listEventualSafeNodesDFS(int node, int[][] g, int[] color) {
+        if (color[node] == 1) {
+            return false;
+        }
+        if (color[node] == 2) {
+            return true;
+        }
+
+        color[node] = 1;
+        for (int child: g[node]) {
+            if (color[child] == 2) {
+                continue;
+            }
+            if (color[child] == 1) {
+                return false;
+            }
+            if (!listEventualSafeNodesDFS(child, g, color)) {
+                return false;
+            }
+        }
+        color[node] = 2;
+        return true;
     }
 }
