@@ -54,4 +54,19 @@ public class GraphTest {
         };
         assertTrue(Arrays.equals(new Integer[] { 2, 4, 5, 6 }, Graph.listEventualSafeNodes(g)));
     }
+
+    @Test
+    public void testDijkstra() {
+        int[][][] g = new int[][][] {
+                { {1, 1}, {2, 1}, {3, 3} },
+                { {4, 2} },
+                { {3, 1}, {4, 1}},
+                { {5, 3} },
+                { {0, 2}, {5, 3} },
+                {}
+        };
+        int[] result = Graph.dijkstra(g, 0);
+        //System.out.println(Arrays.toString(result));
+        assertTrue(Arrays.equals(new int[] { 0, 1, 1, 2, 2, 5 }, result));
+    }
 }

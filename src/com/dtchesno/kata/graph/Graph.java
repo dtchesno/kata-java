@@ -118,6 +118,47 @@ public class Graph {
         }
     }
 
+    // return min distance form source to all nodes
+    // edges[i] is int[][], array of int pairs - vertex connected to i vertex and weight of the edge
+    public static int[] dijkstra(int[][][] g, int source) {
+        int n = g.length;
+        int[] distance = new int[n];
+
+        // queue contains pair of (vertex, min-distance-from-source)
+        PriorityQueue<int[]> queue = new PriorityQueue<>(n, (x, y) -> {
+            return x[1] - y[1];
+        });
+
+        // init distance to all vertices
+        for (int i = 0; i < n; i++) {
+            distance[i] = (i == source) ? 0 : Integer.MAX_VALUE;
+            queue.add(new int[] {i, distance[i]});
+        }
+
+        // on each step select vertex with min distance from source - it couldn't be improved
+        while (!queue.isEmpty()) {
+            int[] u = queue.poll();
+
+            // try to decrease distance to immediate neighbors of current vertex
+            for (int[] v: g[u[0]]) {
+                int alternative = u[1] + v[1];
+
+                // found better route to neighbor - update value in result array and in queue
+                if (alternative < distance[v[0]]) {
+                    for (int[] element: queue) {
+                        if (element[0] == v[0]) {
+                            queue.remove(element);
+                            break;
+                        }
+                    }
+                    distance[v[0]] = alternative;
+                    queue.add(new int[] { v[0], distance[v[0]]});
+                }
+            }
+        }
+
+        return distance;
+    }
 
     // exercises
 
