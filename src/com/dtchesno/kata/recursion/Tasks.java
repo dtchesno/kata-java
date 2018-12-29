@@ -18,7 +18,7 @@ public class Tasks {
         if (l > 0) {
             s1 =  permuteBraces(l - 1, r, str + '(', result);
         }
-        if (r > l) {
+        if (r > l && r > l) {
             s2 =  permuteBraces(l, r - 1, str + ')', result);
         }
         if (s1 != null) {

@@ -15,22 +15,21 @@ public class EQueens {
     }
 
     public int solve() {
-        return solve(board, 0);
+        return solve(0);
     }
 
-    private int solve(boolean[][] board, int i) {
+    private int solve(int i) {
         if (i == size) {
             return 1;
         }
         int count = 0;
-        boolean[][] temp = board.clone();
         for (int j = 0; j < size; j++) {
             if (checkHorizontal(j) || checkDiagonal(i, j)) {
                 continue;
             }
-            temp[i][j] = true;
-            count += solve(temp, i + 1);
-            temp[i][j] = false;
+            board[i][j] = true;
+            count += solve(i + 1);
+            board[i][j] = false;
         }
         return count;
     }
