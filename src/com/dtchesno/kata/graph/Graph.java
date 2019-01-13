@@ -123,36 +123,28 @@ public class Graph {
     public static int[] dijkstra(int[][][] g, int source) {
         int n = g.length;
         int[] distance = new int[n];
+        HashMap<Integer, int[]> ref = new HashMap<>();
 
-        // queue contains pair of (vertex, min-distance-from-source)
-        PriorityQueue<int[]> queue = new PriorityQueue<>(n, (x, y) -> {
-            return x[1] - y[1];
-        });
-
-        // init distance to all vertices
-        for (int i = 0; i < n; i++) {
-            distance[i] = (i == source) ? 0 : Integer.MAX_VALUE;
-            queue.add(new int[] {i, distance[i]});
+        // [0] - vertex, [1] - distance
+        PriorityQueue<int[]> q = new PriorityQueue<>(n, (v1, v2) -> { return v1[1] - v2[1]; });
+        for (int i = 0; i < g.length; i++) {
+            int[] d = new int[] {i, i == source ? 0 : Integer.MAX_VALUE};
+            ref.put(i, d);
+            q.add(d);
+            distance[i] = d[1];
         }
 
-        // on each step select vertex with min distance from source - it couldn't be improved
-        while (!queue.isEmpty()) {
-            int[] u = queue.poll();
-
-            // try to decrease distance to immediate neighbors of current vertex
+        while (!q.isEmpty()) {
+            int[] u = q.poll();
             for (int[] v: g[u[0]]) {
-                int alternative = u[1] + v[1];
-
-                // found better route to neighbor - update value in result array and in queue
-                if (alternative < distance[v[0]]) {
-                    for (int[] element: queue) {
-                        if (element[0] == v[0]) {
-                            queue.remove(element);
-                            break;
-                        }
-                    }
-                    distance[v[0]] = alternative;
-                    queue.add(new int[] { v[0], distance[v[0]]});
+                int alt = u[1] + v[1];
+                if (alt < distance[v[0]]) {
+                    distance[v[0]] = alt;
+                    // update in heap
+                    int[] r = ref.get(v[0]);
+                    q.remove(r);
+                    r[1] = alt;
+                    q.add(r);
                 }
             }
         }
