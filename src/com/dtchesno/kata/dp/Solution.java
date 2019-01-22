@@ -45,4 +45,29 @@ public class Solution {
         }
         return max;
     }
+
+    // items[number][2] - weight, value
+    public static int knapsack(int maxWeight, int[][] items) {
+        int[][] mem = new int[items.length][maxWeight + 1];
+        for (int[] arr: mem) {
+            Arrays.fill(arr, -1);
+            arr[0] = 0;
+        }
+        return knapsackDP(maxWeight, 0, items, mem);
+    }
+
+    public static int knapsackDP(int remWeight, int i, int[][] items, int[][] mem) {
+        if (i >= items.length || remWeight < items[i][0]) {
+            return 0;
+        }
+        if (mem[i][remWeight] == -1) {
+            mem[i][remWeight] = Math.max(
+                    items[i][1] + knapsackDP(remWeight - items[i][0], i + 1, items, mem),
+                    knapsackDP(remWeight, i + 1, items, mem)
+            );
+        } else {
+            System.out.println("has result for item#" + i + " and weight = " + remWeight);
+        }
+        return mem[i][remWeight];
+    }
 }

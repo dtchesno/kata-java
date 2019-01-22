@@ -37,4 +37,14 @@ public class DpTest {
         assertEquals(4, Solution.longestNondecreasingSeq(
                 new int[] {0, 8, 4, 12, 2, 10, 6, 14, 1, 9}));
     }
+
+    @Test
+    public void testknapsack() {
+        assertEquals(22, Solution.knapsack(5, new int[][] {
+                {1, 6}, {2, 10}, {3, 12}
+        }));
+        assertEquals(7, Solution.knapsack(14, new int[][] {
+                {5, 3}, {10, 5}, {6, 4}, {5, 2}
+        }));
+    }
 }

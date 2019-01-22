@@ -113,4 +113,89 @@ public class Tasks {
             }
         }
     }
+
+    // build 2d 'spiral' array of size n; e.g.
+    //
+    // 1 2 3
+    // 8 9 4
+    // 7 6 5
+    public static int[][] spiral(int n) {
+        int [][] arr = new int[n][n];
+        for (int[] a: arr) {
+            Arrays.fill(a, 0);
+        }
+
+        int i = 0;
+        int j = 0;
+        arr[i][j] = 1;
+        int direction = 0; // 0/1/2/3 - right/down/left/up
+        for (int k = 2; k <= n * n; k++) {
+            while (true) {
+                int i1 = 0, j1 = 0;
+                switch (direction) {
+                    // right
+                    case 0: i1 = i; j1 = j + 1; break;
+
+                    // down
+                    case 1: i1 = i + 1; j1 = j; break;
+
+                    // left
+                    case 2: i1 = i; j1 = j - 1; break;
+
+                    // up
+                    case 3: i1 = i - 1; j1 = j; break;
+                }
+
+                if (i1 >= 0 && i1 < n && j1 >= 0 && j1 < n && arr[i1][j1] == 0) {
+                    i = i1;
+                    j = j1;
+                    arr[i][j] = k;
+                    break;
+                }
+
+                direction = (direction + 1) % 4;
+            }
+        }
+
+        return arr;
+    }
+
+    public static boolean isOneEditAway(String s1, String s2) {
+        int i = 0;
+
+        while (i < s1.length() && i < s2.length() && s1.charAt(i) == s2.charAt(i)) {
+            i++;
+        }
+
+        if (s1.length() == s2.length()) {
+            if (i == s1.length()) {
+                return true;
+            }
+            return s1.substring(i + 1).equals(s2.substring(i + 1));
+        }
+
+        return (s1.length() > s2.length()) ? s1.substring(i + 1).equals(s2.substring(i))
+                : s1.substring(i).equals(s2.substring(i + 1));
+    }
+
+    public static String lookAndSay(int n) {
+        String str = "1";
+        for (int i = 1; i < n; i++) {
+            str = nextNumber(str);
+        }
+        return str;
+    }
+
+    private static String nextNumber(String str) {
+        StringBuffer next = new StringBuffer();
+        for (int i = 0; i < str.length(); i++) {
+            int count = 1;
+            while (i + 1 < str.length() && str.charAt(i) == str.charAt(i + 1)) {
+                count++;
+                i++;
+            }
+            next.append(count).append(str.charAt(i));
+        }
+        return next.toString();
+    }
 }
