@@ -51,23 +51,24 @@ public class Solution {
         int[][] mem = new int[items.length][maxWeight + 1];
         for (int[] arr: mem) {
             Arrays.fill(arr, -1);
-            arr[0] = 0;
+            //arr[0] = 0;
         }
-        return knapsackDP(maxWeight, 0, items, mem);
+        return knapsackDP(maxWeight, items.length - 1, items, mem);
     }
 
-    public static int knapsackDP(int remWeight, int i, int[][] items, int[][] mem) {
-        if (i >= items.length || remWeight < items[i][0]) {
+    // capacity - remaining capacity; k - 0..k range of items, initially items.length - 1
+    public static int knapsackDP(int capacity, int k, int[][] items, int[][] mem) {
+        if (k < 0) {
             return 0;
         }
-        if (mem[i][remWeight] == -1) {
-            mem[i][remWeight] = Math.max(
-                    items[i][1] + knapsackDP(remWeight - items[i][0], i + 1, items, mem),
-                    knapsackDP(remWeight, i + 1, items, mem)
+        if (mem[k][capacity] == -1) {
+            mem[k][capacity] = Math.max(
+                    capacity < items[k][0]
+                        ? 0
+                        : items[k][1] + knapsackDP(capacity - items[k][0], k - 1, items, mem),
+                    knapsackDP(capacity, k - 1, items, mem)
             );
-        } else {
-            System.out.println("has result for item#" + i + " and weight = " + remWeight);
         }
-        return mem[i][remWeight];
+        return mem[k][capacity];
     }
 }

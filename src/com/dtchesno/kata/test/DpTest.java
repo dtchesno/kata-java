@@ -46,5 +46,8 @@ public class DpTest {
         assertEquals(7, Solution.knapsack(14, new int[][] {
                 {5, 3}, {10, 5}, {6, 4}, {5, 2}
         }));
+        assertEquals(8, Solution.knapsack(14, new int[][] {
+                {5, 3}, {10, 5}, {13, 8}, {6, 4}, {5, 2}, {5, 3}
+        }));
     }
 }
