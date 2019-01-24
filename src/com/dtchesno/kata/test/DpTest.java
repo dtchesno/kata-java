@@ -50,4 +50,18 @@ public class DpTest {
                 {5, 3}, {10, 5}, {13, 8}, {6, 4}, {5, 2}, {5, 3}
         }));
     }
+
+    @Test
+    public void testMaxMatrixProduct() {
+        assertEquals(1080, Solution.maxMatrixProduct(new int[][] {
+                {-1, 2, 3},
+                {4, 5, -6},
+                {7, 8, 9}
+        }));
+        assertEquals(2016, Solution.maxMatrixProduct(new int[][] {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        }));
+    }
 }

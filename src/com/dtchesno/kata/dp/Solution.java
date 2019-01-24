@@ -57,7 +57,7 @@ public class Solution {
     }
 
     // capacity - remaining capacity; k - 0..k range of items, initially items.length - 1
-    public static int knapsackDP(int capacity, int k, int[][] items, int[][] mem) {
+    private static int knapsackDP(int capacity, int k, int[][] items, int[][] mem) {
         if (k < 0) {
             return 0;
         }
@@ -70,5 +70,39 @@ public class Solution {
             );
         }
         return mem[k][capacity];
+    }
+
+    public static int maxMatrixProduct(int[][] matrix) {
+        int[][][] mem = new int[matrix.length][matrix.length][];
+        return maxMatrixProductDP(matrix, 0, 0, mem)[0];
+    }
+
+    // return int[2] max positive & min negative results
+    private static int[] maxMatrixProductDP(int[][] matrix, int i, int j, int[][][] mem) {
+        if (i >= matrix.length || j >= matrix.length) {
+            return new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE};
+        }
+        if (i == matrix.length - 1 && j == matrix.length - 1) {
+            return matrix[i][j] >= 0 ? new int[] { matrix[i][j], 0 } : new int[] { 0, matrix[i][j]};
+        }
+
+        if (mem[i][j] == null) {
+            int[] right = maxMatrixProductDP(matrix, i, j + 1, mem);
+            int[] down = maxMatrixProductDP(matrix, i + 1, j, mem);
+
+            int current = matrix[i][j];
+            if (current >= 0) {
+                mem[i][j] = new int[] {
+                        current * Math.max(right[0], down[0]),
+                        current * Math.min(right[1], down[1])
+                };
+            } else {
+                mem[i][j] = new int[] {
+                        current * Math.min(right[1], down[1]),
+                        current * Math.max(right[0], down[0])
+                };
+            }
+        }
+        return mem[i][j];
     }
 }
