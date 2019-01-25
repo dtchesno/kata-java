@@ -197,4 +197,43 @@ public class TreeTest {
         root.insert(1);
         assertFalse(CutTree.isHalfCuttable(root));
     }
+
+    @Test
+    public void testToLinkedList() {
+        TreeNode t = createTestTree();
+
+        // 20-50-70-100-120-150-180
+        TreeNode r = TreeNode.toLinkedList(t);
+        assertEquals(20, r.key);
+        r = r.right;
+        assertEquals(50, r.key);
+        r = r.right;
+        assertEquals(70, r.key);
+        r = r.right;
+        assertEquals(100, r.key);
+        r = r.right;
+        assertEquals(120, r.key);
+        r = r.right;
+        assertEquals(150, r.key);
+        r = r.right;
+        assertEquals(180, r.key);
+        r = r.right;
+        assertEquals(20, r.key);
+        r = r.left;
+        assertEquals(180, r.key);
+        r = r.left;
+        assertEquals(150, r.key);
+        r = r.left;
+        assertEquals(120, r.key);
+        r = r.left;
+        assertEquals(100, r.key);
+        r = r.left;
+        assertEquals(70, r.key);
+        r = r.left;
+        assertEquals(50, r.key);
+        r = r.left;
+        assertEquals(20, r.key);
+        r = r.left;
+        assertEquals(180, r.key);
+    }
 }

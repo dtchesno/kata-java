@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Stack;
+
 
 public class Tasks {
 
@@ -197,5 +199,24 @@ public class Tasks {
             next.append(count).append(str.charAt(i));
         }
         return next.toString();
+    }
+
+    public static void reverseStack(Stack<Integer> s) {
+        if (s.isEmpty()) {
+            return;
+        }
+        int value = s.pop();
+        reverseStack(s);
+        pushToBottom(s, value);
+    }
+
+    private static void pushToBottom(Stack<Integer> s, int value) {
+        if (s.isEmpty()) {
+            s.push(value);
+            return;
+        }
+        int temp = s.pop();
+        pushToBottom(s, value);
+        s.push(temp);
     }
 }

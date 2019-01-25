@@ -205,4 +205,29 @@ public class TreeNode {
         ArrayList<Integer> right = (ArrayList<Integer>) buffer.clone();
         findSum(t.right, sum, right, level + 1, acc);
     }
+
+    public static TreeNode toLinkedList(TreeNode root) {
+        TreeNode[] nodes = buildList(root);
+        nodes[0].left = nodes[1];
+        nodes[1].right = nodes[0];
+        return nodes[0];
+    }
+
+    private static TreeNode[] buildList(TreeNode root) {
+        TreeNode[] l = null, r = null;
+        if (root.left != null) {
+            l = buildList(root.left);
+            l[1].right = root;
+            root.left = l[1];
+        }
+        if (root.right != null) {
+            r = buildList(root.right);
+            r[0].left = root;
+            root.right = r[0];
+        }
+        return new TreeNode[] {
+                (l != null) ? l[0] : root,
+                (r != null) ? r[1] : root
+        };
+    }
 }

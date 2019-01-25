@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Stack;
 
 import static org.junit.Assert.*;
 
@@ -89,5 +90,19 @@ public class CareerCupTest {
         assertEquals("1113213211", Tasks.lookAndSay(8));
         assertEquals("31131211131221", Tasks.lookAndSay(9));
         assertEquals("13211311123113112211", Tasks.lookAndSay(10));
+    }
+
+    @Test
+    public void testReverseStack() {
+        Stack<Integer> s = new Stack<>();
+        s.push(1);
+        s.push(2);
+        s.push(3);
+        s.push(4);
+        Tasks.reverseStack(s);
+        assertEquals(1, (int) s.pop());
+        assertEquals(2, (int) s.pop());
+        assertEquals(3, (int) s.pop());
+        assertEquals(4, (int) s.pop());
     }
 }
