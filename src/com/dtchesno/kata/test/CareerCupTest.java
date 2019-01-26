@@ -105,4 +105,9 @@ public class CareerCupTest {
         assertEquals(3, (int) s.pop());
         assertEquals(4, (int) s.pop());
     }
+
+    @Test
+    public void testSortStack() {
+        assertEquals(true, Arrays.equals(new int[] { 1, 2, 3, 4, 5, 6, 7 }, Tasks.sortStack(new int[] { 7, 1, 3, 5, 2, 4, 6})));
+    }
 }

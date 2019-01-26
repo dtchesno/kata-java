@@ -195,4 +195,29 @@ public class Graph {
         color[node] = 2;
         return true;
     }
+
+    public static List<Integer> buildOrder(int[][] steps) {
+        ArrayList<Integer> order = new ArrayList<>();
+        int[] state = new int[steps.length];
+        Arrays.fill(state, 0);
+        for (int v = 0; v < steps.length; v++) {
+            if (state[v] != 0) {
+                continue;
+            }
+            dfsBuildOrder(v, steps, state, order);
+        }
+        return order;
+    }
+
+    private static void dfsBuildOrder(int v, int[][] steps, int[] state, List<Integer> order) {
+        state[v] = 1;
+        for (int u: steps[v]) {
+            if (state[u] != 0) {
+                continue;
+            }
+            dfsBuildOrder(u, steps, state, order);
+        }
+        state[v] = 2;
+        order.add(v);
+    }
 }

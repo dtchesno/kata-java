@@ -64,4 +64,14 @@ public class DpTest {
                 {7, 8, 9}
         }));
     }
+
+    @Test
+    public void testMinChange() {
+        int[] coins = new int[] { 1, 5, 10, 25 };
+        assertEquals(1, Solution.minChange(1, coins));
+        assertEquals(3, Solution.minChange(3, coins));
+        assertEquals(2, Solution.minChange(6, coins));
+        assertEquals(3, Solution.minChange(7, coins));
+        assertEquals(4, Solution.minChange(32, coins));
+    }
 }

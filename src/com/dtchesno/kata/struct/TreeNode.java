@@ -29,6 +29,28 @@ public class TreeNode {
         key = value;
     }
 
+    public TreeNode(Integer[] values) {
+        LinkedList<TreeNode> q = new LinkedList<>();
+        this.key = values[0];
+        q.add(this);
+        int i = 1;
+        while (!q.isEmpty() && i < values.length) {
+            TreeNode p = q.poll();
+            TreeNode l = (i < values.length && values[i] != null) ? new TreeNode(values[i]) : null;
+            i++;
+            TreeNode r = (i < values.length && values[i] != null) ? new TreeNode(values[i]) : null;
+            i++;
+            p.left = l;
+            p.right = r;
+            if (l != null) {
+                q.add(l);
+            }
+            if (r != null) {
+                q.add(r);
+            }
+        }
+    }
+
     public TreeNode insert(int value) {
         if (value <= key) {
             if (left == null) {
@@ -229,5 +251,18 @@ public class TreeNode {
                 (l != null) ? l[0] : root,
                 (r != null) ? r[1] : root
         };
+    }
+
+    public static int longestConsecutiveBranch(TreeNode root) {
+        return longestConsecutiveBranchH(root.key - 1, root);
+    }
+
+    private static int longestConsecutiveBranchH(int parent, TreeNode root) {
+        if (root == null || root.key != parent + 1) {
+            return 0;
+        }
+        return 1 + Math.max(
+                longestConsecutiveBranchH(root.key, root.left),
+                longestConsecutiveBranchH(root.key, root.right));
     }
 }

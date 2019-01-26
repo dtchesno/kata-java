@@ -69,4 +69,12 @@ public class GraphTest {
         //System.out.println(Arrays.toString(result));
         assertTrue(Arrays.equals(new int[] { 0, 1, 1, 2, 2, 5 }, result));
     }
+
+    @Test
+    public void testBuildOrder() {
+        assertEquals(Arrays.asList(0, 1, 2, 3, 4),
+                Graph.buildOrder(new int[][] { {}, {0}, {0}, {1,2}, {3} }));
+        assertEquals(Arrays.asList(3, 0, 1, 2, 4),
+                Graph.buildOrder(new int[][] { {3}, {0}, {0}, {}, {3} }));
+    }
 }

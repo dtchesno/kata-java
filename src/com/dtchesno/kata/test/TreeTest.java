@@ -236,4 +236,11 @@ public class TreeTest {
         r = r.left;
         assertEquals(180, r.key);
     }
+
+    @Test
+    public void testLongestConsecutiveBranch() {
+        assertEquals(3, TreeNode.longestConsecutiveBranch(new TreeNode(new Integer[] { 0, 1, 2, 1, 2, 1, 3 })));
+        assertEquals(4, TreeNode.longestConsecutiveBranch(new TreeNode(
+                new Integer[] { 0, 1, 2, 2, 2, 1, 3, 4, 4, 3, 4, 4, 4, 4, 4})));
+    }
 }

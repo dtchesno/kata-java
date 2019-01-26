@@ -105,4 +105,32 @@ public class Solution {
         }
         return mem[i][j];
     }
+
+    public static int minChange(int sum, int[] coins) {
+        int[] mem = new int[sum + 1];
+        Arrays.fill(mem, Integer.MAX_VALUE);
+        for (int c: coins) {
+            if (c >= mem.length) {
+                break;
+            }
+            mem[c] = 1;
+        }
+        return minChangeDP(sum, coins, mem);
+    }
+
+    private static int minChangeDP(int sum, int[] coins, int[] mem) {
+        if (sum == 0) {
+            return 0;
+        }
+        if (mem[sum] == Integer.MAX_VALUE) {
+            for (int c: coins) {
+                if (c > sum) {
+                    break;
+                }
+                mem[sum] = Math.min(mem[sum],
+                        minChangeDP(c, coins, mem) + minChangeDP(sum - c, coins, mem));
+            }
+        }
+        return mem[sum];
+    }
 }
