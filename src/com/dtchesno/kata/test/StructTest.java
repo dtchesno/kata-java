@@ -37,7 +37,7 @@ public class StructTest {
 
     @Test
     public void testPQueue() {
-        PQueue q = new PQueue();
+        PQueue<Integer> q = new PQueue<>((a, b) -> (a - b));
         q.add(4);
         q.add(2);
         q.add(6);
@@ -45,12 +45,12 @@ public class StructTest {
         q.add(5);
         q.add(3);
 
-        assertEquals(1, q.poll());
-        assertEquals(2, q.poll());
-        assertEquals(3, q.poll());
-        assertEquals(4, q.poll());
-        assertEquals(5, q.poll());
-        assertEquals(6, q.poll());
+        assertEquals(1, (int) q.poll());
+        assertEquals(2, (int) q.poll());
+        assertEquals(3, (int) q.poll());
+        assertEquals(4, (int) q.poll());
+        assertEquals(5, (int) q.poll());
+        assertEquals(6, (int) q.poll());
         assertEquals(0, q.size());
     }
 }
