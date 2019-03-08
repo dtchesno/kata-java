@@ -144,4 +144,30 @@ public class Tasks {
     private static int fetchBit(int[] array, int index, int bit) {
         return (array[index] & (1 << bit)) > 0 ? 1 : 0;
     }
+
+    public static int multiply(int x, int y) {
+//        return 0;
+        int product = 0;
+        while (x != 0) {
+            if ((x & 1) != 0) {
+                product = add(product, y);
+            }
+            x >>>= 1;
+            y <<= 1;
+        }
+        return product;
+    }
+
+    public static int add(int x, int y) {
+        int carry = 0;
+        int a = x;
+        int b = y;
+        do {
+            int sum = a ^ b;
+            carry = (a & b) << 1;
+            a = sum;
+            b = carry;
+        } while (carry != 0);
+        return a;
+    }
 }

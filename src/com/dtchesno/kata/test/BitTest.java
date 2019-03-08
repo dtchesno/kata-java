@@ -74,4 +74,19 @@ public class BitTest {
         }
         return array;
     }
+
+    @Test
+    public void testAdd() {
+        assertEquals(12 + 23, Tasks.add(12, 23));
+        assertEquals(4 + 6, Tasks.add(4, 6));
+        assertEquals(7 + 3, Tasks.add(7, 3));
+    }
+
+    @Test
+    public void testMultiply() {
+        assertEquals(7 * 2, Tasks.multiply(7, 2));
+        assertEquals(12 * 23, Tasks.multiply(12, 23));
+        assertEquals(4 * 6, Tasks.multiply(4, 6));
+        assertEquals(7 * 3, Tasks.multiply(7, 3));
+    }
 }
