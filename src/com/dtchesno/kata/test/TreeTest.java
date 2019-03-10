@@ -243,4 +243,16 @@ public class TreeTest {
         assertEquals(4, TreeNode.longestConsecutiveBranch(new TreeNode(
                 new Integer[] { 0, 1, 2, 2, 2, 1, 3, 4, 4, 3, 4, 4, 4, 4, 4})));
     }
+
+    @Test
+    public void testFindKthLargestElements() {
+        TreeNode t = createTestTree();
+        assertTrue(Arrays.equals(new int[] { 20, 50, 70, 100, 120, 150, 180 }, TreeNode.findKthLargestElements(t, 7)));
+        assertTrue(Arrays.equals(new int[] { 50, 70, 100, 120, 150, 180 }, TreeNode.findKthLargestElements(t, 6)));
+        assertTrue(Arrays.equals(new int[] { 70, 100, 120, 150, 180 }, TreeNode.findKthLargestElements(t, 5)));
+        assertTrue(Arrays.equals(new int[] { 100, 120, 150, 180 }, TreeNode.findKthLargestElements(t, 4)));
+        assertTrue(Arrays.equals(new int[] { 120, 150, 180 }, TreeNode.findKthLargestElements(t, 3)));
+        assertTrue(Arrays.equals(new int[] { 150, 180 }, TreeNode.findKthLargestElements(t, 2)));
+        assertTrue(Arrays.equals(new int[] { 180 }, TreeNode.findKthLargestElements(t, 1)));
+    }
 }

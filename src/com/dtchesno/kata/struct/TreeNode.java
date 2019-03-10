@@ -265,4 +265,31 @@ public class TreeNode {
                 longestConsecutiveBranchH(root.key, root.left),
                 longestConsecutiveBranchH(root.key, root.right));
     }
+
+    public static int[] findKthLargestElements(TreeNode root, int k) {
+        int[] result = new int[k];
+        findKthLargestElements(root, k, result);
+        return result;
+    }
+
+    private static int findKthLargestElements(TreeNode root, int k, int[] result) {
+        if (k == 0) {
+            return 0;
+        }
+        if (root == null) {
+            return k;
+        }
+
+        if (root.right != null) {
+            k = findKthLargestElements(root.right, k, result);
+        }
+        if (k != 0) {
+            result[k - 1] = root.key;
+            k--;
+        }
+        if (k != 0) {
+            k = findKthLargestElements(root.left, k, result);
+        }
+        return k;
+    }
 }
