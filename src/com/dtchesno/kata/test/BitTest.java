@@ -5,10 +5,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 public class BitTest {
@@ -64,6 +63,14 @@ public class BitTest {
         assertEquals(99, Tasks.findMissingElement(createArrayWithMissingElement(100, 99)));
     }
 
+    @Test
+    public void testFindMissAndDup() {
+        assertTrue(Arrays.equals(new int[] {0, 99}, Tasks.findMissAndDupElements(createArrayWithMissingElement(100, 0, 99))));
+        assertTrue(Arrays.equals(new int[] {1, 11}, Tasks.findMissAndDupElements(createArrayWithMissingElement(100, 1, 11))));
+        assertTrue(Arrays.equals(new int[] {11, 12}, Tasks.findMissAndDupElements(createArrayWithMissingElement(100, 11, 12))));
+        assertTrue(Arrays.equals(new int[] {32, 75}, Tasks.findMissAndDupElements(createArrayWithMissingElement(100, 32, 75))));
+    }
+
     private int[] createArrayWithMissingElement(int size, int missing) {
         int[] array = new int[size];
         for (int i = 0, j = 0; i < size; i++, j++) {
@@ -71,6 +78,18 @@ public class BitTest {
                 j++;
             }
             array[i] = j;
+        }
+        return array;
+    }
+
+    private int[] createArrayWithMissingElement(int size, int missing, int dup) {
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            if (i == missing) {
+                array[i] = dup;
+            } else {
+                array[i] = i;
+            }
         }
         return array;
     }

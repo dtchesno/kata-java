@@ -112,41 +112,82 @@ public class Tasks {
     }
 
     public static int findMissingElement(int[] array) {
-        ArrayList<Integer> indices = new ArrayList<>(array.length);
+        int missing = 0;
         for (int i = 0; i < array.length; i++) {
-            indices.add(i);
+            missing ^= i;
+            missing ^= array[i];
         }
-        return findMissing(array, indices, 0);
+        return missing ^= array.length;
     }
 
-    private static int findMissing(int[] array, ArrayList<Integer> indices, int bit) {
-        if (indices.size() == 0) {
-            return 0;
+//    public static int findMissingElement(int[] array) {
+//        ArrayList<Integer> indices = new ArrayList<>(array.length);
+//        for (int i = 0; i < array.length; i++) {
+//            indices.add(i);
+//        }
+//        return findMissing(array, indices, 0);
+//    }
+
+//    private static int findMissing(int[] array, ArrayList<Integer> indices, int bit) {
+//        if (indices.size() == 0) {
+//            return 0;
+//        }
+//
+//        ArrayList<Integer> indicesOf0 = new ArrayList<>();
+//        ArrayList<Integer> indicesOf1 = new ArrayList<>();
+//
+//        for (int i : indices) {
+//            if (fetchBit(array, i, bit) == 0) {
+//                indicesOf0.add(i);
+//            } else {
+//                indicesOf1.add(i);
+//            }
+//        }
+//        if (indicesOf0.size() > indicesOf1.size()) {
+//            return findMissing(array, indicesOf1, bit + 1) << 1 | 1;
+//        } else {
+//            return findMissing(array, indicesOf0, bit + 1) << 1;
+//        }
+//    }
+//
+//    private static int fetchBit(int[] array, int index, int bit) {
+//        return (array[index] & (1 << bit)) > 0 ? 1 : 0;
+//    }
+
+    // Aziz 12.10 pg 203
+    public static int[] findMissAndDupElements(int[] array) {
+        int[] result = new int[] { -1, -1 }; // [missing, duplicate]
+        int missXorDup = 0;
+        for (int i = 0; i < array.length; i++) {
+            missXorDup ^= i;
+            missXorDup ^= array[i];
         }
+        int differBit = missXorDup & (~(missXorDup - 1));
 
-        ArrayList<Integer> indicesOf0 = new ArrayList<>();
-        ArrayList<Integer> indicesOf1 = new ArrayList<>();
-
-        for (int i : indices) {
-            if (fetchBit(array, i, bit) == 0) {
-                indicesOf0.add(i);
-            } else {
-                indicesOf1.add(i);
+        int missOrDup = 0;
+        for (int i = 0; i < array.length; i++) {
+            if ((i & differBit) != 0) {
+                missOrDup ^= i;
+            }
+            if ((array[i] & differBit) != 0) {
+                missOrDup ^= array[i];
             }
         }
-        if (indicesOf0.size() > indicesOf1.size()) {
-            return findMissing(array, indicesOf1, bit + 1) << 1 | 1;
-        } else {
-            return findMissing(array, indicesOf0, bit + 1) << 1;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == missOrDup) {
+                result[1] = missOrDup;
+                result[0] = missXorDup ^ result[1];
+                break;
+            }
         }
-    }
-
-    private static int fetchBit(int[] array, int index, int bit) {
-        return (array[index] & (1 << bit)) > 0 ? 1 : 0;
+        if (result[1] == -1) {
+            result[0] = missOrDup;
+            result[1] = missXorDup ^ result[0];
+        }
+        return result;
     }
 
     public static int multiply(int x, int y) {
-//        return 0;
         int product = 0;
         while (x != 0) {
             if ((x & 1) != 0) {

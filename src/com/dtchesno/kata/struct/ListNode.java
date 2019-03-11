@@ -58,4 +58,48 @@ public class ListNode {
         }
         return runner;
     }
+
+    // 0, 1, 2, 3, 4, 5 -> 0, 5, 1, 4, 2, 3 // n0, nlast, n1, nlast-1...
+    public static ListNode reorder(ListNode root) {
+        ListNode ptr = root.next;
+        ListNode runner = root.next.next;
+        while (runner != null && runner.next != null) {
+            ptr = ptr.next;
+            runner = runner.next.next;
+        }
+        ListNode p1 = root;
+        ListNode p2 = ptr.next;
+        ptr.next = null;
+        p2 = reverse(p2);
+        merge(p1, p2);
+        return root;
+    }
+
+    public static ListNode reverse(ListNode root) {
+        ListNode prev = root;
+        ListNode curr = root.next;
+        root.next = null;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    public static void merge(ListNode l1, ListNode l2) {
+        ListNode p1 = l1;
+        ListNode p2 = l2;
+        while (p1.next != null && p2 != null) {
+            ListNode temp = p1.next;
+            p1.next = p2;
+            p2 = p2.next;
+            p1.next.next = temp;
+            p1 = temp;
+        }
+        if (p1.next == null) {
+            p1.next = p2;
+        }
+    }
 }
