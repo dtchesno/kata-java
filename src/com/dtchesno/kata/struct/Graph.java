@@ -1,4 +1,4 @@
-package com.dtchesno.kata.graph;
+package com.dtchesno.kata.struct;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
 package com.dtchesno.kata.test;
 
 import com.dtchesno.kata.struct.TreeNode;
-import com.dtchesno.kata.careercup.CutTree;
+//import com.dtchesno.kata.careercup.CutTree;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -185,17 +185,17 @@ public class TreeTest {
     @Test
     public void isHalfCuttable() {
         TreeNode root = new TreeNode(2);
-        assertFalse(CutTree.isHalfCuttable(root));
+        assertFalse(TreeNode.isHalfCuttable(root));
 
         root.insert(1);
         root.insert(3);
-        assertTrue(CutTree.isHalfCuttable(root));
+        assertTrue(TreeNode.isHalfCuttable(root));
 
         root.insert(6);
-        assertTrue(CutTree.isHalfCuttable(root));
+        assertTrue(TreeNode.isHalfCuttable(root));
 
         root.insert(1);
-        assertFalse(CutTree.isHalfCuttable(root));
+        assertFalse(TreeNode.isHalfCuttable(root));
     }
 
     @Test

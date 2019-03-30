@@ -172,7 +172,10 @@ public class TreeNode {
         return root;
     }
 
+
+
     // is tree is subtree of this
+    // Cracking...4.7 pg.130
     public boolean isSubtree(TreeNode tree) {
         if (tree == null) {
             return true;
@@ -180,7 +183,6 @@ public class TreeNode {
         return isSubtree(this, tree);
     }
 
-    // is t2 subtree of t1
     private static boolean isSubtree(TreeNode t1, TreeNode t2) {
         if (t1 == null) {
             return false;
@@ -204,6 +206,10 @@ public class TreeNode {
         return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
     }
 
+
+
+    // find all paths which sum up to the given sum, not need to start @root
+    // Cracking...4.8 pg.130
     public Set<ArrayList<Integer>> findSum(int sum) {
         Set<ArrayList<Integer>> acc = new HashSet<>();
         findSum(this, sum, new ArrayList<Integer>(), 0, acc);
@@ -228,6 +234,10 @@ public class TreeNode {
         findSum(t.right, sum, right, level + 1, acc);
     }
 
+
+
+    // build doubly-linked list from tree
+    // byte-by-byte #21 pg20
     public static TreeNode toLinkedList(TreeNode root) {
         TreeNode[] nodes = buildList(root);
         nodes[0].left = nodes[1];
@@ -253,6 +263,9 @@ public class TreeNode {
         };
     }
 
+
+    // find length of longest branch starting from root and mono-increasing values
+    // byte-by-byte #22 pg21
     public static int longestConsecutiveBranch(TreeNode root) {
         return longestConsecutiveBranchH(root.key - 1, root);
     }
@@ -266,6 +279,9 @@ public class TreeNode {
                 longestConsecutiveBranchH(root.key, root.right));
     }
 
+
+    // BST, find k largest elements
+    // Aziz 15.3 pg260
     public static int[] findKthLargestElements(TreeNode root, int k) {
         int[] result = new int[k];
         findKthLargestElements(root, k, result);
@@ -291,5 +307,57 @@ public class TreeNode {
             k = findKthLargestElements(root.left, k, result);
         }
         return k;
+    }
+
+
+
+    // test whether tree can be cut once, so, two parts will have same sum of node values
+    // FACEBOOK: https://www.careercup.com/question?id=4871620274421760
+    public static boolean isHalfCuttable(TreeNode tree) {
+
+        // int[] will have size of 3: Tree sum outside + parent; left subtree sum; right subtree sum
+        HashMap<TreeNode, int[]> hash = new HashMap<>();
+
+        calculateSum(tree, hash);
+        calculateParentSum(0, 0, tree, hash);
+
+        return isHalfCuttable(tree, hash);
+    }
+
+    // test recursively
+    private static boolean isHalfCuttable(TreeNode node, HashMap<TreeNode, int[]> hash) {
+        if (node == null) {
+            return false;
+        }
+
+        // test we could cut left or right sub-tree
+        int[] sums = hash.get(node);
+        if (sums[0] + node.key + sums[1] == sums[2] || sums[0] + node.key + sums[2] == sums[1]) {
+            return true;
+        }
+
+        // otherwise try to do so further for each sub-tree
+        return isHalfCuttable(node.left, hash) || isHalfCuttable(node.right, hash);
+    }
+
+    // calculate left & right sub-trees sums, store results in hash using node/parent as a key
+    private static int calculateSum(TreeNode tree, HashMap<TreeNode, int[]> hash) {
+        if (tree == null) {
+            return 0;
+        }
+        int lSum = calculateSum(tree.left, hash);
+        int rSum = calculateSum(tree.right, hash);
+        hash.put(tree, new int[] { 0, lSum, rSum });
+        return tree.key + lSum + rSum;
+    }
+
+    // calculate 'upstream' tree sum, [whole tree sum] - [node value] - [this node sub-trees sums]; store in hash
+    private static void calculateParentSum(int parent, int sibling, TreeNode node, HashMap<TreeNode, int[]> hash) {
+        if (node == null) {
+            return;
+        }
+        (hash.get(node))[0] = parent + sibling;
+        calculateParentSum(node.key, (hash.get(node))[2], node.left, hash);
+        calculateParentSum(node.key, (hash.get(node))[1], node.right, hash);
     }
 }

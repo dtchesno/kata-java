@@ -1,4 +1,4 @@
-package com.dtchesno.kata.careercup;
+package com.dtchesno.kata.misc;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 import java.util.Stack;
 
 
-public class Tasks {
+public class MiscSolution {
 
     private static class Pair {
         String first;

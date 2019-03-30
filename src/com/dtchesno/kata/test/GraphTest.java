@@ -1,6 +1,6 @@
 package com.dtchesno.kata.test;
 
-import com.dtchesno.kata.graph.Graph;
+import com.dtchesno.kata.struct.Graph;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
