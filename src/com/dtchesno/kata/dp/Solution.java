@@ -127,8 +127,7 @@ public class Solution {
                 if (c > sum) {
                     break;
                 }
-                mem[sum] = Math.min(mem[sum],
-                        minChangeDP(c, coins, mem) + minChangeDP(sum - c, coins, mem));
+                mem[sum] = Math.min(mem[sum], 1 + minChangeDP(sum - c, coins, mem));
             }
         }
         return mem[sum];

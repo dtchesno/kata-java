@@ -1,11 +1,10 @@
 package com.dtchesno.kata.bitops;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+public class BitsSolution {
 
-public class Tasks {
-
+    // replace bits i..j in <n> by bits from <m>
+    // Cracking... 5.1 pg.133
+    // [selected - 1]
     public static int replace(int n, int m, int i, int j) {
         int mask = (2 << (j - i)) - 1;
         m &= mask;
@@ -14,6 +13,8 @@ public class Tasks {
         return n | m;
     }
 
+    // print decimal string in binary format; e.g. 3.5 -> 11.1 (2 + 1 + 1/2)
+    // Cracking... 5.2 pg.133
     public static String printBinary(String n) {
         int decPos = n.indexOf('.');
         int intPart = Integer.parseInt(n.substring(0, decPos ));
@@ -45,6 +46,9 @@ public class Tasks {
         return (i.length() > 0 ? i : "0") + '.' + (d.length() > 0 ? d : "0");
     }
 
+    // return prev & next numbers with same number of 1 bits
+    // Cracking... 5.3 pg.133; similar to Aziz 5.4 pg.50
+    // [selected - 3]
     public static int[] findNeighbors(int value) {
         if (value <= 1) {
             return null;
@@ -107,8 +111,20 @@ public class Tasks {
         }
     }
 
+    // swap even & odd bits
     public static int swapNeighbors(int value) {
         return ((value & 0xaaaa) >> 1) | ((value & 0x5555) << 1);
+    }
+
+    // compute parity: 0 - even, 1 - odd
+    // Aziz 5.1 pg45
+    public static int parity(long x) {
+        int result = 0;
+        while (x != 0) {
+            result ^= 1;
+            x &= (x - 1); // drops last 1
+        }
+        return result;
     }
 
     public static int findMissingElement(int[] array) {
@@ -119,40 +135,6 @@ public class Tasks {
         }
         return missing ^= array.length;
     }
-
-//    public static int findMissingElement(int[] array) {
-//        ArrayList<Integer> indices = new ArrayList<>(array.length);
-//        for (int i = 0; i < array.length; i++) {
-//            indices.add(i);
-//        }
-//        return findMissing(array, indices, 0);
-//    }
-
-//    private static int findMissing(int[] array, ArrayList<Integer> indices, int bit) {
-//        if (indices.size() == 0) {
-//            return 0;
-//        }
-//
-//        ArrayList<Integer> indicesOf0 = new ArrayList<>();
-//        ArrayList<Integer> indicesOf1 = new ArrayList<>();
-//
-//        for (int i : indices) {
-//            if (fetchBit(array, i, bit) == 0) {
-//                indicesOf0.add(i);
-//            } else {
-//                indicesOf1.add(i);
-//            }
-//        }
-//        if (indicesOf0.size() > indicesOf1.size()) {
-//            return findMissing(array, indicesOf1, bit + 1) << 1 | 1;
-//        } else {
-//            return findMissing(array, indicesOf0, bit + 1) << 1;
-//        }
-//    }
-//
-//    private static int fetchBit(int[] array, int index, int bit) {
-//        return (array[index] & (1 << bit)) > 0 ? 1 : 0;
-//    }
 
     // Aziz 12.10 pg 203
     public static int[] findMissAndDupElements(int[] array) {
@@ -187,6 +169,8 @@ public class Tasks {
         return result;
     }
 
+    // multiply w/o arithmetic ops
+    // Aziz 5.5 pg.51
     public static int multiply(int x, int y) {
         int product = 0;
         while (x != 0) {
@@ -199,6 +183,8 @@ public class Tasks {
         return product;
     }
 
+    // sum w/o arithmetic ops
+    // Aziz 5.5 pg.51 + byte-bybyte
     public static int add(int x, int y) {
         int carry = 0;
         int a = x;

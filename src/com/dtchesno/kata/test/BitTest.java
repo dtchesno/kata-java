@@ -1,6 +1,6 @@
 package com.dtchesno.kata.test;
 
-import com.dtchesno.kata.bitops.Tasks;
+import com.dtchesno.kata.bitops.BitsSolution;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,53 +22,63 @@ public class BitTest {
 
     @Test
     public void testReplace() {
-        assertEquals(0b10000010101, Tasks.replace(0b10000000000, 0b10101, 0, 4));
-        assertEquals(0b10001010100, Tasks.replace(0b10000000000, 0b10101, 2, 6));
-        assertEquals(0b10001010100, Tasks.replace(0b10001111100, 0b10101, 2, 6));
+        assertEquals(0b10000010101, BitsSolution.replace(0b10000000000, 0b10101, 0, 4));
+        assertEquals(0b10001010100, BitsSolution.replace(0b10000000000, 0b10101, 2, 6));
+        assertEquals(0b10001010100, BitsSolution.replace(0b10001111100, 0b10101, 2, 6));
     }
 
     @Test
     public void testPrintBinary() {
-        assertEquals("0.0", Tasks.printBinary("0.0"));
-        assertEquals("11111.0", Tasks.printBinary("31.0"));
-        assertEquals("11.1", Tasks.printBinary("3.5"));
-        assertEquals("11.01", Tasks.printBinary("3.25"));
-        assertEquals("11.001", Tasks.printBinary("3.125"));
-        assertEquals("11.101", Tasks.printBinary("3.625"));
-        assertEquals("11.111", Tasks.printBinary("3.875"));
-        assertEquals("ERROR", Tasks.printBinary("3.1234567"));
+        assertEquals("0.0", BitsSolution.printBinary("0.0"));
+        assertEquals("11111.0", BitsSolution.printBinary("31.0"));
+        assertEquals("11.1", BitsSolution.printBinary("3.5"));
+        assertEquals("11.01", BitsSolution.printBinary("3.25"));
+        assertEquals("11.001", BitsSolution.printBinary("3.125"));
+        assertEquals("11.101", BitsSolution.printBinary("3.625"));
+        assertEquals("11.111", BitsSolution.printBinary("3.875"));
+        assertEquals("ERROR", BitsSolution.printBinary("3.1234567"));
     }
 
     @Test
     public void testFindNeighbors() {
-        assertEquals(true, Arrays.equals(new int[] { 0b000001, 0b000100 }, Tasks.findNeighbors(0b000010)));
-        assertEquals(true, Arrays.equals(new int[] { 0b001110, 0b010101 }, Tasks.findNeighbors(0b010011)));
-        assertEquals(true, Arrays.equals(new int[] { 0b010011, 0b010110 }, Tasks.findNeighbors(0b010101)));
-        assertEquals(true, Arrays.equals(new int[] { 0b011010, 0b100011 }, Tasks.findNeighbors(0b011100)));
+        assertEquals(true, Arrays.equals(new int[] { 0b000001, 0b000100 }, BitsSolution.findNeighbors(0b000010)));
+        assertEquals(true, Arrays.equals(new int[] { 0b001110, 0b010101 }, BitsSolution.findNeighbors(0b010011)));
+        assertEquals(true, Arrays.equals(new int[] { 0b010011, 0b010110 }, BitsSolution.findNeighbors(0b010101)));
+        assertEquals(true, Arrays.equals(new int[] { 0b011010, 0b100011 }, BitsSolution.findNeighbors(0b011100)));
     }
 
     @Test
     public void testSwapNeighbors() {
-        assertEquals(0b101010, Tasks.swapNeighbors(0b010101));
-        assertEquals(0b000110, Tasks.swapNeighbors(0b001001));
-        assertEquals(0b000111, Tasks.swapNeighbors(0b001011));
+        assertEquals(0b101010, BitsSolution.swapNeighbors(0b010101));
+        assertEquals(0b000110, BitsSolution.swapNeighbors(0b001001));
+        assertEquals(0b000111, BitsSolution.swapNeighbors(0b001011));
+    }
+
+    @Test
+    public void testParity() {
+        assertEquals(0, BitsSolution.parity(0b000000));
+        assertEquals(1, BitsSolution.parity(0b000001));
+        assertEquals(1, BitsSolution.parity(0b000010));
+        assertEquals(1, BitsSolution.parity(0b100000));
+        assertEquals(0, BitsSolution.parity(0b100001));
+        assertEquals(1, BitsSolution.parity(0b001011));
     }
 
     @Test
     public void testFindMissing() {
-        assertEquals(0, Tasks.findMissingElement(createArrayWithMissingElement(100, 0)));
-        assertEquals(1, Tasks.findMissingElement(createArrayWithMissingElement(100, 1)));
-        assertEquals(11, Tasks.findMissingElement(createArrayWithMissingElement(100, 11)));
-        assertEquals(32, Tasks.findMissingElement(createArrayWithMissingElement(100, 32)));
-        assertEquals(99, Tasks.findMissingElement(createArrayWithMissingElement(100, 99)));
+        assertEquals(0, BitsSolution.findMissingElement(createArrayWithMissingElement(100, 0)));
+        assertEquals(1, BitsSolution.findMissingElement(createArrayWithMissingElement(100, 1)));
+        assertEquals(11, BitsSolution.findMissingElement(createArrayWithMissingElement(100, 11)));
+        assertEquals(32, BitsSolution.findMissingElement(createArrayWithMissingElement(100, 32)));
+        assertEquals(99, BitsSolution.findMissingElement(createArrayWithMissingElement(100, 99)));
     }
 
     @Test
     public void testFindMissAndDup() {
-        assertTrue(Arrays.equals(new int[] {0, 99}, Tasks.findMissAndDupElements(createArrayWithMissingElement(100, 0, 99))));
-        assertTrue(Arrays.equals(new int[] {1, 11}, Tasks.findMissAndDupElements(createArrayWithMissingElement(100, 1, 11))));
-        assertTrue(Arrays.equals(new int[] {11, 12}, Tasks.findMissAndDupElements(createArrayWithMissingElement(100, 11, 12))));
-        assertTrue(Arrays.equals(new int[] {32, 75}, Tasks.findMissAndDupElements(createArrayWithMissingElement(100, 32, 75))));
+        assertTrue(Arrays.equals(new int[] {0, 99}, BitsSolution.findMissAndDupElements(createArrayWithMissingElement(100, 0, 99))));
+        assertTrue(Arrays.equals(new int[] {1, 11}, BitsSolution.findMissAndDupElements(createArrayWithMissingElement(100, 1, 11))));
+        assertTrue(Arrays.equals(new int[] {11, 12}, BitsSolution.findMissAndDupElements(createArrayWithMissingElement(100, 11, 12))));
+        assertTrue(Arrays.equals(new int[] {32, 75}, BitsSolution.findMissAndDupElements(createArrayWithMissingElement(100, 32, 75))));
     }
 
     private int[] createArrayWithMissingElement(int size, int missing) {
@@ -96,16 +106,16 @@ public class BitTest {
 
     @Test
     public void testAdd() {
-        assertEquals(12 + 23, Tasks.add(12, 23));
-        assertEquals(4 + 6, Tasks.add(4, 6));
-        assertEquals(7 + 3, Tasks.add(7, 3));
+        assertEquals(12 + 23, BitsSolution.add(12, 23));
+        assertEquals(4 + 6, BitsSolution.add(4, 6));
+        assertEquals(7 + 3, BitsSolution.add(7, 3));
     }
 
     @Test
     public void testMultiply() {
-        assertEquals(7 * 2, Tasks.multiply(7, 2));
-        assertEquals(12 * 23, Tasks.multiply(12, 23));
-        assertEquals(4 * 6, Tasks.multiply(4, 6));
-        assertEquals(7 * 3, Tasks.multiply(7, 3));
+        assertEquals(7 * 2, BitsSolution.multiply(7, 2));
+        assertEquals(12 * 23, BitsSolution.multiply(12, 23));
+        assertEquals(4 * 6, BitsSolution.multiply(4, 6));
+        assertEquals(7 * 3, BitsSolution.multiply(7, 3));
     }
 }
