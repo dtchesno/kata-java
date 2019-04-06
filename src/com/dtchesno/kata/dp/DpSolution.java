@@ -1,9 +1,10 @@
 package com.dtchesno.kata.dp;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
-public class Solution {
+public class DpSolution {
 
     // find min messiness (sum of squared # of trailing spaces) of break text (provided as list of words) to lines
     // Aziz 17.11 pg327
@@ -152,13 +153,73 @@ public class Solution {
     }
 
 
-    // TODO:
     // find min # of deletes to make word1 & word2 the same
     // https://leetcode.com/problems/delete-operation-for-two-strings/
     // [selected - 1]
+    public static int deleteDistance(String word1, String word2) {
+        char[] w1 = word1.toCharArray();
+        char[] w2 = word2.toCharArray();
+        int[][] mem = new int[w1.length + 1][w2.length + 1];
+        for (int[] arr: mem) {
+            Arrays.fill(arr, -1);
+        }
+        return //minDistanceDP(w1, w1.length, w2, w2. length, mem);
+        w1.length + w2.length - 2 * lcs(w1, w1.length, w2, w2. length, mem);
+    }
 
-    // TODO:
+    private static int lcs(char[] word1, int len1, char[] word2, int len2, int[][] mem) {
+        if (len1 == 0 || len2 == 0) {
+            return 0;
+        }
+        if (mem[len1][len2] == -1) {
+            if (word1[len1 - 1] == word2[len2 - 1]) {
+                mem[len1][len2] = 1 + lcs(word1, len1 - 1, word2, len2 - 1, mem);
+            } else {
+                mem[len1][len2] = Math.max(
+                        lcs(word1, len1 - 1, word2, len2, mem),
+                        lcs(word1, len1, word2, len2 - 1, mem)
+                );
+            }
+        }
+        return mem[len1][len2];
+    }
+
     // find min # of operations (insert, delete, replace) to make word1 & word2 the same
     // https://leetcode.com/problems/edit-distance/
     // [selected - 1]
+    public static int minDistance(String word1, String word2) {
+        char[] w1 = word1.toCharArray();
+        char[] w2 = word2.toCharArray();
+        int[][] mem = new int[w1.length + 1][w2.length + 1];
+        for (int[] arr: mem) {
+            Arrays.fill(arr, -1);
+        }
+        return minDistanceDP(w1, w1.length, w2, w2. length, mem);
+    }
+
+    private static int minDistanceDP(char[] word1, int len1, char[] word2, int len2, int[][] mem) {
+        if (len1 == 0) {
+            return len2;
+        }
+        if (len2 == 0) {
+            return len1;
+        }
+        if (mem[len1][len2] == -1) {
+            if (word1[len1 - 1] == word2[len2 - 1]) {
+                mem[len1][len2] = minDistanceDP(word1, len1 - 1, word2, len2 - 1, mem);
+            } else {
+                // delete & insert
+                int d1 = 1 + Math.min(
+                    minDistanceDP(word1, len1 - 1, word2, len2, mem),
+                    minDistanceDP(word1, len1, word2, len2 - 1, mem)
+                );
+
+                // replace
+                int d2 = 1 + minDistanceDP(word1, len1 - 1, word2, len2 - 1, mem);
+
+                mem[len1][len2] = Math.min(d1, d2);
+            }
+        }
+        return mem[len1][len2];
+    }
 }

@@ -1,5 +1,7 @@
 package com.dtchesno.kata.struct;
 
+import java.util.HashMap;
+
 public class ArrayStringTasks {
 
     // https://www.programcreek.com/2015/03/rotate-array-in-java/
@@ -54,10 +56,71 @@ public class ArrayStringTasks {
     }
 
 
-    // TODO: add convert to/from Roman
+    // convert to/from Roman
     // [selected - 3]
+    public static String toRoman(int number) {
+        int[] values = new int[] {100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] digits = new String[] {"C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuffer result = new StringBuffer();
+        for (int i = 0; i < values.length && number > 0; i++) {
+            int k = number / values[i];
+            number %= values[i];
+            while (k-- > 0) {
+                result.append(digits[i]);
+            }
+        }
+        return result.toString();
+    }
 
-    // TODO: find first occurence of substring
+    public static int fromRoman(String roman) {
+        int result = 0;
+        HashMap<Character, Integer> values = new HashMap<>();
+        values.put('I', 1);
+        values.put('V', 5);
+        values.put('X', 10);
+        values.put('L', 50);
+        values.put('C', 100);
+
+        int prev = 0;
+        for (int i = 0; i < roman.length(); i++) {
+            int curr = values.get(roman.charAt(i));
+            if (curr > prev && prev != 0) {
+                result += (curr - 2 * prev);
+            } else {
+                result += curr;
+            }
+            prev = curr;
+        }
+        return result;
+    }
+
+
     // Aziz 7.13 pg.109
     // [selected - 1]
+    public static int firstOccurrence(String str, String pat) {
+        if (pat.length() > str.length()) {
+            return -1;
+        }
+        int sHash = 0;
+        int pHash = 0;
+        int base = 26;
+        int power = 1;
+        for (int i = 0; i < pat.length(); i++) {
+            sHash = sHash * base + str.charAt(i);
+            pHash = pHash * base + pat.charAt(i);
+            power = (i == 0) ? 1 : power * base;
+        }
+        for (int i = pat.length(); i < str.length(); i++) {
+            if (sHash == pHash && str.substring(i - pat.length(), i).equals(pat)) {
+                return i - pat.length();
+            }
+            sHash -= str.charAt(i - pat.length()) * power;
+            sHash = sHash * base + str.charAt(i);
+        }
+        // check str remainder
+        if (sHash == pHash && str.substring(str.length() - pat.length()).equals(pat)) {
+            return str.length() - pat.length();
+        }
+        return -1;
+    }
 }

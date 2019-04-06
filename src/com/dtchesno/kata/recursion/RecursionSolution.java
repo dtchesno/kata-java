@@ -1,7 +1,6 @@
 package com.dtchesno.kata.recursion;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class RecursionSolution {
     public static Set<String> permuteBraces(int n) {
@@ -33,7 +32,89 @@ public class RecursionSolution {
     // reverse stack: byte-by-byte #20
     // sort stacks: byte-by-byte #28
     // [selected - 1]
+    public static void reverseStack(Stack<Integer> s) {
+        if (s.isEmpty()) {
+            return;
+        }
+        int top = s.pop();
+        reverseStack(s);
+        pushToBottom(top, s);
+    }
+
+    private static void pushToBottom(int val, Stack<Integer> s) {
+        if (s.isEmpty()) {
+            s.push(val);
+            return;
+        }
+        int temp = s.pop();
+        pushToBottom(val, s);
+        s.push(temp);
+    }
+
+
+    // sort stacks: byte-by-byte #28 pg.27
+    // [selected - 1]
+    public static int[] sortStack(int[] values) {
+        Stack<Integer> s = new Stack<>();
+        for (int i = values.length - 1; i >= 0; i--) {
+            s.push(values[i]);
+        }
+        //s = sortStack2(s);
+        s = sortStack(s);
+        int[] result = new int[s.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = s.pop();
+        }
+        return result;
+    }
+
+    // bubble-sort
+    private static Stack<Integer> sortStack2(Stack<Integer> s) {
+        Stack<Integer> s2 = new Stack<>();
+        while (!s.isEmpty()) {
+            int temp = s.pop();
+            while (!s2.isEmpty() && s2.peek() < temp) {
+                s.push(s2.pop());
+            }
+            s2.push(temp);
+        }
+        return s2;
+    }
+
+    private static Stack<Integer> sortStack(Stack<Integer> s) {
+        if (s.size() <= 1) {
+            return s;
+        }
+        int top = s.pop();
+        sortStack(s);
+        while (top > s.peek()) {
+            int peek = s.pop();
+            s.push(top);
+            top = peek;
+            sortStack(s);
+        }
+        s.push(top);
+        return s;
+    }
+
 
     // generate all permutations of given list: byte-by-byte #12 pg.12
     // [selected - 2]
+    public static List<List<Integer>> getAllPermutations(List<Integer> input) {
+        ArrayList<List<Integer>> result = new ArrayList<>();
+        getAllPermutations(input, 0, result);
+        return result;
+    }
+
+    private static void getAllPermutations(List<Integer> input, int k, List<List<Integer>> result) {
+        if (k == input.size()) {
+            result.add(new ArrayList<>(input));
+            return;
+        }
+        for (int i = k; i < input.size(); i++) {
+            Collections.swap(input, k, i);
+            getAllPermutations(input, k + 1, result);
+            Collections.swap(input, k, i);
+        }
+    }
 }

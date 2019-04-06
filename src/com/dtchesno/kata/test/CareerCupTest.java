@@ -91,23 +91,4 @@ public class CareerCupTest {
         assertEquals("31131211131221", MiscSolution.lookAndSay(9));
         assertEquals("13211311123113112211", MiscSolution.lookAndSay(10));
     }
-
-    @Test
-    public void testReverseStack() {
-        Stack<Integer> s = new Stack<>();
-        s.push(1);
-        s.push(2);
-        s.push(3);
-        s.push(4);
-        MiscSolution.reverseStack(s);
-        assertEquals(1, (int) s.pop());
-        assertEquals(2, (int) s.pop());
-        assertEquals(3, (int) s.pop());
-        assertEquals(4, (int) s.pop());
-    }
-
-    @Test
-    public void testSortStack() {
-        assertEquals(true, Arrays.equals(new int[] { 1, 2, 3, 4, 5, 6, 7 }, MiscSolution.sortStack(new int[] { 7, 1, 3, 5, 2, 4, 6})));
-    }
 }
