@@ -3,7 +3,7 @@ package com.dtchesno.kata.recursion;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Tasks {
+public class RecursionSolution {
     public static Set<String> permuteBraces(int n) {
         return permuteBraces(n, n, "", new HashSet<String>());
     }
@@ -30,23 +30,10 @@ public class Tasks {
         return result;
     }
 
-    public static boolean isBracesBalanced(String str) {
-        int count = 0;
-        for (char c: str.toCharArray()) {
-            switch (c) {
-                case '(':
-                    count++;
-                    break;
-                case ')':
-                    count--;
-                    break;
-                default:
-                    return false;
-            }
-            if (count < 0) {
-                return false;
-            }
-        }
-        return count == 0;
-    }
+    // reverse stack: byte-by-byte #20
+    // sort stacks: byte-by-byte #28
+    // [selected - 1]
+
+    // generate all permutations of given list: byte-by-byte #12 pg.12
+    // [selected - 2]
 }

@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bad5cae6-933e-484b-a929-b08507e096a4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/bitops/Tasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/bitops/Tasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/BitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/BitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/SortTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/SortTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/StoneGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/StoneGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Tasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/PuzzlesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/PuzzlesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,35 +23,35 @@
     <session id="238863829">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.0" value="2" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.closed" value="7" />
+          <entry key="project.open.time.0" value="4" />
+          <entry key="project.open.time.1" value="3" />
+          <entry key="project.open.time.3" value="2" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dummy" value="6" />
-          <entry key="java" value="8952" />
+          <entry key="dummy" value="14" />
+          <entry key="java" value="17749" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8952" />
-          <entry key="PLAIN_TEXT" value="6" />
+          <entry key="JAVA" value="17749" />
+          <entry key="PLAIN_TEXT" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="4" />
-          <entry key="java" value="12" />
+          <entry key="class" value="5" />
+          <entry key="java" value="44" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="4" />
-          <entry key="JAVA" value="12" />
+          <entry key="CLASS" value="5" />
+          <entry key="JAVA" value="44" />
         </counts>
       </usages-collector>
     </session>
@@ -55,10 +59,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/careercup/Tasks.java">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/bitops/BitsSolution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3495">
-              <caret line="235" column="18" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="18" />
+            <state relative-caret-position="90">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -67,55 +80,67 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Trie.java">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+            <state relative-caret-position="405">
+              <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/PQueue.java">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="-2550">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/sort/Tasks.java">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+            <state relative-caret-position="336">
+              <caret line="72" column="13" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="581">
+              <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/StoneGame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="316" lean-forward="true" selection-start-line="316" selection-end-line="316" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/bitops/Tasks.java">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/Solution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="155" column="20" selection-start-line="155" selection-start-column="20" selection-end-line="155" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/BitTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="86" column="9" selection-start-line="86" selection-start-column="9" selection-end-line="86" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/SortTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="70" column="25" lean-forward="true" selection-start-line="70" selection-start-column="25" selection-end-line="70" selection-end-column="25" />
+            <state relative-caret-position="566">
+              <caret line="160" column="56" selection-start-line="160" selection-start-column="56" selection-end-line="160" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -124,31 +149,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/StructTest.java">
+        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="35" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/Character.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1635">
-              <caret line="109" column="33" selection-start-line="109" selection-start-column="33" selection-end-line="109" selection-end-column="33" />
+            <state relative-caret-position="2535">
+              <caret line="180" column="55" selection-start-line="180" selection-start-column="55" selection-end-line="180" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,6 +173,10 @@
     <findStrings>
       <find>xml</find>
       <find>pa</find>
+      <find>lis</find>
+      <find>selec</find>
+      <find>cut</find>
+      <find>ish</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -178,15 +186,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/PuzzlesTest.java" />
-        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/StoneGame.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/GraphTest.java" />
-        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Tasks.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/EQueens.java" />
-        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/graph/Graph.java" />
-        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java" />
-        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/DpTest.java" />
-        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/dp/Solution.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/careercup/Tasks.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Trie.java" />
@@ -195,8 +197,26 @@
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/PQueue.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/SortTest.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/sort/Tasks.java" />
-        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/BitTest.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Arrays.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/ListTest.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/graph/Graph.java" />
         <option value="$PROJECT_DIR$/src/com/dtchesno/kata/bitops/Tasks.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/BitTest.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/bitops/BitsSolution.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/misc/Tasks.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/StoneGame.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/dp/StoneGame.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Tasks.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayTasks.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" />
+        <option value="$PROJECT_DIR$/src/com/dtchesno/kata/dp/Solution.java" />
       </list>
     </option>
   </component>
@@ -245,13 +265,6 @@
               <item name="kata-java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="kata" type="462c0819:PsiDirectoryNode" />
-              <item name="careercup" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kata-java" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kata-java" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="kata" type="462c0819:PsiDirectoryNode" />
               <item name="dp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -259,7 +272,7 @@
               <item name="kata-java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="kata" type="462c0819:PsiDirectoryNode" />
-              <item name="graph" type="462c0819:PsiDirectoryNode" />
+              <item name="misc" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kata-java" type="b2602c69:ProjectViewProjectNode" />
@@ -274,13 +287,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="kata" type="462c0819:PsiDirectoryNode" />
               <item name="recursion" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kata-java" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kata-java" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="kata" type="462c0819:PsiDirectoryNode" />
-              <item name="sort" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kata-java" type="b2602c69:ProjectViewProjectNode" />
@@ -304,7 +310,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549391662049" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554519553785" />
     <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/lib/hamcrest-core-1.3.jar!/" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -312,8 +318,12 @@
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="com.dtchesno.kata.misc.MiscSolution" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.dtchesno.kata.test" />
+      <recent name="com.dtchesno.kata.struct" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -328,14 +338,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.BitTest.testMultiply">
+  <component name="RunManager" selected="JUnit.com.dtchesno.kata.test in kata-java">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BitTest.testAdd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BitTest.testParity" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -345,7 +355,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
       <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.BitTest" />
-      <option name="METHOD_NAME" value="testAdd" />
+      <option name="METHOD_NAME" value="testParity" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -353,7 +363,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BitTest.testMultiply" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DpTest.testMaxMatrixProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -362,8 +372,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.BitTest" />
-      <option name="METHOD_NAME" value="testMultiply" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
+      <option name="METHOD_NAME" value="testMaxMatrixProduct" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -371,7 +381,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SortTest.testKthLargest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DpTest.testMinChange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -380,8 +390,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.SortTest" />
-      <option name="METHOD_NAME" value="testKthLargest" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
+      <option name="METHOD_NAME" value="testMinChange" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -389,7 +399,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StructTest.testPQueue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TreeTest.isHalfCuttable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -398,26 +408,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.StructTest" />
-      <option name="METHOD_NAME" value="testPQueue" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StructTest.testTrie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kata-java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.StructTest" />
-      <option name="METHOD_NAME" value="testTrie" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.TreeTest" />
+      <option name="METHOD_NAME" value="isHalfCuttable" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -426,6 +418,22 @@
       </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.dtchesno.kata.test in kata-java" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kata-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
+      <option name="TEST_OBJECT" value="package" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
@@ -442,19 +450,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.StructTest.testTrie" />
-      <item itemvalue="JUnit.StructTest.testPQueue" />
-      <item itemvalue="JUnit.SortTest.testKthLargest" />
-      <item itemvalue="JUnit.BitTest.testAdd" />
-      <item itemvalue="JUnit.BitTest.testMultiply" />
+      <item itemvalue="JUnit.DpTest.testMinChange" />
+      <item itemvalue="JUnit.DpTest.testMaxMatrixProduct" />
+      <item itemvalue="JUnit.BitTest.testParity" />
+      <item itemvalue="JUnit.TreeTest.isHalfCuttable" />
+      <item itemvalue="JUnit.com.dtchesno.kata.test in kata-java" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BitTest.testMultiply" />
-        <item itemvalue="JUnit.BitTest.testAdd" />
-        <item itemvalue="JUnit.SortTest.testKthLargest" />
-        <item itemvalue="JUnit.StructTest.testPQueue" />
-        <item itemvalue="JUnit.StructTest.testTrie" />
+        <item itemvalue="JUnit.com.dtchesno.kata.test in kata-java" />
+        <item itemvalue="JUnit.TreeTest.isHalfCuttable" />
+        <item itemvalue="JUnit.BitTest.testParity" />
+        <item itemvalue="JUnit.DpTest.testMaxMatrixProduct" />
+        <item itemvalue="JUnit.DpTest.testMinChange" />
       </list>
     </recent_temporary>
   </component>
@@ -472,42 +480,41 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="SortTest_testKthLargest - 2019.02.04 at 10h 46m 13s.xml">
-      <configuration name="SortTest.testKthLargest" configurationId="JUnit" />
+    <history-entry file="DpTest_testMinChange - 2019.03.11 at 19h 13m 31s.xml">
+      <configuration name="DpTest.testMinChange" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SortTest_testKthLargest - 2019.02.04 at 10h 46m 33s.xml">
-      <configuration name="SortTest.testKthLargest" configurationId="JUnit" />
+    <history-entry file="DpTest_testMinChange - 2019.03.11 at 19h 13m 37s.xml">
+      <configuration name="DpTest.testMinChange" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SortTest_testKthLargest - 2019.02.04 at 10h 46m 35s.xml">
-      <configuration name="SortTest.testKthLargest" configurationId="JUnit" />
+    <history-entry file="DpTest_testMinChange - 2019.03.11 at 19h 13m 43s.xml">
+      <configuration name="DpTest.testMinChange" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SortTest_testKthLargest - 2019.02.04 at 10h 47m 56s.xml">
-      <configuration name="SortTest.testKthLargest" configurationId="JUnit" />
+    <history-entry file="DpTest_testMaxMatrixProduct - 2019.03.11 at 19h 30m 14s.xml">
+      <configuration name="DpTest.testMaxMatrixProduct" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SortTest_testKthLargest - 2019.02.04 at 10h 47m 59s.xml">
-      <configuration name="SortTest.testKthLargest" configurationId="JUnit" />
+    <history-entry file="DpTest_testMaxMatrixProduct - 2019.03.11 at 19h 36m 58s.xml">
+      <configuration name="DpTest.testMaxMatrixProduct" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BitTest_testAdd - 2019.02.04 at 10h 56m 04s.xml">
-      <configuration name="BitTest.testAdd" configurationId="JUnit" />
+    <history-entry file="DpTest_testMaxMatrixProduct - 2019.03.11 at 19h 39m 11s.xml">
+      <configuration name="DpTest.testMaxMatrixProduct" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BitTest_testMultiply - 2019.02.04 at 11h 03m 52s.xml">
-      <configuration name="BitTest.testMultiply" configurationId="JUnit" />
+    <history-entry file="DpTest_testMaxMatrixProduct - 2019.03.11 at 19h 41m 36s.xml">
+      <configuration name="DpTest.testMaxMatrixProduct" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BitTest_testMultiply - 2019.02.04 at 11h 04m 45s.xml">
-      <configuration name="BitTest.testMultiply" configurationId="JUnit" />
+    <history-entry file="BitTest_testParity - 2019.03.29 at 17h 30m 57s.xml">
+      <configuration name="BitTest.testParity" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BitTest_testMultiply - 2019.02.04 at 11h 07m 01s.xml">
-      <configuration name="BitTest.testMultiply" configurationId="JUnit" />
+    <history-entry file="TreeTest_isHalfCuttable - 2019.03.29 at 18h 09m 03s.xml">
+      <configuration name="TreeTest.isHalfCuttable" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BitTest_testMultiply - 2019.02.04 at 11h 07m 27s.xml">
-      <configuration name="BitTest.testMultiply" configurationId="JUnit" />
+    <history-entry file="com_dtchesno_kata_test_in_kata-java - 2019.03.29 at 18h 12m 56s.xml">
+      <configuration name="com.dtchesno.kata.test in kata-java" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1613" height="1025" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2622846" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28142947" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -516,15 +523,15 @@
       <window_info id="Learn" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.73962986" weight="0.32960895" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4901085" weight="0.39776537" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4996809" weight="0.32960895" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7306956" weight="0.12402235" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48691767" weight="0.0" />
       <window_info anchor="bottom" id="TODO" order="4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.48053604" weight="0.326257" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.4760689" weight="0.326257" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.26037014" side_tool="true" visible="true" weight="0.39776537" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.2693044" side_tool="true" visible="true" weight="0.14189944" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.6196554" weight="0.26256984" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -550,7 +557,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/Solution.java</url>
-          <line>30</line>
+          <line>31</line>
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
@@ -573,10 +580,28 @@
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/bitops/Tasks.java</url>
-          <line>149</line>
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/bitops/BitsSolution.java</url>
+          <line>186</line>
           <properties />
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>8</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>9</line>
+          <properties />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>34</line>
+          <properties />
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -601,7 +626,6 @@
     <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/QSortTest.java" />
     <entry file="jar://C:/Program Files/Java/jdk-10/lib/src.zip!/java.base/java/lang/String.java" />
     <entry file="jar://C:/Program Files/Java/jdk-10/lib/src.zip!/java.base/java/util/Arrays.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java" />
     <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/Hanoi.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
@@ -620,27 +644,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/careercup/CutTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" selection-start-line="4" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Tasks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/StoneGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -687,13 +690,6 @@
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10/lib/src.zip!/java.base/jdk/internal/reflect/NativeMethodAccessorImpl.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/graph/Graph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="138" column="36" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/Assert.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="673">
@@ -708,27 +704,115 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/Comparator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/StructTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="39" column="35" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/Character.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/SortTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="82" column="22" selection-start-line="82" selection-start-column="22" selection-end-line="82" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/PQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="72" column="27" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/sort/Tasks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="38" column="5" lean-forward="true" selection-start-line="34" selection-start-column="4" selection-end-line="38" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="24" lean-forward="true" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/ListTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="82" column="43" lean-forward="true" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/Knapsack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
+        <state relative-caret-position="518">
           <caret line="60" column="31" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/DpTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Trie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="72" column="22" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
+        <state relative-caret-position="150">
+          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/BitTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/Solution.java">
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/careercup/CutTree.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/DpTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="124" column="44" selection-start-line="124" selection-start-column="44" selection-end-line="124" selection-end-column="44" />
+        <state relative-caret-position="525">
+          <caret line="35" column="35" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="72" column="57" selection-start-line="72" selection-start-column="54" selection-end-line="72" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2535">
+          <caret line="180" column="55" selection-start-line="180" selection-start-column="55" selection-end-line="180" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -737,118 +821,73 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2760">
-          <caret line="262" column="9" selection-start-line="262" selection-start-column="9" selection-end-line="262" selection-end-column="9" />
-          <folding>
-            <element signature="e#7171#7172#0" expanded="true" />
-            <element signature="e#7239#7240#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="432">
+          <caret line="316" lean-forward="true" selection-start-line="316" selection-end-line="316" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/StoneGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2587">
-          <caret line="243" column="53" selection-start-line="243" selection-start-column="53" selection-end-line="243" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="238">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/Comparator.class">
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2550">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="72" column="13" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/bitops/BitsSolution.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/careercup/Tasks.java">
+    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/Solution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3495">
-          <caret line="235" column="18" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="18" />
+        <state relative-caret-position="566">
+          <caret line="160" column="56" selection-start-line="160" selection-start-column="56" selection-end-line="160" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Trie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/StructTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="35" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/lang/Character.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1635">
-          <caret line="109" column="33" selection-start-line="109" selection-start-column="33" selection-end-line="109" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/PQueue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/SortTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="70" column="25" lean-forward="true" selection-start-line="70" selection-start-column="25" selection-end-line="70" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/sort/Tasks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/test/BitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="86" column="9" selection-start-line="86" selection-start-column="9" selection-end-line="86" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dtchesno/kata/bitops/Tasks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="155" column="20" selection-start-line="155" selection-start-column="20" selection-end-line="155" selection-end-column="20" />
         </state>
       </provider>
     </entry>

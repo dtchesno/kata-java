@@ -1,4 +1,4 @@
-package com.dtchesno.kata.puzzle;
+package com.dtchesno.kata.dp;
 
 /**
  * TOPIC: dynamic programming
@@ -12,6 +12,9 @@ package com.dtchesno.kata.puzzle;
  * https://www.geeksforgeeks.org/overlapping-subproblems-property-in-dynamic-programming-dp-1/
  * https://www.geeksforgeeks.org/solve-dynamic-programming-problem/
  * https://leetcode.com/problems/stone-game/solution/
+ *
+ * + Aziz 17.9 pg.324
+ * [selected - 1]
  */
 public class StoneGame {
 

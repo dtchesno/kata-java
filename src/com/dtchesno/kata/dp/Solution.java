@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Solution {
 
-    // TODO: add description
+    // find min messiness (sum of squared # of trailing spaces) of break text (provided as list of words) to lines
+    // Aziz 17.11 pg327
     public static int minMessiness(List<String> words, int lineLen) {
         int[] M = new int[words.size()];
         Arrays.fill(M, Integer.MAX_VALUE);
@@ -31,6 +32,10 @@ public class Solution {
         return M[words.size() - 1];
     }
 
+    // find max length of non-decreasing seq, next element doesn't have to immediately follow previous
+    // e.g. 0,8,4,12,2,10,6,14,1,9 -> [0,4,10,14] or [0,2,6,9]
+    // Aziz 17.12 pg.330
+    // [selected - 3]
     public static int longestNondecreasingSeq(int[] array) {
         int[] length = new int[array.length];
         int max = 1;
@@ -46,6 +51,10 @@ public class Solution {
         return max;
     }
 
+
+    // knapsack 0-1 (each item could be taken 0 or 1 times)
+    // Aziz 17.6 pg.317
+    // [selected - 1]
     // items[number][2] - weight, value
     public static int knapsack(int maxWeight, int[][] items) {
         int[][] mem = new int[items.length][maxWeight + 1];
@@ -72,6 +81,11 @@ public class Solution {
         return mem[k][capacity];
     }
 
+
+    // find path with max product from top-left to bottom-right; move allowed - right & down
+    // [NOTE] don't forget about sign of values
+    // byte-by-byte #3 pg.7
+    // [selected - 2]
     public static int maxMatrixProduct(int[][] matrix) {
         int[][][] mem = new int[matrix.length][matrix.length][];
         return maxMatrixProductDP(matrix, 0, 0, mem)[0];
@@ -106,6 +120,10 @@ public class Solution {
         return mem[i][j];
     }
 
+
+    // find min # of coins to change amount
+    // byte-by-byte #26 pg.25
+    // [selected - 1]
     public static int minChange(int sum, int[] coins) {
         int[] mem = new int[sum + 1];
         Arrays.fill(mem, Integer.MAX_VALUE);
@@ -132,4 +150,15 @@ public class Solution {
         }
         return mem[sum];
     }
+
+
+    // TODO:
+    // find min # of deletes to make word1 & word2 the same
+    // https://leetcode.com/problems/delete-operation-for-two-strings/
+    // [selected - 1]
+
+    // TODO:
+    // find min # of operations (insert, delete, replace) to make word1 & word2 the same
+    // https://leetcode.com/problems/edit-distance/
+    // [selected - 1]
 }

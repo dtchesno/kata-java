@@ -11,6 +11,26 @@ import java.util.Stack;
 
 public class MiscSolution {
 
+    public static boolean isBracesBalanced(String str) {
+        int count = 0;
+        for (char c: str.toCharArray()) {
+            switch (c) {
+                case '(':
+                    count++;
+                    break;
+                case ')':
+                    count--;
+                    break;
+                default:
+                    return false;
+            }
+            if (count < 0) {
+                return false;
+            }
+        }
+        return count == 0;
+    }
+
     private static class Pair {
         String first;
         String second;

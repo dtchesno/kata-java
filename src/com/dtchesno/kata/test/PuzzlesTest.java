@@ -1,5 +1,6 @@
 package com.dtchesno.kata.test;
 
+import com.dtchesno.kata.dp.StoneGame;
 import com.dtchesno.kata.puzzle.*;
 import com.dtchesno.kata.puzzle.Knapsack.Box;
 import com.dtchesno.kata.puzzle.Knapsack.Distribution;

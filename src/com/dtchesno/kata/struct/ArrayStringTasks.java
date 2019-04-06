@@ -1,9 +1,10 @@
 package com.dtchesno.kata.struct;
 
-public class ArrayTasks {
+public class ArrayStringTasks {
 
     // https://www.programcreek.com/2015/03/rotate-array-in-java/
     // {1, 2, 3, 4, 5, 6, 7}, 4 -> {4, 5, 6, 7, 1, 2, 3}
+    // [selected - 2]
     public static int[] rotateRight(int[] arr, int k) {
         reverse(arr, 0, arr.length - k - 1);
         reverse(arr, arr.length - k, arr.length - 1);
@@ -21,6 +22,10 @@ public class ArrayTasks {
         }
     }
 
+
+    // reverse all words in sentence
+    // Aziz 7.6 pg.101
+    // [selected - 1]
     public static String reverseWords(String input) {
         char[] buf = input.toCharArray();
         reverse(buf, 0, buf.length - 1);
@@ -47,4 +52,12 @@ public class ArrayTasks {
             j--;
         }
     }
+
+
+    // TODO: add convert to/from Roman
+    // [selected - 3]
+
+    // TODO: find first occurence of substring
+    // Aziz 7.13 pg.109
+    // [selected - 1]
 }

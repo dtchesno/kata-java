@@ -1,6 +1,7 @@
 package com.dtchesno.kata.test;
 
-import com.dtchesno.kata.recursion.Tasks;
+import com.dtchesno.kata.misc.MiscSolution;
+import com.dtchesno.kata.recursion.RecursionSolution;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,19 +30,19 @@ public class RecursionTest {
         expected.add("(())()");
         expected.add("((()))");
         expected.add("(()())");
-        assertEquals(expected, Tasks.permuteBraces(3));
+        assertEquals(expected, RecursionSolution.permuteBraces(3));
     }
 
     @Test
     public void testBracesBalance() {
-        assertTrue(Tasks.isBracesBalanced("()"));
-        assertTrue(Tasks.isBracesBalanced("()()"));
-        assertTrue(Tasks.isBracesBalanced("()(())"));
+        assertTrue(MiscSolution.isBracesBalanced("()"));
+        assertTrue(MiscSolution.isBracesBalanced("()()"));
+        assertTrue(MiscSolution.isBracesBalanced("()(())"));
 
-        assertTrue(!Tasks.isBracesBalanced("(("));
-        assertTrue(!Tasks.isBracesBalanced("("));
-        assertTrue(!Tasks.isBracesBalanced(")"));
-        assertTrue(!Tasks.isBracesBalanced("())("));
-        assertTrue(!Tasks.isBracesBalanced("()(()"));
+        assertTrue(!MiscSolution.isBracesBalanced("(("));
+        assertTrue(!MiscSolution.isBracesBalanced("("));
+        assertTrue(!MiscSolution.isBracesBalanced(")"));
+        assertTrue(!MiscSolution.isBracesBalanced("())("));
+        assertTrue(!MiscSolution.isBracesBalanced("()(()"));
     }
 }
