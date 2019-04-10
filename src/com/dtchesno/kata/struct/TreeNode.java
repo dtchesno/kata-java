@@ -210,6 +210,7 @@ public class TreeNode {
 
     // find all paths which sum up to the given sum, not need to start @root
     // Cracking...4.8 pg.130
+    // [selected - 1]
     public Set<ArrayList<Integer>> findSum(int sum) {
         Set<ArrayList<Integer>> acc = new HashSet<>();
         findSum(this, sum, new ArrayList<Integer>(), 0, acc);
@@ -233,7 +234,6 @@ public class TreeNode {
         ArrayList<Integer> right = (ArrayList<Integer>) buffer.clone();
         findSum(t.right, sum, right, level + 1, acc);
     }
-
 
 
     // build doubly-linked list from tree
@@ -282,6 +282,7 @@ public class TreeNode {
 
     // BST, find k largest elements
     // Aziz 15.3 pg260
+    // [selected - 1]
     public static int[] findKthLargestElements(TreeNode root, int k) {
         int[] result = new int[k];
         findKthLargestElements(root, k, result);
@@ -308,7 +309,6 @@ public class TreeNode {
         }
         return k;
     }
-
 
 
     // test whether tree can be cut once, so, two parts will have same sum of node values
@@ -360,4 +360,65 @@ public class TreeNode {
         calculateParentSum(node.key, (hash.get(node))[2], node.left, hash);
         calculateParentSum(node.key, (hash.get(node))[1], node.right, hash);
     }
+
+
+    // TODO: compute distance between nodes
+    // [selected - 1]
+
+
+    // find all nodes with distance K in binary tree
+    // https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+    public static List<Integer> distanseK(TreeNode root, TreeNode target, int K) {
+        ArrayList<Integer> result = new ArrayList<>();
+        if (root == null || target == null || K < 0) {
+            return result;
+        }
+        HashMap<TreeNode, TreeNode> parent = new HashMap<>();
+        LinkedList<TreeNode> q = new LinkedList<>();
+        q.push(root);
+        while (!q.isEmpty()) {
+            TreeNode n = q.pop();
+            if (n == target) {
+                break;
+            }
+            if (n.left != null) {
+                q.push(n.left);
+                parent.put(n.left, n);
+            }
+            if (n.right != null) {
+                q.push(n.right);
+                parent.put(n.right, n);
+            }
+        }
+        distanceK(target, null, K, result);
+        TreeNode p = parent.get(target);
+        TreeNode guard = target;
+        int k = K - 1;
+        while (p != null && k >= 0) {
+            distanceK(p, guard, k--, result);
+            guard = p;
+            p = parent.get(p);
+        }
+        return result;
+    }
+
+    private static void distanceK(TreeNode parent, TreeNode guard, int K, List<Integer> result) {
+        if (parent == null) {
+            return;
+        }
+        if (K == 0) {
+            result.add(parent.key);
+            return;
+        }
+        if (parent.left != guard) {
+            distanceK(parent.left, null, K - 1, result);
+        }
+        if (parent.right != guard) {
+            distanceK(parent.right, null, K - 1, result);
+        }
+    }
+
+
+    // TODO:
+    // https://leetcode.com/discuss/interview-question/125084/given-a-binary-search-tree-find-the-distance-between-2-nodes
 }
