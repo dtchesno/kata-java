@@ -255,4 +255,22 @@ public class TreeTest {
         assertTrue(Arrays.equals(new int[] { 150, 180 }, TreeNode.findKthLargestElements(t, 2)));
         assertTrue(Arrays.equals(new int[] { 180 }, TreeNode.findKthLargestElements(t, 1)));
     }
+
+    @Test
+    public void testDistanceK() {
+        TreeNode t = new TreeNode(new Integer[] { 3, 5, 1, 6, 2, 0, 8, null, null, 7, 4 });
+        assertEquals(
+            new HashSet(Arrays.asList(7, 4, 1)),
+            new HashSet(TreeNode.distanсeK(t, t.left, 2))
+        );
+    }
+
+    @Test
+    public void testDistance() {
+        TreeNode t = new TreeNode(new Integer[] { 3, 5, 1, 6, 2, 0, 8, null, null, 7, 4 });
+        assertEquals(3, TreeNode.distance(t, t.left.left, t.left.right.right));
+        assertEquals(2, TreeNode.distance(t, t.left.left, t));
+        assertEquals(1, TreeNode.distance(t, t.left.left, t.left));
+        assertEquals(4, TreeNode.distance(t, t.left.left, t.right.left));
+    }
 }

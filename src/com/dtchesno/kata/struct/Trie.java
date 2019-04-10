@@ -8,7 +8,6 @@ public class Trie {
     public static class Node {
         Character key;
         String value;
-        //boolean isWord;
         HashMap<Character, Node> childs = new HashMap<>();
 
         Node(Character key, String value) {

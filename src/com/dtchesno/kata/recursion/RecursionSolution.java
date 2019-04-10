@@ -56,11 +56,11 @@ public class RecursionSolution {
     // [selected - 1]
     public static int[] sortStack(int[] values) {
         Stack<Integer> s = new Stack<>();
-        for (int i = values.length - 1; i >= 0; i--) {
-            s.push(values[i]);
+        for (int val: values) {
+            s.push(val);
         }
-        //s = sortStack2(s);
-        s = sortStack(s);
+        //sortStack(s);
+        sortStackI(s);
         int[] result = new int[s.size()];
         for (int i = 0; i < result.length; i++) {
             result[i] = s.pop();
@@ -68,33 +68,31 @@ public class RecursionSolution {
         return result;
     }
 
-    // bubble-sort
-    private static Stack<Integer> sortStack2(Stack<Integer> s) {
-        Stack<Integer> s2 = new Stack<>();
-        while (!s.isEmpty()) {
-            int temp = s.pop();
-            while (!s2.isEmpty() && s2.peek() < temp) {
-                s.push(s2.pop());
-            }
-            s2.push(temp);
-        }
-        return s2;
-    }
-
-    private static Stack<Integer> sortStack(Stack<Integer> s) {
+    private static void sortStack(Stack<Integer> s) {
         if (s.size() <= 1) {
-            return s;
+            return;
         }
         int top = s.pop();
         sortStack(s);
         while (top > s.peek()) {
-            int peek = s.pop();
+            int temp = s.pop();
             s.push(top);
-            top = peek;
+            top = temp;
             sortStack(s);
         }
         s.push(top);
-        return s;
+    }
+
+    private static void sortStackI(Stack<Integer> s) {
+        Stack<Integer> s2 = new Stack<>();
+        while (!s.isEmpty()) {
+            int top = s.pop();
+            while (!s2.isEmpty() && s2.peek() < top) {
+                s.push(s2.pop());
+            }
+            s2.push(top);
+        }
+        s.addAll(s2);
     }
 
 
