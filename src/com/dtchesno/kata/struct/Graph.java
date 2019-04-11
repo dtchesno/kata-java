@@ -118,6 +118,7 @@ public class Graph {
         }
     }
 
+
     // return min distance form source to all nodes
     // edges[i] is int[][], array of int pairs - vertex connected to i vertex and weight of the edge
     public static int[] dijkstra(int[][][] g, int source) {
@@ -153,6 +154,44 @@ public class Graph {
     }
 
     // exercises
+
+    public static List<Integer> bfs(int[][] G) {
+        ArrayList<Integer> res = new ArrayList<>();
+        int[] state = new int[G.length];
+        LinkedList<Integer> q = new LinkedList<>();
+        q.add(0);
+        state[0] = 1;
+        while (!q.isEmpty()) {
+            int v = q.poll();
+            for (int u: G[v]) {
+                if (state[u] == 0) {
+                    q.add(u);
+                    state[u] = 1;
+                }
+            }
+            state[v] = 2;
+            res.add(v);
+        }
+        return res;
+    }
+
+    public static List<Integer> dfs(int[][] G) {
+        ArrayList<Integer> res = new ArrayList<>();
+        int[] state = new int[G.length];
+        dfsRec(0, G, state, res);
+        return res;
+    }
+
+    private static void dfsRec(int v, int[][] G, int[] state, List<Integer> res) {
+        state[v] = 1;
+        for (int u: G[v]) {
+            if (state[u] == 0) {
+                dfsRec(u, G, state, res);
+            }
+        }
+        state[v] = 2;
+        res.add(v);
+    }
 
     // https://leetcode.com/articles/find-eventual-safe-states/
     public static Integer[] listEventualSafeNodes(int[][] g) {
@@ -222,4 +261,42 @@ public class Graph {
     }
 
 
+    // find cheapest price from src to dst up to k stops in directed weighted graph
+    // e.g. [[0,1,100], [1,2,100], [0,2,500]], src=0, dst=2, k=1; result=200 (0->1->2)
+    // https://leetcode.com/problems/cheapest-flights-within-k-stops/
+    public static int findCheapest(int[][] flights, int src, int dst, int stops) {
+        HashMap<Integer, HashMap<Integer, Integer>> cost = new HashMap<>();
+        for (int[] flight: flights) {
+            int from = flight[0];
+            int to = flight[1];
+            int price = flight[2];
+            if (!cost.containsKey(from)) {
+                cost.put(from, new HashMap<>());
+            }
+            cost.get(from).put(to, price);
+        }
+
+        // 0 - city (dest), 1 - number of rem.stops, 2 - price
+        PriorityQueue<int[]> q = new PriorityQueue<>((a, b)->a[2] - b[2]);
+        q.add(new int[] {src, stops, 0});
+        while (!q.isEmpty()) {
+            int[] top = q.poll();
+            int city = top[0];
+            int nstops = top[1];
+            int price = top[2];
+            if (city == dst) {
+                return price;
+            }
+            if (nstops < 0) {
+                continue;
+            }
+            HashMap<Integer, Integer> connections = cost.get(city);
+            if (connections != null) {
+                for (Map.Entry<Integer, Integer> c: connections.entrySet()) {
+                    q.add(new int[] {c.getKey(), nstops - 1, c.getValue() + price});
+                }
+            }
+        }
+        return -1;
+    }
 }

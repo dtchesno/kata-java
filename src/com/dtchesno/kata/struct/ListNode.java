@@ -29,7 +29,9 @@ public class ListNode {
         return this.next == null ? null : this.next.get(n - 1);
     }
 
-    // 50, byte-by-byte, #41 split a linked list
+    // split a linked list in halves
+    // byte-by-byte #41 pg31
+    // [selected - 1]
     public static ListNode split(ListNode node) {
         ListNode runner = node.next;
         while (runner != null && runner.next != null) {
@@ -42,7 +44,10 @@ public class ListNode {
         return root2;
     }
 
-    // cracking the coding interview 2.5 find begin of circle
+
+    // find begin of circle
+    // cracking the coding interview #2.5 pg.109
+    // [selected - 1]
     public static ListNode findStartLoop(ListNode root) {
         ListNode ptr = root.next;
         ListNode runner = root.next.next;
@@ -58,6 +63,7 @@ public class ListNode {
         }
         return runner;
     }
+
 
     // 0, 1, 2, 3, 4, 5 -> 0, 5, 1, 4, 2, 3 // n0, nlast, n1, nlast-1...
     public static ListNode reorder(ListNode root) {
@@ -75,6 +81,7 @@ public class ListNode {
         return root;
     }
 
+    // [selected - 2]
     public static ListNode reverse(ListNode root) {
         ListNode prev = root;
         ListNode curr = root.next;
@@ -86,6 +93,31 @@ public class ListNode {
             curr = next;
         }
         return prev;
+    }
+
+    // add numbers represented by lists; 1's digit @ head
+    // e.g. (3->1->5) + (5->9->2) = (8->0->8)
+    // cracking #2.4 pg.50
+    // [selected - 2]
+    public static ListNode add(ListNode l1, ListNode l2, int carry) {
+        if (l1 == null && l2 == null && carry == 0) {
+            return null;
+        }
+        int value = carry;
+        if (l1 != null) {
+            value += l1.value;
+            l1 = l1.next;
+        }
+        if (l2 != null) {
+            value += l2.value;
+            l2 = l2.next;
+        }
+        carry = value / 10;
+        value %= 10;
+        ListNode res = new ListNode(value);
+        ListNode next = ListNode.add(l1, l2, carry);
+        res.next = next;
+        return res;
     }
 
     public static void merge(ListNode l1, ListNode l2) {

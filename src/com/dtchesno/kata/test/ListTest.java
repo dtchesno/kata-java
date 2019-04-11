@@ -20,10 +20,21 @@ public class ListTest {
 
     @Test
     public void testSplit() {
-        assertEquals(3, ListNode.split(new ListNode(new int[] { 1, 2, 3, 4 }, false)).value);
-        assertEquals(4, ListNode.split(new ListNode(new int[] { 1, 2, 3, 4, 5 }, false)).value);
-        assertEquals(4, ListNode.split(new ListNode(new int[] { 1, 2, 3, 4, 5, 6 }, false)).value);
-        assertEquals(5, ListNode.split(new ListNode(new int[] { 1, 2, 3, 4, 5, 6, 7 }, false)).value);
+        ListNode l = new ListNode(new int[] { 1, 2, 3, 4 }, false);
+        assertEquals(3, ListNode.split(l).value);
+        assertEquals(null, l.get(2));
+
+        l = new ListNode(new int[] { 1, 2, 3, 4, 5 }, false);
+        assertEquals(4, ListNode.split(l).value);
+        assertEquals(null, l.get(3));
+
+        l = new ListNode(new int[] { 1, 2, 3, 4, 5, 6 }, false);
+        assertEquals(4, ListNode.split(l).value);
+        assertEquals(null, l.get(3));
+
+        l = new ListNode(new int[] { 1, 2, 3, 4, 5, 6, 7 }, false);
+        assertEquals(5, ListNode.split(l).value);
+        assertEquals(null, l.get(4));
     }
 
     @Test
@@ -96,5 +107,16 @@ public class ListTest {
         assertEquals(3, root.get(4).value);
         assertEquals(5, root.get(5).value);
         assertEquals(4, root.get(6).value);
+    }
+
+    @Test
+    public void testAdd() {
+        ListNode l1 = new ListNode(new int[] {3, 1, 5}, false);
+        ListNode l2 = new ListNode(new int[] {5, 9, 2, 1}, false);
+        ListNode sum = ListNode.add(l1, l2, 0);
+        assertEquals(8, sum.get(0).value);
+        assertEquals(0, sum.get(1).value);
+        assertEquals(8, sum.get(2).value);
+        assertEquals(1, sum.get(3).value);
     }
 }

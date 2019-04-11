@@ -42,6 +42,32 @@ public class GraphTest {
     }
 
     @Test
+    public void testBFS2() {
+        int[][] G = new int[][] {
+                { 1, 2, 3 },
+                { 4 },
+                { 3, 4},
+                { 5 },
+                { 0, 5 },
+                {}
+        };
+        assertEquals(Arrays.asList(0,1,2,3,4,5), Graph.bfs(G));
+    }
+
+    @Test
+    public void testDFS2() {
+        int[][] G = new int[][] {
+                { 1, 2, 3 },
+                { 4 },
+                { 3, 4},
+                { 5 },
+                { 0, 5 },
+                {}
+        };
+        assertEquals(Arrays.asList(5,4,1,3,2,0), Graph.dfs(G));
+    }
+
+    @Test
     public void testEventualSafe() {
         int[][] g = new int[][] {
                 new int[] { 1, 2 },
@@ -76,5 +102,11 @@ public class GraphTest {
                 Graph.buildOrder(new int[][] { {}, {0}, {0}, {1,2}, {3} }));
         assertEquals(Arrays.asList(3, 0, 1, 2, 4),
                 Graph.buildOrder(new int[][] { {3}, {0}, {0}, {}, {3} }));
+    }
+
+    @Test
+    public void testFindCheapest() {
+        assertEquals(200, Graph.findCheapest(new int[][]{{0,1,100}, {1,2,100}, {0,2,500}}, 0, 2, 1));
+        assertEquals(500, Graph.findCheapest(new int[][]{{0,1,100}, {1,2,100}, {0,2,500}}, 0, 2, 0));
     }
 }
