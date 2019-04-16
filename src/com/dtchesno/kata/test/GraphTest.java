@@ -109,4 +109,20 @@ public class GraphTest {
         assertEquals(200, Graph.findCheapest(new int[][]{{0,1,100}, {1,2,100}, {0,2,500}}, 0, 2, 1));
         assertEquals(500, Graph.findCheapest(new int[][]{{0,1,100}, {1,2,100}, {0,2,500}}, 0, 2, 0));
     }
+
+    @Test
+    public void testFindShortestPath() {
+        int[][] G = new int[][] {
+                {}, // 0 empty as starts from 1
+                {2, 3},
+                {5},
+                {4},
+                {1, 3},
+                {4}
+        };
+        assertEquals(Arrays.asList(1, 3, 4), Graph.findShortestPath(G, 1, 4));
+        assertEquals(Arrays.asList(1, 3), Graph.findShortestPath(G, 1, 3));
+        assertEquals(Arrays.asList(4, 1), Graph.findShortestPath(G, 4, 1));
+        assertEquals(Arrays.asList(), Graph.findShortestPath(G, 4, 0));
+    }
 }

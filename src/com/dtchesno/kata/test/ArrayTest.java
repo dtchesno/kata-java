@@ -72,4 +72,10 @@ public class ArrayTest {
         assertEquals(48, ArrayStringTasks.fromRoman("XLVIII"));
         assertEquals(49, ArrayStringTasks.fromRoman("XLIX"));
     }
+
+    @Test
+    public void testFindZeroSum() {
+        assertTrue(Arrays.equals(new int[] {-1, 3, -2}, ArrayStringTasks.findZeroSum(new int[] {2, -1, 3, -2, 5})));
+        assertTrue(Arrays.equals(new int[0], ArrayStringTasks.findZeroSum(new int[] {2, 3, -2, 5})));
+    }
 }

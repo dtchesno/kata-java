@@ -1,5 +1,6 @@
 package com.dtchesno.kata.struct;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class ArrayStringTasks {
@@ -122,5 +123,27 @@ public class ArrayStringTasks {
             return str.length() - pat.length();
         }
         return -1;
+    }
+
+    // find any subarray which sum == 0
+    // byte-by-byte #11 pg.11
+    // [selected - 2]
+    public static int[] findZeroSum(int[] a) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+        int i = -1;
+        int j = 0;
+        for (; j < a.length; j++) {
+            sum += a[j];
+            if (map.containsKey(sum)) {
+                i = map.get(sum) + 1;
+                break;
+            }
+            map.put(sum, j);
+        }
+        if (i == -1) {
+            return new int[0];
+        }
+        return Arrays.copyOfRange(a, i, j + 1);
     }
 }

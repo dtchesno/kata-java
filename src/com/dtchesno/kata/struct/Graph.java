@@ -299,4 +299,38 @@ public class Graph {
         }
         return -1;
     }
+
+    // find shortest path between graph nodes
+    // byte-by-byte #16 pg.16
+    public static List<Integer> findShortestPath(int[][] G, int src, int dst) {
+        LinkedList<Integer> q = new LinkedList<>();
+        HashMap<Integer, Integer> parent = new HashMap<>();
+        q.add(src);
+        while (!q.isEmpty()) {
+            int v = q.poll();
+            for (int u: G[v]) {
+                if (parent.containsKey(u)) {
+                    continue;
+                }
+                parent.put(u, v);
+                if (u == dst) {
+                    break;
+                }
+                q.add(u);
+            }
+        }
+        if (!parent.containsKey(dst)) {
+            return new ArrayList<Integer>();
+        }
+        List<Integer> res = new ArrayList<>();
+        int v = dst;
+        res.add(v);
+        while (true) {
+            v = parent.get(v);
+            res.add(0, v);
+            if (v == src) {
+                return res;
+            }
+        }
+    }
 }
