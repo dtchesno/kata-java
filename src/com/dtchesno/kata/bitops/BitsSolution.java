@@ -197,4 +197,17 @@ public class BitsSolution {
         } while (carry != 0);
         return a;
     }
+
+    // rotate number to right
+    // byte-by-byte #36 pg32
+    public static int rotate(int value, int n) {
+        n %= 32;
+        if (n == 0) return value;
+
+        // TODO: no masks needed - just combine shift!!!
+        int lmask = (1 << n) - 1;
+        int lower = value & lmask;
+        int upper = value & (~lmask);
+        return (lower << (32 - n)) | (upper >>> n);
+    }
 }

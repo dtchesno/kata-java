@@ -220,4 +220,46 @@ public class MiscSolution {
         }
         return next.toString();
     }
+
+    // calculate real square root with given error tolerance
+    // Aziz #12.5 pg.195
+    public static double squareRoot(double x, double epsilon) {
+        if (x < 0) return -1;
+        if (x == 0) return 0;
+        double left;
+        double right;
+        if (x < 1.0) {
+            left = x;
+            right = 1.0;
+        } else {
+            left = 1.0;
+            right = x;
+        }
+
+        //while (compare(left, right, epsilon) < 0) {
+        while (left < right) {
+            double mid = (left + right) / 2;
+            double midSquared = mid * mid;
+            if (compare(midSquared, x, epsilon) == 0) {
+                return mid;
+            }
+            if (x > midSquared) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+
+    private static int compare(double v1, double v2, double epsilon) {
+        double diff = v1 - v2;
+        if (diff < 0 && -diff > epsilon) {
+            return -1;
+        }
+        if (diff > 0 && diff > epsilon) {
+            return 1;
+        }
+        return 0;
+    }
 }

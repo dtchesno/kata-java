@@ -118,4 +118,12 @@ public class BitTest {
         assertEquals(4 * 6, BitsSolution.multiply(4, 6));
         assertEquals(7 * 3, BitsSolution.multiply(7, 3));
     }
+
+    @Test
+    public void testRotate() {
+        assertEquals(0x00ffff00, BitsSolution.rotate(0xffff0000, 8));
+        assertEquals(0xbdf13579, BitsSolution.rotate(0x13579bdf, 12));
+        assertEquals(0b10000111110000000101100111000111,
+                BitsSolution.rotate(0b10110011100011110000111110000000, 17));
+    }
 }

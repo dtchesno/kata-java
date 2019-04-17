@@ -91,4 +91,15 @@ public class CareerCupTest {
         assertEquals("31131211131221", MiscSolution.lookAndSay(9));
         assertEquals("13211311123113112211", MiscSolution.lookAndSay(10));
     }
+
+    @Test
+    public void testSquareRoot() {
+        double[] values = new double[] { 0, 0.1, 0.55, 1.0, 2.0, 3.0, 1111.123 };
+        double epsilon = 0.001;
+        for (double val: values) {
+            double root = MiscSolution.squareRoot(val, epsilon);
+            double tested = root * root;
+            assertTrue((tested < val + epsilon) && (tested > val - epsilon));
+        }
+    }
 }
