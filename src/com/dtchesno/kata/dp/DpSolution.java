@@ -127,12 +127,9 @@ public class DpSolution {
     // [selected - 1]
     public static int minChange(int sum, int[] coins) {
         int[] mem = new int[sum + 1];
-        Arrays.fill(mem, Integer.MAX_VALUE);
-        for (int c: coins) {
-            if (c >= mem.length) {
-                break;
-            }
-            mem[c] = 1;
+        for (int coin: coins) {
+            if (coin > sum) continue;
+            mem[coin] = 1;
         }
         return minChangeDP(sum, coins, mem);
     }
@@ -141,12 +138,11 @@ public class DpSolution {
         if (sum == 0) {
             return 0;
         }
-        if (mem[sum] == Integer.MAX_VALUE) {
-            for (int c: coins) {
-                if (c > sum) {
-                    break;
-                }
-                mem[sum] = Math.min(mem[sum], 1 + minChangeDP(sum - c, coins, mem));
+        if (mem[sum] == 0) {
+            mem[sum] = Integer.MAX_VALUE;
+            for (int coin: coins) {
+                if (coin > sum) continue;
+                mem[sum] = Integer.min(mem[sum], 1 + minChangeDP(sum - coin, coins, mem));
             }
         }
         return mem[sum];
