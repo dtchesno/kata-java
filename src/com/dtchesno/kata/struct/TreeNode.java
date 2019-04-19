@@ -208,30 +208,28 @@ public class TreeNode {
 
 
     // find all paths which sum up to the given sum, not need to start @root
-    // Cracking...4.8 pg.130
+    // Cracking...4.8 pg.131
     // [selected - 1]
     public Set<ArrayList<Integer>> findSum(int sum) {
         Set<ArrayList<Integer>> acc = new HashSet<>();
-        findSum(this, sum, new ArrayList<Integer>(), 0, acc);
+        findSum(this, sum, new ArrayList<Integer>(), acc);
         return acc;
     }
 
-    private static void findSum(TreeNode t, int sum, ArrayList<Integer> buffer, int level, Set<ArrayList<Integer>> acc) {
-        if (t == null) {
-            return;
-        }
+    private static void findSum(TreeNode t, int sum, ArrayList<Integer> buffer, Set<ArrayList<Integer>> acc) {
+        if (t == null) return;
         buffer.add(t.key);
-        int tmpSum = sum;
-        for (int i = level; i > -1; i--) {
-            tmpSum -= buffer.get(i);
-            if (tmpSum == 0) {
-                acc.add(new ArrayList<>(buffer.subList(i, level + 1)));
+
+        int pathSum = 0;
+        for (int i = buffer.size() - 1; i >= 0; i--) {
+            pathSum += buffer.get(i);
+            if (pathSum == sum) {
+                acc.add(new ArrayList<>(buffer.subList(i, buffer.size())));
             }
         }
-        ArrayList<Integer> left = (ArrayList<Integer>) buffer.clone();
-        findSum(t.left, sum, left, level + 1, acc);
-        ArrayList<Integer> right = (ArrayList<Integer>) buffer.clone();
-        findSum(t.right, sum, right, level + 1, acc);
+        findSum(t.left, sum, buffer, acc);
+        findSum(t.right, sum, buffer, acc);
+        buffer.remove(buffer.size() - 1);
     }
 
 
