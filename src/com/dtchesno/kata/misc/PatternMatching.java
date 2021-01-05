@@ -9,36 +9,46 @@ public class PatternMatching {
     // Hard - facebook, amazon
     public static boolean isMatch(String s, String p) {
         if (s == null || p == null) return false;
-        return isMatch(s, p, 0, 0);
+
+        // -1 - no match, 1 - match, 0 - not calculated
+        int[][] mem = new int[s.length() + 1][p.length() + 1];
+        return isMatch(s, p, 0, 0, mem);
     }
 
-    private static boolean isMatch(String s, String p, int i, int j) {
-        if (i == s.length() && j == p.length()) {
-            return true;
-        }
-        if (j == p.length()) {
+    private static boolean isMatch(String s, String p, int i, int j, int[][] mem) {
+        if (i > s.length() || j > p.length()) {
             return false;
         }
-        if (p.charAt(j) == '*') return false;
 
-        if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
-            return isMatchStar(s, p, i, j);
+        if (mem[i][j] != 0) {
+            return mem[i][j] == 1;
         }
 
-        if (p.charAt(j) == '.' || (i < s.length() && p.charAt(j) == s.charAt(i))) {
-            return isMatch(s, p, i + 1, j + 1);
+        if (i == s.length() && j == p.length()) {
+            mem[i][j] = 1;
+        } else if (j == p.length()) {
+            mem[i][j] = -1;
+        } else if (p.charAt(j) == '*') {
+            mem[i][j] = -1;
+        } else if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
+            mem[i][j] = isMatchStar(s, p, i, j, mem) ? 1 : -1;
+        } else if (p.charAt(j) == '.' || (i < s.length() && p.charAt(j) == s.charAt(i))) {
+            mem[i][j] = isMatch(s, p, i + 1, j + 1, mem) ? 1 : -1;
+        } else {
+            mem[i][j] = -1;
         }
-        return false;
+
+        return mem[i][j] == 1;
     }
 
-    private static boolean isMatchStar(String s, String p, int i, int j) {
+    private static boolean isMatchStar(String s, String p, int i, int j, int[][] mem) {
         char repeated = p.charAt(j);
         j += 2;
         while (i < s.length() && (s.charAt(i) == repeated || repeated == '.')) {
-            if (isMatch(s, p, i++, j)) {
+            if (isMatch(s, p, i++, j, mem)) {
                 return true;
             }
         }
-        return isMatch(s, p, i, j);
+        return isMatch(s, p, i, j, mem);
     }
 }

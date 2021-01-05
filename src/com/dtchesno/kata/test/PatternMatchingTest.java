@@ -23,21 +23,6 @@ public class PatternMatchingTest {
     }
 
     @Test
-    public void testTestScheduler() {
-        assertEquals(6, TaskScheduler.leastInterval(new char[] {'A', 'A', 'A', 'B', 'B', 'B'}, 0));
-        assertEquals(8, TaskScheduler.leastInterval(new char[] {'A', 'A', 'A', 'B', 'B', 'B'}, 2));
-        assertEquals(16, TaskScheduler.leastInterval(
-                new char[] {'A','A','A','A','A','A','B','C','D','E','F','G'}, 2));
-    }
-
-    @Test
-    public void testReaarangeString() {
-        assertEquals("abcabc", TaskScheduler.rearrangeString("aabbcc", 3));
-        assertEquals("", TaskScheduler.rearrangeString("aaabc", 3));
-        assertEquals("abcadbca", TaskScheduler.rearrangeString("aaadbbcc", 2));
-    }
-
-    @Test
     public void PatterMatching_IsMatch() {
         assertFalse(PatternMatching.isMatch("aa", "a"));
         assertTrue(PatternMatching.isMatch("aa", "a*"));
@@ -46,6 +31,7 @@ public class PatternMatchingTest {
         assertFalse(PatternMatching.isMatch("mississippi", "mis*is*p*."));
         assertTrue(PatternMatching.isMatch("a", "ab*"));
         assertFalse(PatternMatching.isMatch("ab", ".*c"));
+        assertFalse(PatternMatching.isMatch("a", ".*..a*"));
     }
 
     @Test
