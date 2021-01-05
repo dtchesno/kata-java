@@ -10,8 +10,6 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 
 public class RecursionTest {
 
@@ -81,17 +79,5 @@ public class RecursionTest {
         assertEquals(true, Arrays.equals(
                 new int[] { 1, 2, 3, 4, 5, 6, 7 },
                 RecursionSolution.sortStack(new int[] { 7, 1, 3, 5, 2, 4, 6})));
-    }
-
-    @Test
-    public void testIsMatch() {
-        assertFalse(RecursionSolution.isMatch("aa", "a"));
-        assertTrue(RecursionSolution.isMatch("aa", "a*"));
-        assertTrue(RecursionSolution.isMatch("ab", ".*"));
-        assertTrue(RecursionSolution.isMatch("aab", "c*a*b"));
-        assertFalse(RecursionSolution.isMatch("mississippi", "mis*is*p*."));
-
-        assertTrue(RecursionSolution.isMatch("a", "ab*"));
-        assertFalse(RecursionSolution.isMatch("ab", ".*c"));
     }
 }
