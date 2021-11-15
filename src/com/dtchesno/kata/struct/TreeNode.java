@@ -29,6 +29,11 @@ public class TreeNode {
         key = value;
     }
 
+    // new TreeNode(new Integer[] { 3, 5, 1, 6, 2, 0, 8, null, null, 7, 4 })
+    //              3
+    //       5              1
+    //    1      6        0    8
+    //          7 4
     public TreeNode(Integer[] values) {
         LinkedList<TreeNode> q = new LinkedList<>();
         this.key = values[0];
@@ -317,46 +322,45 @@ public class TreeNode {
         HashMap<TreeNode, int[]> hash = new HashMap<>();
 
         calculateSum(tree, hash);
-        calculateParentSum(0, 0, tree, hash);
-
         return isHalfCuttable(tree, hash);
     }
 
-    // test recursively
-    private static boolean isHalfCuttable(TreeNode node, HashMap<TreeNode, int[]> hash) {
-        if (node == null) {
+    private static boolean isHalfCuttable(TreeNode root, Map<TreeNode, int[]> hash) {
+        if (root == null) {
             return false;
         }
 
-        // test we could cut left or right sub-tree
-        int[] sums = hash.get(node);
-        if (sums[0] + node.key + sums[1] == sums[2] || sums[0] + node.key + sums[2] == sums[1]) {
+        int[] sums = hash.get(root);
+
+        if (sums[0] == 2 * (root.key + sums[1] + sums[2])
+                || sums[1] == root.key + sums[2] + sums[0]
+                || sums[2] == root.key + sums[1] + sums[0]) {
             return true;
         }
 
-        // otherwise try to do so further for each sub-tree
-        return isHalfCuttable(node.left, hash) || isHalfCuttable(node.right, hash);
+        return isHalfCuttable(root.left, hash) || isHalfCuttable(root.right, hash);
     }
 
-    // calculate left & right sub-trees sums, store results in hash using node/parent as a key
-    private static int calculateSum(TreeNode tree, HashMap<TreeNode, int[]> hash) {
-        if (tree == null) {
+    private static int calculateSum(TreeNode node, Map<TreeNode, int[]> hash) {
+        if (node == null) {
             return 0;
         }
-        int lSum = calculateSum(tree.left, hash);
-        int rSum = calculateSum(tree.right, hash);
-        hash.put(tree, new int[] { 0, lSum, rSum });
-        return tree.key + lSum + rSum;
+
+        int[] sums = new int[] {0, 0, 0};
+        sums[1] = calculateSum(node.left, hash);
+        sums[2] = calculateSum(node.right, hash);
+        hash.put(node, sums);
+        setParentSum(node.left, node.key + sums[2], hash);
+        setParentSum(node.right, node.key + sums[1], hash);
+        return node.key + sums[1] + sums[2];
     }
 
-    // calculate 'upstream' tree sum, [whole tree sum] - [node value] - [this node sub-trees sums]; store in hash
-    private static void calculateParentSum(int parent, int sibling, TreeNode node, HashMap<TreeNode, int[]> hash) {
+    private static void setParentSum(TreeNode node, int parentSum, Map<TreeNode, int[]> hash) {
         if (node == null) {
             return;
         }
-        (hash.get(node))[0] = parent + sibling;
-        calculateParentSum(node.key, (hash.get(node))[2], node.left, hash);
-        calculateParentSum(node.key, (hash.get(node))[1], node.right, hash);
+        int[] sums = hash.get(node);
+        sums[0] = parentSum;
     }
 
 
@@ -374,26 +378,27 @@ public class TreeNode {
         if (root == null) {
             return new int[] {-1, -1};
         }
-        int[] left = distanceH(root.left, node1, node2);
-        int[] right = distanceH(root.right, node1, node2);
-        if (left[0] >= 0 && left[1] >= 0) {
-            return left;
-        }
-        if (right[0] >= 0 && right[1] >= 0) {
-            return right;
-        }
-        left[0] = Integer.max(left[0], right[0]);
-        left[1] = Integer.max(left[1], right[1]);
-        left[0] = (left[0] == -1) ? -1 : left[0] + 1;
-        left[1] = (left[1] == -1) ? -1 : left[1] + 1;
 
-        if (root == node1) {
-            left[0] = 0;
+        int[] leftDistance = distanceH(root.left, node1, node2);
+        int[] rightDistance = distanceH(root.right, node1, node2);
+
+        // both are in left subtree
+        if (leftDistance[0] >= 0 && leftDistance[1] >= 0) {
+            return leftDistance;
         }
-        if (root == node2) {
-            left[1] = 0;
+
+        // both are in right subtree
+        if (rightDistance[0] >= 0 && rightDistance[1] >= 0) {
+            return rightDistance;
         }
-        return left;
+
+        // node could be the same as root, in left/right subtree or not found in either
+        int distance1 = Math.max(leftDistance[0], rightDistance[0]);
+        int distance2 = Math.max(leftDistance[1], rightDistance[1]);
+        return new int[] {
+                root == node1 ? 0 : distance1 == -1 ? -1 : 1 + distance1,
+                root == node2 ? 0 : distance2 == -1 ? -1 : 1 + distance2
+        };
     }
 
 

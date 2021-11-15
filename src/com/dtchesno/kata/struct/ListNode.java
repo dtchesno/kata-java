@@ -48,6 +48,7 @@ public class ListNode {
     // find begin of circle
     // cracking the coding interview #2.5 pg.109
     // [selected - 1]
+    // s1->(s2+s3); s1 + s2 = (s1 + s2 + k * (s2 + s3)) / 2 => s1 = (k - 1) * (s2 + s3) + s3
     public static ListNode findStartLoop(ListNode root) {
         ListNode ptr = root.next;
         ListNode runner = root.next.next;
@@ -63,7 +64,6 @@ public class ListNode {
         }
         return runner;
     }
-
 
     // 0, 1, 2, 3, 4, 5 -> 0, 5, 1, 4, 2, 3 // n0, nlast, n1, nlast-1...
     public static ListNode reorder(ListNode root) {

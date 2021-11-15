@@ -29,7 +29,7 @@ public class RecursionTest {
         expected.add("(())()");
         expected.add("((()))");
         expected.add("(()())");
-        assertEquals(expected, RecursionSolution.permuteBraces(3));
+        assertEquals(expected, new HashSet<String>(RecursionSolution.permuteBraces(3)));
     }
 
     @Test

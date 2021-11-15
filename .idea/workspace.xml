@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07e19c97-bd1d-4234-a34c-a383936823b7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/PatternMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/PatternMatching.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/PatternMatchingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/PatternMatchingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -36,19 +40,29 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.dtchesno.kata.misc" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.dtchesno.kata.struct" />
       <recent name="com.dtchesno.kata.test" />
       <recent name="com.dtchesno.kata.tasks" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
   </component>
-  <component name="RunManager" selected="JUnit.PatternMatchingTest.PatterMatching_IsMatch">
-    <configuration name="PatternMatchingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.RecursionTest.testSortStack">
+    <configuration name="LRUCacheTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -57,45 +71,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.PatternMatchingTest" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.LRUCacheTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PatternMatchingTest.PatterMatching_IsMatch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kata-java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.PatternMatchingTest" />
-      <option name="METHOD_NAME" value="PatterMatching_IsMatch" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PatternMatchingTest.testWildcardMatching" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kata-java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.PatternMatchingTest" />
-      <option name="METHOD_NAME" value="testWildcardMatching" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RecursionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RecursionTest.testBracePermutations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -105,12 +87,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
       <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.RecursionTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="testBracePermutations" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.dtchesno.kata.test in kata-java" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RecursionTest.testGetAllPermutations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -119,18 +102,52 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.RecursionTest" />
+      <option name="METHOD_NAME" value="testGetAllPermutations" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RecursionTest.testSortStack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kata-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.RecursionTest" />
+      <option name="METHOD_NAME" value="testSortStack" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StructTest.testPQueue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kata-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.StructTest" />
+      <option name="METHOD_NAME" value="testPQueue" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PatternMatchingTest.PatterMatching_IsMatch" />
-        <item itemvalue="JUnit.com.dtchesno.kata.test in kata-java" />
-        <item itemvalue="JUnit.PatternMatchingTest" />
-        <item itemvalue="JUnit.RecursionTest" />
-        <item itemvalue="JUnit.PatternMatchingTest.testWildcardMatching" />
+        <item itemvalue="JUnit.RecursionTest.testSortStack" />
+        <item itemvalue="JUnit.RecursionTest.testGetAllPermutations" />
+        <item itemvalue="JUnit.RecursionTest.testBracePermutations" />
+        <item itemvalue="JUnit.StructTest.testPQueue" />
+        <item itemvalue="JUnit.LRUCacheTest" />
       </list>
     </recent_temporary>
   </component>
@@ -148,74 +165,76 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="3021" y="229" key="#com.intellij.ide.util.MemberChooser" timestamp="1608701315428">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state x="3021" y="229" key="#com.intellij.ide.util.MemberChooser/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1608701315428" />
-    <state x="2884" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1608756845366">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2884" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1608756845366" />
-    <state width="429" height="466" key="DebuggerActiveHint" timestamp="1608703332352">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state width="429" height="466" key="DebuggerActiveHint/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1608703332352" />
-    <state width="302" height="442" key="Diff.GoToChangePopup" timestamp="1609820721578">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state width="302" height="442" key="Diff.GoToChangePopup/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609820721578" />
-    <state x="2348" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1609820788688">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2348" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609820788688" />
-    <state width="1877" height="343" key="GridCell.Tab.0.bottom" timestamp="1609825531835">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="362" key="GridCell.Tab.0.bottom/0.0.1504.963/2256.0.1920.1040@0.0.1504.963" timestamp="1609787436180" />
-    <state width="1877" height="343" key="GridCell.Tab.0.bottom/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609825531835" />
-    <state width="1877" height="343" key="GridCell.Tab.0.center" timestamp="1609825531835">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="362" key="GridCell.Tab.0.center/0.0.1504.963/2256.0.1920.1040@0.0.1504.963" timestamp="1609787436179" />
-    <state width="1877" height="343" key="GridCell.Tab.0.center/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609825531835" />
-    <state width="1877" height="343" key="GridCell.Tab.0.left" timestamp="1609825531834">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="362" key="GridCell.Tab.0.left/0.0.1504.963/2256.0.1920.1040@0.0.1504.963" timestamp="1609787436179" />
-    <state width="1877" height="343" key="GridCell.Tab.0.left/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609825531834" />
-    <state width="1877" height="343" key="GridCell.Tab.0.right" timestamp="1609825531835">
-      <screen x="2256" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="362" key="GridCell.Tab.0.right/0.0.1504.963/2256.0.1920.1040@0.0.1504.963" timestamp="1609787436179" />
-    <state width="1877" height="343" key="GridCell.Tab.0.right/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609825531835" />
-    <state width="1877" height="362" key="GridCell.Tab.1.bottom" timestamp="1609787436181">
+    <state x="409" y="76" key="CommitChangelistDialog2" timestamp="1636848985027">
       <screen x="0" y="0" width="1504" height="963" />
     </state>
-    <state width="1877" height="362" key="GridCell.Tab.1.bottom/0.0.1504.963/2256.0.1920.1040@0.0.1504.963" timestamp="1609787436181" />
-    <state width="1877" height="362" key="GridCell.Tab.1.bottom/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609212207785" />
-    <state width="1877" height="362" key="GridCell.Tab.1.center" timestamp="1609787436180">
+    <state x="-3318" y="82" key="CommitChangelistDialog2/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772295517" />
+    <state x="409" y="76" key="CommitChangelistDialog2/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636848985027" />
+    <state width="433" height="432" key="DebuggerActiveHint" timestamp="1636924437451">
       <screen x="0" y="0" width="1504" height="963" />
     </state>
-    <state width="1877" height="362" key="GridCell.Tab.1.center/0.0.1504.963/2256.0.1920.1040@0.0.1504.963" timestamp="1609787436180" />
-    <state width="1877" height="362" key="GridCell.Tab.1.center/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609212207785" />
-    <state width="1877" height="362" key="GridCell.Tab.1.left" timestamp="1609787436180">
+    <state width="410" height="466" key="DebuggerActiveHint/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636120448807" />
+    <state width="433" height="432" key="DebuggerActiveHint/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924437451" />
+    <state width="1461" height="85" key="GridCell.Tab.0.bottom" timestamp="1636938318191">
       <screen x="0" y="0" width="1504" height="963" />
     </state>
-    <state width="1877" height="362" key="GridCell.Tab.1.left/0.0.1504.963/2256.0.1920.1040@0.0.1504.963" timestamp="1609787436180" />
-    <state width="1877" height="362" key="GridCell.Tab.1.left/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609212207785" />
-    <state width="1877" height="362" key="GridCell.Tab.1.right" timestamp="1609787436181">
+    <state width="1878" height="257" key="GridCell.Tab.0.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
+    <state width="1461" height="85" key="GridCell.Tab.0.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636938318191" />
+    <state width="1461" height="234" key="GridCell.Tab.0.bottom/0.0.1504.963@0.0.1504.963" timestamp="1636242409084" />
+    <state width="1461" height="85" key="GridCell.Tab.0.center" timestamp="1636938318191">
       <screen x="0" y="0" width="1504" height="963" />
     </state>
-    <state width="1877" height="362" key="GridCell.Tab.1.right/0.0.1504.963/2256.0.1920.1040@0.0.1504.963" timestamp="1609787436181" />
-    <state width="1877" height="362" key="GridCell.Tab.1.right/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609212207785" />
-    <state x="2912" y="118" width="607" height="804" key="find.popup" timestamp="1609821043152">
-      <screen x="2256" y="0" width="1920" height="1040" />
+    <state width="1878" height="257" key="GridCell.Tab.0.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
+    <state width="1461" height="85" key="GridCell.Tab.0.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636938318191" />
+    <state width="1461" height="234" key="GridCell.Tab.0.center/0.0.1504.963@0.0.1504.963" timestamp="1636242409084" />
+    <state width="1461" height="85" key="GridCell.Tab.0.left" timestamp="1636938318191">
+      <screen x="0" y="0" width="1504" height="963" />
     </state>
-    <state x="2912" y="118" width="607" height="804" key="find.popup/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1609821043152" />
-    <state x="2872" y="173" width="672" height="676" key="search.everywhere.popup" timestamp="1608703842140">
-      <screen x="2256" y="0" width="1920" height="1040" />
+    <state width="1878" height="257" key="GridCell.Tab.0.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
+    <state width="1461" height="85" key="GridCell.Tab.0.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636938318191" />
+    <state width="1461" height="234" key="GridCell.Tab.0.left/0.0.1504.963@0.0.1504.963" timestamp="1636242409084" />
+    <state width="1461" height="85" key="GridCell.Tab.0.right" timestamp="1636938318191">
+      <screen x="0" y="0" width="1504" height="963" />
     </state>
-    <state x="2872" y="173" width="672" height="676" key="search.everywhere.popup/0.0.1504.963/2256.0.1920.1040@2256.0.1920.1040" timestamp="1608703842140" />
+    <state width="1878" height="257" key="GridCell.Tab.0.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
+    <state width="1461" height="85" key="GridCell.Tab.0.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636938318191" />
+    <state width="1461" height="234" key="GridCell.Tab.0.right/0.0.1504.963@0.0.1504.963" timestamp="1636242409084" />
+    <state width="1461" height="365" key="GridCell.Tab.1.bottom" timestamp="1636924570080">
+      <screen x="0" y="0" width="1504" height="963" />
+    </state>
+    <state width="1878" height="400" key="GridCell.Tab.1.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636121120203" />
+    <state width="1461" height="365" key="GridCell.Tab.1.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924570080" />
+    <state width="1461" height="283" key="GridCell.Tab.1.bottom/0.0.1504.963@0.0.1504.963" timestamp="1636242327609" />
+    <state width="1461" height="365" key="GridCell.Tab.1.center" timestamp="1636924570073">
+      <screen x="0" y="0" width="1504" height="963" />
+    </state>
+    <state width="1878" height="400" key="GridCell.Tab.1.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636121120203" />
+    <state width="1461" height="365" key="GridCell.Tab.1.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924570073" />
+    <state width="1461" height="283" key="GridCell.Tab.1.center/0.0.1504.963@0.0.1504.963" timestamp="1636242327608" />
+    <state width="1461" height="365" key="GridCell.Tab.1.left" timestamp="1636924570073">
+      <screen x="0" y="0" width="1504" height="963" />
+    </state>
+    <state width="1878" height="400" key="GridCell.Tab.1.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636121120203" />
+    <state width="1461" height="365" key="GridCell.Tab.1.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924570073" />
+    <state width="1461" height="283" key="GridCell.Tab.1.left/0.0.1504.963@0.0.1504.963" timestamp="1636242327608" />
+    <state width="1461" height="365" key="GridCell.Tab.1.right" timestamp="1636924570073">
+      <screen x="0" y="0" width="1504" height="963" />
+    </state>
+    <state width="1878" height="400" key="GridCell.Tab.1.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636121120203" />
+    <state width="1461" height="365" key="GridCell.Tab.1.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924570073" />
+    <state width="1461" height="283" key="GridCell.Tab.1.right/0.0.1504.963@0.0.1504.963" timestamp="1636242327608" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1636852512986">
+      <screen x="0" y="0" width="1504" height="963" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636852512986" />
+    <state x="409" y="222" key="run.anything.popup" timestamp="1636220059419">
+      <screen x="0" y="0" width="1504" height="963" />
+    </state>
+    <state x="409" y="222" key="run.anything.popup/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636220059419" />
+    <state x="415" y="206" width="672" height="678" key="search.everywhere.popup" timestamp="1636174995346">
+      <screen x="0" y="0" width="1504" height="963" />
+    </state>
+    <state x="415" y="206" width="672" height="678" key="search.everywhere.popup/0.0.1504.963@0.0.1504.963" timestamp="1636174995346" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -255,7 +274,43 @@
           <line>60</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>171</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>165</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java</url>
+          <line>187</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
+          <line>324</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
+          <line>332</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
+          <line>397</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="sb.length()" language="JAVA" />
+        <watch expression="part.length()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

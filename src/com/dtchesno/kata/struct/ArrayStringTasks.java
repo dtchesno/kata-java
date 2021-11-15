@@ -124,6 +124,61 @@ public class ArrayStringTasks {
         return -1;
     }
 
+
+    // https://leetcode.com/problems/remove-all-occurrences-of-a-substring/
+    public static String removeOccurrences(String s, String part) {
+
+        if (part.length() > s.length()) {
+            return s;
+        }
+
+        if (s.equals(part)) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder(s);
+
+        int[] hashes = new int[sb.length()];
+        int shash = 0;
+        int phash = 0;
+        int base = 26;
+        int power = 1;
+
+        for (int i = 0; i < part.length(); i++) {
+            phash = phash * base + part.charAt(i);
+            power = (i == 0) ? 1 : power * base;
+        }
+
+        int length = sb.length();
+        int index = 0;
+        while (index < length) {
+            if (index < part.length()) {
+                shash = index == 0 ? 0 : hashes[index - 1];
+                shash = shash * base + sb.charAt(index);
+                hashes[index] = shash;
+            } else {
+                shash = hashes[index - 1] - sb.charAt(index - part.length()) * power;
+                shash = shash * base + sb.charAt(index);
+                hashes[index] = shash;
+            }
+
+            // check hash match
+            if (shash == phash && part.equals(sb.substring(index - part.length() + 1, index + 1))) {
+                sb.delete(index - part.length() + 1, index + 1);
+                index = index - part.length() + 1;
+                length -= part.length();
+                if (index < length) {
+                    hashes[index] -= part.charAt(0);
+                    hashes[index] += sb.charAt(index);
+                }
+            } else {
+                index++;
+            }
+        }
+
+        return sb.toString().equals(part) ? "" : sb.toString();
+    }
+
     // find any subarray which sum == 0
     // byte-by-byte #11 pg.11
     // [selected - 2]
