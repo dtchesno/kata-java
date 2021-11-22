@@ -29,7 +29,7 @@ public class TreeNode {
         key = value;
     }
 
-    // new TreeNode(new Integer[] { 3, 5, 1, 6, 2, 0, 8, null, null, 7, 4 })
+    // new TreeNode(new Integer[] { 3, 5, 1, 1, 6, 0, 8, null, null, 7, 4 })
     //              3
     //       5              1
     //    1      6        0    8
@@ -454,6 +454,49 @@ public class TreeNode {
         }
     }
 
+    // Aziz 10.15 pg169
+    // [selected - 2]
+    public static List<Integer> exteriorBinaryTree(TreeNode root) {
+        ArrayList<Integer> result = new ArrayList<>();
+        if (root != null) {
+            result.add(root.key);
+            exteriorAddLeftAndLeaves(root.left, true, result);
+            exteriorAddRightAndLeaves(root.right, true, result);
+        }
+        return result;
+    }
+
+    private static void exteriorAddLeftAndLeaves(TreeNode node, boolean isBoundary, List<Integer> result) {
+        if (node == null) {
+            return;
+        }
+        if (isBoundary || isLeaf(node)) {
+            result.add(node.key);
+        }
+        exteriorAddLeftAndLeaves(node.left, isBoundary, result);
+        exteriorAddLeftAndLeaves(node.right, isBoundary && node.left == null, result);
+    }
+
+    private static void exteriorAddRightAndLeaves(TreeNode node, boolean isBoundary, List<Integer> result) {
+        if (node == null) {
+            return;
+        }
+        exteriorAddRightAndLeaves(node.left, isBoundary && node.right == null, result);
+        exteriorAddRightAndLeaves(node.right, isBoundary, result);
+        if (isBoundary || isLeaf(node)) {
+            result.add(node.key);
+        }
+    }
+
+    private static boolean isLeaf(TreeNode node) {
+        return node.left == null && node.right == null;
+    }
+
+    // done
+    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iv/
+    // https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
+    // https://leetcode.com/problems/binary-tree-cameras/
 
     // TODO:
     // https://leetcode.com/discuss/interview-question/125084/given-a-binary-search-tree-find-the-distance-between-2-nodes

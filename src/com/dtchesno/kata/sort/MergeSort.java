@@ -5,8 +5,7 @@ import java.util.Arrays;
 public class MergeSort {
 
     public static void sort(int[] buf) {
-        //int[] result = new int[buf.length];
-        int[] temp = Arrays.copyOf(buf, buf.length);
+        int[] temp = new int[buf.length];
         mergesort(buf, temp, 0, buf.length - 1);
     }
 

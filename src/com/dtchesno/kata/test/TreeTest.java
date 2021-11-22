@@ -273,4 +273,10 @@ public class TreeTest {
         assertEquals(1, TreeNode.distance(t, t.left.left, t.left));
         assertEquals(4, TreeNode.distance(t, t.left.left, t.right.left));
     }
+
+    @Test
+    public void testExteriorBinaryTree() {
+        TreeNode t = new TreeNode(new Integer[] { 3, 5, 1, 1, 6, 0, 8, null, null, 7, 4 });
+        assertEquals(Arrays.asList(3, 5, 1, 7, 4, 0, 8, 1), TreeNode.exteriorBinaryTree(t));
+    }
 }

@@ -50,6 +50,8 @@ public class Graph {
         }
     }
 
+    // builds graph of vertices [0..size) with edges from endpoints,
+    // where each pair (two consecutive numbers) has two connected vertices (start/send)
     public Graph(boolean isDirected, int size, int[] endpoints) {
         this.edges = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
@@ -120,32 +122,46 @@ public class Graph {
 
 
     // return min distance form source to all nodes
-    // edges[i] is int[][], array of int pairs - vertex connected to i vertex and weight of the edge
+    // g[i] is int[][], array of int pairs - vertex connected to i vertex and weight of the edge
     public static int[] dijkstra(int[][][] g, int source) {
-        int n = g.length;
-        int[] distance = new int[n];
-        HashMap<Integer, int[]> ref = new HashMap<>();
+        // result distance array
+        int[] distance = new int[g.length];
 
-        // [0] - vertex, [1] - distance
-        PriorityQueue<int[]> q = new PriorityQueue<>(n, (v1, v2) -> { return v1[1] - v2[1]; });
+        // cache for quick access to distance-to-vertex
+        // this could be map(int, int), but we reuse the same array we use in p.queue for bfs, where we need source->(dest, distance)
+        HashMap<Integer, int[]> cache = new HashMap<>();
+
+        // priority queue for bfs over closest vertices
+        PriorityQueue<int[]> q = new PriorityQueue<>(g.length, (a, b) -> a[1] - b[1]);
+
+        // build initial distances from source;
+        // put that into cache and into queue for bfs traversal
         for (int i = 0; i < g.length; i++) {
-            int[] d = new int[] {i, i == source ? 0 : Integer.MAX_VALUE};
-            ref.put(i, d);
-            q.add(d);
-            distance[i] = d[1];
+            int[] intialDistance = new int[] { i, i == source ? 0 : Integer.MAX_VALUE };
+            cache.put(i, intialDistance);
+            q.add(intialDistance);
+            distance[i] = intialDistance[1];
         }
 
         while (!q.isEmpty()) {
-            int[] u = q.poll();
-            for (int[] v: g[u[0]]) {
-                int alt = u[1] + v[1];
-                if (alt < distance[v[0]]) {
-                    distance[v[0]] = alt;
-                    // update in heap
-                    int[] r = ref.get(v[0]);
-                    q.remove(r);
-                    r[1] = alt;
-                    q.add(r);
+
+            // closest vertex to source as of now
+            int[] path = q.poll();
+            int v = path[0];
+            int vDistance = path[1];
+
+            // let's reevaluate neighbours distances
+            for (int[] edge : g[v]) {
+                int u = edge[0];
+                int vToUDistance = edge[1];
+                int[] uDistance = cache.get(u);
+
+                // it appears we can reach 'u' from source via 'v' faster
+                if (vDistance + vToUDistance < uDistance[1]) {
+                    uDistance[1] = vDistance + vToUDistance;
+                    distance[u] = uDistance[1];
+                    cache.put(u, uDistance);
+                    q.add(uDistance);
                 }
             }
         }
@@ -160,16 +176,16 @@ public class Graph {
         int[] state = new int[G.length];
         LinkedList<Integer> q = new LinkedList<>();
         q.add(0);
-        state[0] = 1;
+        state[0] = 1; // discovered
         while (!q.isEmpty()) {
             int v = q.poll();
             for (int u: G[v]) {
                 if (state[u] == 0) {
                     q.add(u);
-                    state[u] = 1;
+                    state[u] = 1; // discovered
                 }
             }
-            state[v] = 2;
+            state[v] = 2; // exhausted edges - processed
             res.add(v);
         }
         return res;
@@ -265,38 +281,37 @@ public class Graph {
     // e.g. [[0,1,100], [1,2,100], [0,2,500]], src=0, dst=2, k=1; result=200 (0->1->2)
     // https://leetcode.com/problems/cheapest-flights-within-k-stops/
     public static int findCheapest(int[][] flights, int src, int dst, int stops) {
-        HashMap<Integer, HashMap<Integer, Integer>> cost = new HashMap<>();
-        for (int[] flight: flights) {
-            int from = flight[0];
-            int to = flight[1];
-            int price = flight[2];
-            if (!cost.containsKey(from)) {
-                cost.put(from, new HashMap<>());
-            }
-            cost.get(from).put(to, price);
+        // cache connections & prices: start->{(dest, price)*}
+        Map<Integer, Map<Integer, Integer>> prices = new HashMap<>();
+        for (int[] flight : flights) {
+            Map<Integer, Integer> connections = prices.getOrDefault(flight[0], new HashMap<>());
+            connections.put(flight[1], flight[2]);
+            prices.put(flight[0], connections);
         }
 
-        // 0 - city (dest), 1 - number of rem.stops, 2 - price
-        PriorityQueue<int[]> q = new PriorityQueue<>((a, b)->a[2] - b[2]);
-        q.add(new int[] {src, stops, 0});
+        // p.queue: (port, stops, cost)
+        PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+        q.add(new int[] { src, stops,  0});
         while (!q.isEmpty()) {
-            int[] top = q.poll();
-            int city = top[0];
-            int nstops = top[1];
-            int price = top[2];
-            if (city == dst) {
-                return price;
+            int[] current = q.poll();
+            int port = current[0];
+            int remainingStops = current[1];
+            int cost = current[2];
+
+            if (port == dst) {
+                return cost;
             }
-            if (nstops < 0) {
+
+            if (remainingStops < 0 || !prices.containsKey(port))  {
                 continue;
             }
-            HashMap<Integer, Integer> connections = cost.get(city);
-            if (connections != null) {
-                for (Map.Entry<Integer, Integer> c: connections.entrySet()) {
-                    q.add(new int[] {c.getKey(), nstops - 1, c.getValue() + price});
-                }
+
+            // check for connections from current port
+            for (Map.Entry<Integer, Integer> next : prices.get(port).entrySet()) {
+                q.add(new int[] { next.getKey(), remainingStops - 1, cost + next.getValue() });
             }
         }
+
         return -1;
     }
 
@@ -331,6 +346,52 @@ public class Graph {
             if (v == src) {
                 return res;
             }
+        }
+    }
+
+
+    // find articulation point
+    public static List<Integer> findAP(int[][] G) {
+        boolean[] isAP = new boolean[G.length];
+        Arrays.fill(isAP, false);
+        int[] discovery = new int[G.length];
+        Arrays.fill(discovery, -1);
+        discovery[0] = 0;
+        int[] low = new int[G.length];
+        low[0] = -1;
+
+        findAPDfs(0, 0, G, -1, discovery, low, isAP);
+
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < isAP.length; i++) {
+            if (isAP[i]) {
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    private static void findAPDfs(int u, int time, int[][] G, int parent, int[] discovery, int[] low, boolean[] isAP) {
+        int children = 0;
+        discovery[u] = low[u] = time;
+        for (int v : G[u]) {
+            if (discovery[v] == -1) {
+                children++;
+                findAPDfs(v, time + 1, G, u, discovery, low, isAP);
+                low[u] = Math.min(low[u], low[v]);
+                if (parent != -1 && low[v] >= discovery[u]) {
+                    isAP[u] = true;
+                }
+            } else if (v != parent) {
+                // we should exclude connection to parent as we look for cycle
+                // we use discovery, but not low, otherwise we could get low thru ancestor (not parent)
+                low[u] = Math.min(low[u], discovery[v]);
+            }
+        }
+
+        // check for root
+        if (parent == -1 && children > 1) {
+            isAP[u] = true;
         }
     }
 }

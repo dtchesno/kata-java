@@ -125,4 +125,27 @@ public class GraphTest {
         assertEquals(Arrays.asList(4, 1), Graph.findShortestPath(G, 4, 1));
         assertEquals(Arrays.asList(), Graph.findShortestPath(G, 4, 0));
     }
+
+    @Test
+    public void testFindAp() {
+        int[][] G = new int[][]{
+            { 1, 2},
+            { 0, 3 },
+            { 0, 3 ,4 },
+            { 1, 2, 4 },
+            { 2, 3, 5, 6 },
+            { 4,6 },
+            { 4,5 }
+        };
+        assertEquals(Arrays.asList(4), Graph.findAP(G));
+
+        int[][] G2 = new int[][]{
+                { 1, 2, 3 },
+                { 0, 2 },
+                { 0, 1 },
+                { 0, 4 },
+                { 3 }
+        };
+        assertEquals(Arrays.asList(0, 3), Graph.findAP(G2));
+    }
 }

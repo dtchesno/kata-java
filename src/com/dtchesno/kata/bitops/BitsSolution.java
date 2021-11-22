@@ -6,10 +6,16 @@ public class BitsSolution {
     // Cracking... 5.1 pg.133
     // [selected - 1]
     public static int replace(int n, int m, int i, int j) {
-        int mask = (2 << (j - i)) - 1;
+        int mask = (1 << (j - i) + 1) - 1;
+
+        // this is what we want to apply as patch
         m &= mask;
         m <<= i;
+
+        // clear patch space
         n &= ~(mask << i);
+
+        // now 'm' will only apply to cleared patch space
         return n | m;
     }
 

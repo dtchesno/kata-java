@@ -1,6 +1,20 @@
 package com.dtchesno.kata.sort;
 
+import java.util.PriorityQueue;
+
 public class Tasks {
+    public static int findKthLargestSimple(int[] arr, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int i = 0; i < arr.length; i++) {
+            pq.add(arr[i]);
+        }
+        int ilargest = arr.length - k;
+        for (int i = 0; i < ilargest; i++) {
+            pq.remove();
+        }
+        return pq.peek();
+    }
+
     public static int findKthLargest(int[] arr, int k) {
         int p = -1;
         int i = 0;

@@ -84,4 +84,16 @@ public class DpTest {
         assertEquals(4, DpSolution.deleteDistance("horse", "ros"));
         assertEquals(2, DpSolution.deleteDistance("sea", "eat"));
     }
+
+    @Test
+    public void testFibonacci() {
+        assertEquals(0, DpSolution.fibonacci(0));
+        assertEquals(1, DpSolution.fibonacci(1));
+        assertEquals(1, DpSolution.fibonacci(2));
+        assertEquals(2, DpSolution.fibonacci(3));
+        assertEquals(3, DpSolution.fibonacci(4));
+        assertEquals(5, DpSolution.fibonacci(5));
+        assertEquals(8, DpSolution.fibonacci(6));
+        assertEquals(144, DpSolution.fibonacci(12));
+    }
 }

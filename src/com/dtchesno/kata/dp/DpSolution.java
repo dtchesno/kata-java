@@ -218,4 +218,22 @@ public class DpSolution {
         }
         return mem[len1][len2];
     }
+
+    public static int fibonacci(int index) {
+        if (index == 0) {
+            return 0;
+        }
+        if (index == 1) {
+            return 1;
+        }
+        int f1 = 0;
+        int f2 = 1;
+        int f = 0;
+        for (int i = 2; i <= index; i++) {
+            f = f1 + f2;
+            f1 = f2;
+            f2 = f;
+        }
+        return f;
+    }
 }

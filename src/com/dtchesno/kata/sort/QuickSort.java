@@ -20,16 +20,17 @@ public class QuickSort {
         data[j] = temp;
     }
 
+    // partition data[] and return index, so that, all in [start, index) are less than [index, end]
     private static int partition(int[] data, int start, int end) {
         int pivot = data[end];
-        int index = start;
+        int p = start;
         for (int i = start; i < end; i++) {
             if (data[i] <= pivot) {
-                swap(data, index, i);
-                index++;
+                swap(data, p, i);
+                p++;
             }
         }
-        swap(data, index, end);
-        return index;
+        swap(data, p, end);
+        return p;
     }
 }

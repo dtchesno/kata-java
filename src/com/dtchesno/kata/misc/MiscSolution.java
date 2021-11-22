@@ -182,6 +182,7 @@ public class MiscSolution {
         return arr;
     }
 
+    // https://www.careercup.com/question?id=5926214520799232
     public static boolean isOneEditAway(String s1, String s2) {
         int i = 0;
 
@@ -200,6 +201,7 @@ public class MiscSolution {
                 : s1.substring(i).equals(s2.substring(i + 1));
     }
 
+    // https://www.careercup.com/question?id=15519735
     public static String lookAndSay(int n) {
         String str = "1";
         for (int i = 1; i < n; i++) {

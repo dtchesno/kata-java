@@ -3,8 +3,14 @@ package com.dtchesno.kata.sort;
 public class HeapSort {
     public static void sort(int[] buf) {
         int size = buf.length;
-        heapify(buf, size);
+        heapify(buf);
 
+        // at the beginning entire buf is max-heap;
+        // we iteratively reduce size of heap at the beginning of buf and building sorted array at the end;
+        //  - swap top of heap (heap-max) with last element of heap buffer
+        //  - this prev heap-end cell  becomes head of sorted array at the end of buf[]
+        //  - now restore heap property by sifting down new heap head
+        //  - iterate
         while (size > 1) {
             swap(buf, 0, size - 1);
             size--;
@@ -12,9 +18,10 @@ public class HeapSort {
         }
     }
 
-    private static void heapify(int[] buf, int size) {
-        for (int i = getParent(size - 1); i >= 0; i--) {
-            bubbleDown(buf, size, i);
+    // build max-heap
+    private static void heapify(int[] buf) {
+        for (int i = getParent(buf.length - 1); i >= 0; i--) {
+            bubbleDown(buf, buf.length, i);
         }
     }
 
