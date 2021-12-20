@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="07e19c97-bd1d-4234-a34c-a383936823b7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -44,7 +40,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -61,8 +57,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RecursionTest.testSortStack">
-    <configuration name="LRUCacheTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.PuzzlesTest.testEQueens">
+    <configuration name="BitTest.testReplace" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -71,29 +67,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.LRUCacheTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RecursionTest.testBracePermutations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kata-java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.RecursionTest" />
-      <option name="METHOD_NAME" value="testBracePermutations" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.BitTest" />
+      <option name="METHOD_NAME" value="testReplace" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RecursionTest.testGetAllPermutations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GraphTest.testDijkstra" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -102,14 +83,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.RecursionTest" />
-      <option name="METHOD_NAME" value="testGetAllPermutations" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.GraphTest" />
+      <option name="METHOD_NAME" value="testDijkstra" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RecursionTest.testSortStack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PuzzlesTest.testEQueens" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -118,14 +99,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.RecursionTest" />
-      <option name="METHOD_NAME" value="testSortStack" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.PuzzlesTest" />
+      <option name="METHOD_NAME" value="testEQueens" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StructTest.testPQueue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PuzzlesTest.testKnapsack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java" />
       <extension name="coverage">
         <pattern>
@@ -134,8 +115,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.StructTest" />
-      <option name="METHOD_NAME" value="testPQueue" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.PuzzlesTest" />
+      <option name="METHOD_NAME" value="testKnapsack" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TreeTest.testExteriorBinaryTree" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kata-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.TreeTest" />
+      <option name="METHOD_NAME" value="testExteriorBinaryTree" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -143,11 +140,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RecursionTest.testSortStack" />
-        <item itemvalue="JUnit.RecursionTest.testGetAllPermutations" />
-        <item itemvalue="JUnit.RecursionTest.testBracePermutations" />
-        <item itemvalue="JUnit.StructTest.testPQueue" />
-        <item itemvalue="JUnit.LRUCacheTest" />
+        <item itemvalue="JUnit.PuzzlesTest.testEQueens" />
+        <item itemvalue="JUnit.PuzzlesTest.testKnapsack" />
+        <item itemvalue="JUnit.TreeTest.testExteriorBinaryTree" />
+        <item itemvalue="JUnit.BitTest.testReplace" />
+        <item itemvalue="JUnit.GraphTest.testDijkstra" />
       </list>
     </recent_temporary>
   </component>
@@ -165,75 +162,111 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="345" y="140" key="#Project_Structure" timestamp="1637129675518">
+      <screen x="0" y="0" width="1504" height="963" />
+    </state>
+    <state x="345" y="140" key="#Project_Structure/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637129675518" />
     <state x="409" y="76" key="CommitChangelistDialog2" timestamp="1636848985027">
       <screen x="0" y="0" width="1504" height="963" />
     </state>
     <state x="-3318" y="82" key="CommitChangelistDialog2/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772295517" />
     <state x="409" y="76" key="CommitChangelistDialog2/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636848985027" />
-    <state width="433" height="432" key="DebuggerActiveHint" timestamp="1636924437451">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="433" height="429" key="DebuggerActiveHint" timestamp="1637558297838">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="433" height="429" key="DebuggerActiveHint/0.0.1504.955@0.0.1504.955" timestamp="1637558297838" />
     <state width="410" height="466" key="DebuggerActiveHint/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636120448807" />
     <state width="433" height="432" key="DebuggerActiveHint/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924437451" />
-    <state width="1461" height="85" key="GridCell.Tab.0.bottom" timestamp="1636938318191">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="433" height="432" key="DebuggerActiveHint/0.0.1504.963@0.0.1504.963" timestamp="1637217986941" />
+    <state width="1461" height="157" key="GridCell.Tab.0.bottom" timestamp="1637607723073">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="1461" height="157" key="GridCell.Tab.0.bottom/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723073" />
+    <state width="1461" height="157" key="GridCell.Tab.0.bottom/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
+    <state width="1461" height="258" key="GridCell.Tab.0.bottom/0.0.1504.955@0.0.1504.955" timestamp="1637558238469" />
     <state width="1878" height="257" key="GridCell.Tab.0.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
-    <state width="1461" height="85" key="GridCell.Tab.0.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636938318191" />
-    <state width="1461" height="234" key="GridCell.Tab.0.bottom/0.0.1504.963@0.0.1504.963" timestamp="1636242409084" />
-    <state width="1461" height="85" key="GridCell.Tab.0.center" timestamp="1636938318191">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="1461" height="2" key="GridCell.Tab.0.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637132956906" />
+    <state width="1461" height="82" key="GridCell.Tab.0.bottom/0.0.1504.963@0.0.1504.963" timestamp="1637218277890" />
+    <state width="1461" height="157" key="GridCell.Tab.0.center" timestamp="1637607723072">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="1461" height="157" key="GridCell.Tab.0.center/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723072" />
+    <state width="1461" height="157" key="GridCell.Tab.0.center/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
+    <state width="1461" height="258" key="GridCell.Tab.0.center/0.0.1504.955@0.0.1504.955" timestamp="1637558238469" />
     <state width="1878" height="257" key="GridCell.Tab.0.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
-    <state width="1461" height="85" key="GridCell.Tab.0.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636938318191" />
-    <state width="1461" height="234" key="GridCell.Tab.0.center/0.0.1504.963@0.0.1504.963" timestamp="1636242409084" />
-    <state width="1461" height="85" key="GridCell.Tab.0.left" timestamp="1636938318191">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="1461" height="2" key="GridCell.Tab.0.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637132956905" />
+    <state width="1461" height="82" key="GridCell.Tab.0.center/0.0.1504.963@0.0.1504.963" timestamp="1637218277890" />
+    <state width="1461" height="157" key="GridCell.Tab.0.left" timestamp="1637607723072">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="1461" height="157" key="GridCell.Tab.0.left/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723072" />
+    <state width="1461" height="157" key="GridCell.Tab.0.left/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
+    <state width="1461" height="258" key="GridCell.Tab.0.left/0.0.1504.955@0.0.1504.955" timestamp="1637558238469" />
     <state width="1878" height="257" key="GridCell.Tab.0.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
-    <state width="1461" height="85" key="GridCell.Tab.0.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636938318191" />
-    <state width="1461" height="234" key="GridCell.Tab.0.left/0.0.1504.963@0.0.1504.963" timestamp="1636242409084" />
-    <state width="1461" height="85" key="GridCell.Tab.0.right" timestamp="1636938318191">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="1461" height="2" key="GridCell.Tab.0.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637132956905" />
+    <state width="1461" height="82" key="GridCell.Tab.0.left/0.0.1504.963@0.0.1504.963" timestamp="1637218277890" />
+    <state width="1461" height="157" key="GridCell.Tab.0.right" timestamp="1637607723073">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="1461" height="157" key="GridCell.Tab.0.right/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723073" />
+    <state width="1461" height="157" key="GridCell.Tab.0.right/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
+    <state width="1461" height="258" key="GridCell.Tab.0.right/0.0.1504.955@0.0.1504.955" timestamp="1637558238469" />
     <state width="1878" height="257" key="GridCell.Tab.0.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
-    <state width="1461" height="85" key="GridCell.Tab.0.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636938318191" />
-    <state width="1461" height="234" key="GridCell.Tab.0.right/0.0.1504.963@0.0.1504.963" timestamp="1636242409084" />
-    <state width="1461" height="365" key="GridCell.Tab.1.bottom" timestamp="1636924570080">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="1461" height="2" key="GridCell.Tab.0.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637132956905" />
+    <state width="1461" height="82" key="GridCell.Tab.0.right/0.0.1504.963@0.0.1504.963" timestamp="1637218277890" />
+    <state width="1461" height="157" key="GridCell.Tab.1.bottom" timestamp="1637607723074">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="1461" height="157" key="GridCell.Tab.1.bottom/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723074" />
+    <state width="1461" height="157" key="GridCell.Tab.1.bottom/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
+    <state width="1461" height="258" key="GridCell.Tab.1.bottom/0.0.1504.955@0.0.1504.955" timestamp="1637558240362" />
     <state width="1878" height="400" key="GridCell.Tab.1.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636121120203" />
-    <state width="1461" height="365" key="GridCell.Tab.1.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924570080" />
-    <state width="1461" height="283" key="GridCell.Tab.1.bottom/0.0.1504.963@0.0.1504.963" timestamp="1636242327609" />
-    <state width="1461" height="365" key="GridCell.Tab.1.center" timestamp="1636924570073">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="1461" height="14" key="GridCell.Tab.1.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637034026175" />
+    <state width="1461" height="261" key="GridCell.Tab.1.bottom/0.0.1504.963@0.0.1504.963" timestamp="1637218146765" />
+    <state width="1461" height="157" key="GridCell.Tab.1.center" timestamp="1637607723073">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="1461" height="157" key="GridCell.Tab.1.center/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723073" />
+    <state width="1461" height="157" key="GridCell.Tab.1.center/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
+    <state width="1461" height="258" key="GridCell.Tab.1.center/0.0.1504.955@0.0.1504.955" timestamp="1637558240361" />
     <state width="1878" height="400" key="GridCell.Tab.1.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636121120203" />
-    <state width="1461" height="365" key="GridCell.Tab.1.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924570073" />
-    <state width="1461" height="283" key="GridCell.Tab.1.center/0.0.1504.963@0.0.1504.963" timestamp="1636242327608" />
-    <state width="1461" height="365" key="GridCell.Tab.1.left" timestamp="1636924570073">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="1461" height="14" key="GridCell.Tab.1.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637034026175" />
+    <state width="1461" height="261" key="GridCell.Tab.1.center/0.0.1504.963@0.0.1504.963" timestamp="1637218146765" />
+    <state width="1461" height="157" key="GridCell.Tab.1.left" timestamp="1637607723073">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="1461" height="157" key="GridCell.Tab.1.left/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723073" />
+    <state width="1461" height="157" key="GridCell.Tab.1.left/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
+    <state width="1461" height="258" key="GridCell.Tab.1.left/0.0.1504.955@0.0.1504.955" timestamp="1637558240361" />
     <state width="1878" height="400" key="GridCell.Tab.1.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636121120203" />
-    <state width="1461" height="365" key="GridCell.Tab.1.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924570073" />
-    <state width="1461" height="283" key="GridCell.Tab.1.left/0.0.1504.963@0.0.1504.963" timestamp="1636242327608" />
-    <state width="1461" height="365" key="GridCell.Tab.1.right" timestamp="1636924570073">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state width="1461" height="14" key="GridCell.Tab.1.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637034026175" />
+    <state width="1461" height="261" key="GridCell.Tab.1.left/0.0.1504.963@0.0.1504.963" timestamp="1637218146765" />
+    <state width="1461" height="157" key="GridCell.Tab.1.right" timestamp="1637607723073">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state width="1461" height="157" key="GridCell.Tab.1.right/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723073" />
+    <state width="1461" height="157" key="GridCell.Tab.1.right/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
+    <state width="1461" height="258" key="GridCell.Tab.1.right/0.0.1504.955@0.0.1504.955" timestamp="1637558240361" />
     <state width="1878" height="400" key="GridCell.Tab.1.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636121120203" />
-    <state width="1461" height="365" key="GridCell.Tab.1.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924570073" />
-    <state width="1461" height="283" key="GridCell.Tab.1.right/0.0.1504.963@0.0.1504.963" timestamp="1636242327608" />
+    <state width="1461" height="14" key="GridCell.Tab.1.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637034026175" />
+    <state width="1461" height="261" key="GridCell.Tab.1.right/0.0.1504.963@0.0.1504.963" timestamp="1637218146765" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1636852512986">
       <screen x="0" y="0" width="1504" height="963" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636852512986" />
+    <state x="446" y="209" width="612" height="536" key="find.popup" timestamp="1637534016512">
+      <screen x="0" y="0" width="1504" height="955" />
+    </state>
+    <state x="446" y="209" width="612" height="536" key="find.popup/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637453390376" />
+    <state x="446" y="209" width="612" height="536" key="find.popup/0.0.1504.955@0.0.1504.955" timestamp="1637534016512" />
     <state x="409" y="222" key="run.anything.popup" timestamp="1636220059419">
       <screen x="0" y="0" width="1504" height="963" />
     </state>
     <state x="409" y="222" key="run.anything.popup/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636220059419" />
-    <state x="415" y="206" width="672" height="678" key="search.everywhere.popup" timestamp="1636174995346">
-      <screen x="0" y="0" width="1504" height="963" />
+    <state x="415" y="204" width="672" height="673" key="search.everywhere.popup" timestamp="1637301142818">
+      <screen x="0" y="0" width="1504" height="955" />
     </state>
+    <state x="415" y="204" width="672" height="673" key="search.everywhere.popup/0.0.1504.955@0.0.1504.955" timestamp="1637301142818" />
     <state x="415" y="206" width="672" height="678" key="search.everywhere.popup/0.0.1504.963@0.0.1504.963" timestamp="1636174995346" />
   </component>
   <component name="XDebuggerManager">
@@ -303,6 +336,31 @@
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
           <line>397</line>
           <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java</url>
+          <line>177</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java</url>
+          <line>294</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/sort/Tasks.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/PuzzlesTest.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

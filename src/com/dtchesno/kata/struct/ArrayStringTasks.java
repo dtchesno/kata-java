@@ -200,4 +200,8 @@ public class ArrayStringTasks {
         }
         return Arrays.copyOfRange(a, i, j + 1);
     }
+
+    // done
+    // https://leetcode.com/problems/valid-number/ (hard) [string, dfa]
+    // https://leetcode.com/problems/simplify-path/ (medium) [string, stack]
 }

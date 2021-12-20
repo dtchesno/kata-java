@@ -500,4 +500,9 @@ public class TreeNode {
 
     // TODO:
     // https://leetcode.com/discuss/interview-question/125084/given-a-binary-search-tree-find-the-distance-between-2-nodes
+
+    // done
+    // https://leetcode.com/problems/binary-tree-vertical-order-traversal/ (medium) [tree, bfs]
+    // https://leetcode.com/problems/binary-tree-right-side-view/ (medium) [tree, bfs]
+    // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]
 }
