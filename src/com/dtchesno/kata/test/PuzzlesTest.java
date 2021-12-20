@@ -1,9 +1,13 @@
 package com.dtchesno.kata.test;
 
+import com.dtchesno.kata.dp.DivideArray;
+import com.dtchesno.kata.dp.Knapsack;
 import com.dtchesno.kata.dp.StoneGame;
-import com.dtchesno.kata.puzzle.*;
-import com.dtchesno.kata.puzzle.Knapsack.Box;
-import com.dtchesno.kata.puzzle.Knapsack.Distribution;
+import com.dtchesno.kata.dp.Knapsack.Box;
+import com.dtchesno.kata.dp.Knapsack.Distribution;
+import com.dtchesno.kata.recursion.EQueens;
+import com.dtchesno.kata.recursion.Hanoi;
+import com.dtchesno.kata.recursion.Sudoku;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

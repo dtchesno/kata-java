@@ -1,7 +1,8 @@
-package com.dtchesno.kata.puzzle;
+package com.dtchesno.kata.recursion;
 
 import java.util.Stack;
 
+// [recursion, stack]
 public class Hanoi {
     private Stack<Integer> A = new Stack<>();
     private Stack<Integer> B = new Stack<>();

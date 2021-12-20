@@ -1,4 +1,4 @@
-package com.dtchesno.kata.puzzle;
+package com.dtchesno.kata.dp;
 
 /**
  * TOPIC: dynamic programming

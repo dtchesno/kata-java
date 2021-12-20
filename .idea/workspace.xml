@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07e19c97-bd1d-4234-a34c-a383936823b7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/EQueens.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/EQueens.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/Hanoi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/Hanoi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/puzzle/Sudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Sudoku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/PuzzlesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/PuzzlesTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,39 +179,39 @@
     <state width="410" height="466" key="DebuggerActiveHint/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636120448807" />
     <state width="433" height="432" key="DebuggerActiveHint/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1636924437451" />
     <state width="433" height="432" key="DebuggerActiveHint/0.0.1504.963@0.0.1504.963" timestamp="1637217986941" />
-    <state width="1461" height="157" key="GridCell.Tab.0.bottom" timestamp="1637607723073">
+    <state width="1461" height="157" key="GridCell.Tab.0.bottom" timestamp="1639977773509">
       <screen x="0" y="0" width="1504" height="955" />
     </state>
     <state width="1461" height="157" key="GridCell.Tab.0.bottom/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723073" />
     <state width="1461" height="157" key="GridCell.Tab.0.bottom/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
-    <state width="1461" height="258" key="GridCell.Tab.0.bottom/0.0.1504.955@0.0.1504.955" timestamp="1637558238469" />
+    <state width="1461" height="157" key="GridCell.Tab.0.bottom/0.0.1504.955@0.0.1504.955" timestamp="1639977773509" />
     <state width="1878" height="257" key="GridCell.Tab.0.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
     <state width="1461" height="2" key="GridCell.Tab.0.bottom/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637132956906" />
     <state width="1461" height="82" key="GridCell.Tab.0.bottom/0.0.1504.963@0.0.1504.963" timestamp="1637218277890" />
-    <state width="1461" height="157" key="GridCell.Tab.0.center" timestamp="1637607723072">
+    <state width="1461" height="157" key="GridCell.Tab.0.center" timestamp="1639977773508">
       <screen x="0" y="0" width="1504" height="955" />
     </state>
     <state width="1461" height="157" key="GridCell.Tab.0.center/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723072" />
     <state width="1461" height="157" key="GridCell.Tab.0.center/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
-    <state width="1461" height="258" key="GridCell.Tab.0.center/0.0.1504.955@0.0.1504.955" timestamp="1637558238469" />
+    <state width="1461" height="157" key="GridCell.Tab.0.center/0.0.1504.955@0.0.1504.955" timestamp="1639977773508" />
     <state width="1878" height="257" key="GridCell.Tab.0.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
     <state width="1461" height="2" key="GridCell.Tab.0.center/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637132956905" />
     <state width="1461" height="82" key="GridCell.Tab.0.center/0.0.1504.963@0.0.1504.963" timestamp="1637218277890" />
-    <state width="1461" height="157" key="GridCell.Tab.0.left" timestamp="1637607723072">
+    <state width="1461" height="157" key="GridCell.Tab.0.left" timestamp="1639977773506">
       <screen x="0" y="0" width="1504" height="955" />
     </state>
     <state width="1461" height="157" key="GridCell.Tab.0.left/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723072" />
     <state width="1461" height="157" key="GridCell.Tab.0.left/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
-    <state width="1461" height="258" key="GridCell.Tab.0.left/0.0.1504.955@0.0.1504.955" timestamp="1637558238469" />
+    <state width="1461" height="157" key="GridCell.Tab.0.left/0.0.1504.955@0.0.1504.955" timestamp="1639977773506" />
     <state width="1878" height="257" key="GridCell.Tab.0.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
     <state width="1461" height="2" key="GridCell.Tab.0.left/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637132956905" />
     <state width="1461" height="82" key="GridCell.Tab.0.left/0.0.1504.963@0.0.1504.963" timestamp="1637218277890" />
-    <state width="1461" height="157" key="GridCell.Tab.0.right" timestamp="1637607723073">
+    <state width="1461" height="157" key="GridCell.Tab.0.right" timestamp="1639977773508">
       <screen x="0" y="0" width="1504" height="955" />
     </state>
     <state width="1461" height="157" key="GridCell.Tab.0.right/0.0.1504.955/-3840.0.1920.1032/2256.0.1920.1032@0.0.1504.955" timestamp="1637607723073" />
     <state width="1461" height="157" key="GridCell.Tab.0.right/0.0.1504.955/2256.0.1920.1032@0.0.1504.955" timestamp="1637600436055" />
-    <state width="1461" height="258" key="GridCell.Tab.0.right/0.0.1504.955@0.0.1504.955" timestamp="1637558238469" />
+    <state width="1461" height="157" key="GridCell.Tab.0.right/0.0.1504.955@0.0.1504.955" timestamp="1639977773508" />
     <state width="1878" height="257" key="GridCell.Tab.0.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@-3840.0.1920.1040" timestamp="1636772652433" />
     <state width="1461" height="2" key="GridCell.Tab.0.right/0.0.1504.963/-3840.0.1920.1040/2256.0.1920.1040@0.0.1504.963" timestamp="1637132956905" />
     <state width="1461" height="82" key="GridCell.Tab.0.right/0.0.1504.963@0.0.1504.963" timestamp="1637218277890" />
@@ -359,7 +360,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/PuzzlesTest.java</url>
-          <line>46</line>
+          <line>48</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
