@@ -10,10 +10,10 @@ public class WildcardMatching {
     // https://leetcode.com/problems/wildcard-matching/, #44
     // hard - amazon, google
     public static boolean isMatch(String s, String p) {
-//        int[][] mtable = new int[s.length() + 1][p.length() + 1];
-//        return isMatchDPRecursive(s.toCharArray(), 0, p.toCharArray(), 0, mtable) == 1;
-
-        return isMatchDP(s, p);
+        int[][] mtable = new int[s.length() + 1][p.length() + 1];
+        return isMatchDPRecursive(
+                removeMultipleWildcardsHelper(s).toCharArray(), 0, p.toCharArray(), 0, mtable) == 1;
+//        return isMatchDP(s, p);
     }
 
     private static String removeMultipleWildcardsHelper(String input) {
@@ -68,31 +68,23 @@ public class WildcardMatching {
     }
 
     private static int isMatchDPRecursive(char[] s, int sOffset, char[] p, int pOffset, int[][] mtable) {
-        if (sOffset < s.length && pOffset < p.length && mtable[sOffset][pOffset] != 0) {
+        if (mtable[sOffset][pOffset] != 0) {
             return mtable[sOffset][pOffset];
         }
 
         if (Arrays.equals(s, sOffset, s.length, p, pOffset, p.length)) {
-            return 1;
+            mtable[sOffset][pOffset] = 1;
+        } else if (pOffset < p.length && p[pOffset] == '*') {
+            mtable[sOffset][pOffset] = isMatchStarHelper(s, sOffset, p, pOffset, mtable);
+        } else if (pOffset == p.length || sOffset == s.length) {
+            mtable[sOffset][pOffset] = -1;
+        } else if (p[pOffset] == '?' || s[sOffset] == p[pOffset]) {
+            mtable[sOffset][pOffset] = isMatchDPRecursive(s, sOffset + 1, p, pOffset + 1, mtable);
+        } else {
+            mtable[sOffset][pOffset] = -1;
         }
 
-        if (pOffset < p.length && p[pOffset] == '*') {
-            return isMatchStarHelper(s, sOffset, p, pOffset, mtable);
-        }
-
-        if (pOffset == p.length || sOffset == s.length) {
-            return -1;
-        }
-
-        if (p[pOffset] == '?') {
-            return isMatchDPRecursive(s, sOffset + 1, p, pOffset + 1, mtable);
-        }
-
-        if (s[sOffset] != p[pOffset]) {
-            return -1;
-        }
-
-        return isMatchDPRecursive(s, sOffset + 1, p, pOffset + 1, mtable);
+        return mtable[sOffset][pOffset];
     }
 
     private static int isMatchStarHelper(char[] s, int sOffset, char[] p, int pOffset, int[][] mtable) {
@@ -101,9 +93,6 @@ public class WildcardMatching {
         }
         if (pOffset < p.length && mtable[sOffset][pOffset] != 1) {
             mtable[sOffset][pOffset] = isMatchDPRecursive(s, sOffset, p, pOffset + 1, mtable);
-        }
-        if (pOffset < p.length && sOffset < s.length && mtable[sOffset][pOffset] != 1) {
-            mtable[sOffset][pOffset] = isMatchDPRecursive(s, sOffset + 1, p, pOffset + 1, mtable);
         }
         return mtable[sOffset][pOffset];
     }

@@ -28,8 +28,6 @@ public class PatternMatching {
             mem[i][j] = 1;
         } else if (j == p.length()) {
             mem[i][j] = -1;
-        } else if (p.charAt(j) == '*') {
-            mem[i][j] = -1;
         } else if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
             mem[i][j] = isMatchStar(s, p, i, j, mem) ? 1 : -1;
         } else if (p.charAt(j) == '.' || (i < s.length() && p.charAt(j) == s.charAt(i))) {

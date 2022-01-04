@@ -96,4 +96,24 @@ public class DpTest {
         assertEquals(8, DpSolution.fibonacci(6));
         assertEquals(144, DpSolution.fibonacci(12));
     }
+
+    @Test
+    public void testSquareSubMatrix() {
+        assertEquals(2, DpSolution.squareSubMatrix(new boolean[][] {
+                { false, true, false, false },
+                { true, true, true, true },
+                { false, true, true, false }}));
+        assertEquals(4, DpSolution.squareSubMatrix(new boolean[][] {
+                { true, true, true, true, true },
+                { true, true, true, true, false },
+                { true, true, true, true, false },
+                { true, true, true, true, false },
+                { true, false, false, false, false }}));
+        assertEquals(3, DpSolution.squareSubMatrix(new boolean[][] {
+                { true, true, true, true, true },
+                { true, true, true, true, false },
+                { true, true, true, true, false },
+                { false, true, true, true, false },
+                { true, false, false, false, false }}));
+    }
 }

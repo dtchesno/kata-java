@@ -236,4 +236,38 @@ public class DpSolution {
         }
         return f;
     }
+
+    public static int squareSubMatrix(boolean[][] matrix) {
+        int[][] mem = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < mem.length; i++) {
+            for (int j = 0; j < mem[0].length; j++) {
+                mem[i][j] = -1;
+            }
+        }
+
+        int max = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                max = Math.max(max, squareSubMatrix(matrix, i, j, mem));
+            }
+        }
+        return max;
+    }
+
+    private static int squareSubMatrix(boolean[][] matrix, int i, int j, int[][] mem) {
+        if (i == matrix.length || j == matrix[0].length)
+            return 0;
+
+        if (mem[i][j] != -1) {
+            return mem[i][j];
+        }
+
+        mem[i][j] = matrix[i][j]
+            ? 1 + Math.min(squareSubMatrix(matrix, i + 1, j + 1, mem),
+                    Math.min(squareSubMatrix(matrix, i + 1, j, mem),
+                            squareSubMatrix(matrix, i, j + 1, mem)))
+            : 0;
+
+        return mem[i][j];
+    }
 }
