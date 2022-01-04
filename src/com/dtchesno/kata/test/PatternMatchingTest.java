@@ -1,8 +1,7 @@
 package com.dtchesno.kata.test;
 
-import com.dtchesno.kata.misc.PatternMatching;
-import com.dtchesno.kata.misc.TaskScheduler;
-import com.dtchesno.kata.misc.WildcardMatching;
+import com.dtchesno.kata.dp.PatternMatching;
+import com.dtchesno.kata.dp.WildcardMatching;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

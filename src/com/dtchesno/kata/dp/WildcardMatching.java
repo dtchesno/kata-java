@@ -1,4 +1,4 @@
-package com.dtchesno.kata.misc;
+package com.dtchesno.kata.dp;
 
 import java.util.Arrays;
 
