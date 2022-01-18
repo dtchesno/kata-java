@@ -125,59 +125,56 @@ public class ArrayStringTasks {
     }
 
 
+    // Given two strings s and part, perform the following operation on s until all occurrences of the substring
+    // part are removed: Find the leftmost occurrence of the substring part and remove it from s.
+    // Return s after removing all occurrences of part.
+    // A substring is a contiguous sequence of characters in a string.
+    // Input: s = "daabcbaabcbc", part = "abc" => Output: "dab"
+    // Input: s = "axxxxyyyyb", part = "xy" => Output: "ab"
     // https://leetcode.com/problems/remove-all-occurrences-of-a-substring/
     public static String removeOccurrences(String s, String part) {
-
         if (part.length() > s.length()) {
             return s;
         }
 
-        if (s.equals(part)) {
+        if (part.equals(s)) {
             return "";
         }
 
-        StringBuilder sb = new StringBuilder(s);
-
-        int[] hashes = new int[sb.length()];
-        int shash = 0;
         int phash = 0;
-        int base = 26;
         int power = 1;
-
         for (int i = 0; i < part.length(); i++) {
-            phash = phash * base + part.charAt(i);
-            power = (i == 0) ? 1 : power * base;
-        }
-
-        int length = sb.length();
-        int index = 0;
-        while (index < length) {
-            if (index < part.length()) {
-                shash = index == 0 ? 0 : hashes[index - 1];
-                shash = shash * base + sb.charAt(index);
-                hashes[index] = shash;
-            } else {
-                shash = hashes[index - 1] - sb.charAt(index - part.length()) * power;
-                shash = shash * base + sb.charAt(index);
-                hashes[index] = shash;
-            }
-
-            // check hash match
-            if (shash == phash && part.equals(sb.substring(index - part.length() + 1, index + 1))) {
-                sb.delete(index - part.length() + 1, index + 1);
-                index = index - part.length() + 1;
-                length -= part.length();
-                if (index < length) {
-                    hashes[index] -= part.charAt(0);
-                    hashes[index] += sb.charAt(index);
-                }
-            } else {
-                index++;
+            phash = phash * 26 + part.charAt(i);
+            if (i > 0) {
+                power *= 26;
             }
         }
 
-        return sb.toString().equals(part) ? "" : sb.toString();
+        StringBuilder sb = new StringBuilder(s);
+        int[] shash = new int[sb.length()];
+        int pos = 0;
+        while (pos < sb.length()) {
+            // update shash
+            shash[pos] = 0;
+            if (pos >= part.length()) {
+                shash[pos] = shash[pos - 1] - (sb.charAt(pos - part.length())) * power;
+            } else {
+                shash[pos] = (pos == 0) ? 0 : shash[pos - 1];
+            }
+            shash[pos] = shash[pos] * 26 + sb.charAt(pos);
+
+            // check hash and part match
+            if (shash[pos] == phash && part.equals(sb.substring(pos + 1 - part.length(), pos + 1))) {
+                sb.delete(pos + 1 - part.length(), pos + 1);
+                pos -= part.length();
+            }
+            pos++;
+        }
+
+        String remainder = sb.toString();
+        return remainder.equals(part) ? "" : remainder;
     }
+
 
     // find any subarray which sum == 0
     // byte-by-byte #11 pg.11

@@ -11,8 +11,10 @@ public class WildcardMatching {
     // hard - amazon, google
     public static boolean isMatch(String s, String p) {
         int[][] mtable = new int[s.length() + 1][p.length() + 1];
+
         return isMatchDPRecursive(
                 removeMultipleWildcardsHelper(s).toCharArray(), 0, p.toCharArray(), 0, mtable) == 1;
+
 //        return isMatchDP(s, p);
     }
 

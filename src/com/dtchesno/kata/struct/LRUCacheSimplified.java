@@ -11,7 +11,6 @@ public class LRUCacheSimplified {
     private LinkedList<Pair<Integer, Integer>> queue = new LinkedList<>();
     private Map<Integer, Pair<Integer, Integer>> cache = new HashMap<>();
 
-
     public LRUCacheSimplified(int capacity) {
         this.capacity = capacity;
     }
@@ -48,5 +47,12 @@ public class LRUCacheSimplified {
         Pair<Integer, Integer> newEntry = new Pair<>(key, value);
         queue.add(newEntry);
         cache.put(key, newEntry);
+    }
+
+    public int size() {
+        if (queue.size() != cache.size()) {
+            throw new RuntimeException("size mismatch");
+        }
+        return cache.size();
     }
 }

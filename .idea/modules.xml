@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/kata-java.iml" filepath="$PROJECT_DIR$/kata-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/kata-java1.iml" filepath="$PROJECT_DIR$/src/kata-java1.iml" />
     </modules>
   </component>
 </project>

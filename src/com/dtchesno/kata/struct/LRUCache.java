@@ -4,9 +4,11 @@ import java.util.HashMap;
 
 public class LRUCache {
 
+    // TODO: running multiple tests at once will fail due to static context
     private static class Node {
         static Node head = new Node(0, 0);
         static Node tail = new Node(0, 0);
+        static int size = 0;
 
         static {
             head.next = tail;
@@ -29,17 +31,23 @@ public class LRUCache {
             n.prev = prev;
             n.next = tail;
             tail.prev = n;
+            size++;
         }
 
         static void remove(Node n) {
             n.prev.next = n.next;
             n.next.prev = n.prev;
+            size--;
         }
 
         static Node poll() {
             Node n = head.next;
             remove(n);
             return n;
+        }
+
+        static int size() {
+            return size;
         }
     }
 
@@ -62,11 +70,30 @@ public class LRUCache {
     }
 
     public void put(int key, int value) {
-        Node n = new Node(key, value);
-        cache.put(key, n);
-        if (cache.size() > capacity) {
-            cache.remove(Node.poll().key);
+        Node entry = cache.get(key);
+
+        if (entry != null) {
+            entry.value = value;
+            Node.remove(entry);
+            Node.add(entry);
+            return;
         }
-        Node.add(n);
+
+        entry = new Node(key, value);
+
+        if (cache.size() == capacity) {
+            Node expiredEntry = Node.poll();
+            cache.remove(expiredEntry.key);
+        }
+
+        cache.put(key, entry);
+        Node.add(entry);
+    }
+
+    public int size() {
+        if (Node.size() != cache.size()) {
+            throw new RuntimeException("size mismatch");
+        }
+        return cache.size();
     }
 }

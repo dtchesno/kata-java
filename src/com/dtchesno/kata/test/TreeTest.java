@@ -279,4 +279,11 @@ public class TreeTest {
         TreeNode t = new TreeNode(new Integer[] { 3, 5, 1, 1, 6, 0, 8, null, null, 7, 4 });
         assertEquals(Arrays.asList(3, 5, 1, 7, 4, 0, 8, 1), TreeNode.exteriorBinaryTree(t));
     }
+
+    @Test
+    public void testDistanceInBST() {
+        TreeNode t = new TreeNode(new Integer[] { 5, 3, 6, 2, 4, null, 7, 1, null, null, null, null, 8 });
+        assertEquals(3, TreeNode.distanceBST(t, t.left.left.left, t.left.right));
+        assertEquals(6, TreeNode.distanceBST(t, t.left.left.left, t.right.right.right));
+    }
 }

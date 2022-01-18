@@ -492,16 +492,30 @@ public class TreeNode {
         return node.left == null && node.right == null;
     }
 
+    // https://leetcode.com/discuss/interview-question/125084/given-a-binary-search-tree-find-the-distance-between-2-nodes
+    public static int distanceBST(TreeNode root, TreeNode node1, TreeNode node2) {
+        TreeNode lca = root;
+        while (node1.key < lca.key && node2.key < lca.key) {
+            lca = lca.left;
+        }
+        while (node1.key > lca.key && node2.key > lca.key) {
+            lca = lca.right;
+        }
+        return distanceBST(lca, node1) + distanceBST(lca, node2);
+    }
+
+    private static int distanceBST(TreeNode root, TreeNode node) {
+        if (node.key == root.key) {
+            return 0;
+        }
+        return 1 + distanceBST(node.key < root.key ? root.left : root.right, node);
+    }
+
     // done
     // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
     // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iv/
     // https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
     // https://leetcode.com/problems/binary-tree-cameras/
-
-    // TODO:
-    // https://leetcode.com/discuss/interview-question/125084/given-a-binary-search-tree-find-the-distance-between-2-nodes
-
-    // done
     // https://leetcode.com/problems/binary-tree-vertical-order-traversal/ (medium) [tree, bfs]
     // https://leetcode.com/problems/binary-tree-right-side-view/ (medium) [tree, bfs]
     // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]

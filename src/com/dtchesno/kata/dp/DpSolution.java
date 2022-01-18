@@ -1,7 +1,6 @@
 package com.dtchesno.kata.dp;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 public class DpSolution {
@@ -58,28 +57,25 @@ public class DpSolution {
     // [selected - 1]
     // items[number][2] - weight, value
     public static int knapsack(int maxWeight, int[][] items) {
-        int[][] mem = new int[items.length][maxWeight + 1];
+        int[][] mem = new int[maxWeight + 1][items.length];
         for (int[] arr: mem) {
             Arrays.fill(arr, -1);
-            //arr[0] = 0;
         }
-        return knapsackDP(maxWeight, items.length - 1, items, mem);
+        return knapsackDP(maxWeight, items, 0, mem);
     }
 
-    // capacity - remaining capacity; k - 0..k range of items, initially items.length - 1
-    private static int knapsackDP(int capacity, int k, int[][] items, int[][] mem) {
-        if (k < 0) {
+    private static int knapsackDP(int weight, int[][] items, int i, int[][] mem) {
+        if (i == items.length) {
             return 0;
         }
-        if (mem[k][capacity] == -1) {
-            mem[k][capacity] = Math.max(
-                    capacity < items[k][0]
-                        ? 0
-                        : items[k][1] + knapsackDP(capacity - items[k][0], k - 1, items, mem),
-                    knapsackDP(capacity, k - 1, items, mem)
-            );
+        if (mem[weight][i] == -1) {
+            mem[weight][i] = items[i][0] > weight
+                    ? knapsackDP(weight, items, i + 1, mem)
+                    : Math.max(
+                        items[i][1] + knapsackDP(weight - items[i][0], items, i + 1, mem),
+                        knapsackDP(weight, items, i + 1, mem));
         }
-        return mem[k][capacity];
+        return mem[weight][i];
     }
 
 

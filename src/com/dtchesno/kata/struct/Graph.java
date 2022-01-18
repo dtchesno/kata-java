@@ -281,6 +281,40 @@ public class Graph {
     // e.g. [[0,1,100], [1,2,100], [0,2,500]], src=0, dst=2, k=1; result=200 (0->1->2)
     // https://leetcode.com/problems/cheapest-flights-within-k-stops/
     public static int findCheapest(int[][] flights, int src, int dst, int stops) {
+        Map<Integer, List<int[]>> prices = new HashMap<>();
+        for (int i = 0; i < flights.length; i++) {
+            List<int[]> connections = prices.getOrDefault(flights[i][0], new ArrayList<>());
+            connections.add(new int[] { flights[i][1], flights[i][2] });
+            prices.put(flights[i][0], connections);
+        }
+
+        int minCost = Integer.MAX_VALUE;
+
+        // [port, cost, nstop]
+        PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        q.add(new int[] { src, 0, stops });
+        while (!q.isEmpty()) {
+            int[] stop = q.poll();
+            int port = stop[0];
+            int cost = stop[1];
+            int nstops = stop[2];
+
+            if (port == dst) {
+                return cost;
+            }
+
+            if (nstops < 0 || !prices.containsKey(port)) {
+                continue;
+            }
+
+            for (int[] connection : prices.get(port)) {
+                q.add(new int[] { connection[0], cost + connection[1], nstops - 1 });
+            }
+        }
+        return -1;
+    }
+
+    public static int findCheapest2(int[][] flights, int src, int dst, int stops) {
         // cache connections & prices: start->{(dest, price)*}
         Map<Integer, Map<Integer, Integer>> prices = new HashMap<>();
         for (int[] flight : flights) {
@@ -291,7 +325,7 @@ public class Graph {
 
         // p.queue: (port, stops, cost)
         PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[2] - b[2]);
-        q.add(new int[] { src, stops,  0});
+        q.add(new int[] { src, stops, 0 });
         while (!q.isEmpty()) {
             int[] current = q.poll();
             int port = current[0];
@@ -394,4 +428,7 @@ public class Graph {
             isAP[u] = true;
         }
     }
+
+    // Done
+    // https://leetcode.com/problems/is-graph-bipartite/submissions/
 }

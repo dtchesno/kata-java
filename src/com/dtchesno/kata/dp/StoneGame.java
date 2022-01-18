@@ -19,15 +19,15 @@ package com.dtchesno.kata.dp;
 public class StoneGame {
 
     public static boolean isWin(int[] stones) {
-//        int[][] mem = new int[stones.length][stones.length];
-//        for (int i = 0; i < stones.length; i++) {
-//            for (int j = 0; j < stones.length; j++) {
-//                mem[i][j] = Integer.MIN_VALUE;
-//            }
-//        }
-//        return advantage(stones, 0, stones.length - 1, mem) > 0;
+        int[][] mem = new int[stones.length][stones.length];
+        for (int i = 0; i < stones.length; i++) {
+            for (int j = 0; j < stones.length; j++) {
+                mem[i][j] = Integer.MIN_VALUE;
+            }
+        }
+        return advantage(stones, 0, stones.length - 1, mem) > 0;
 //        return advantage(stones, mem) > 0;
-        return advantage2(stones) > 0;
+//        return advantage2(stones) > 0;
     }
 
     // recursive
@@ -39,10 +39,12 @@ public class StoneGame {
             return mem[i][j];
         }
 
-        return Math.max(
+        mem[i][j] = Math.max(
             stones[i] - advantage(stones, i + 1, j, mem),
             stones[j] - advantage(stones, i, j - 1, mem)
         );
+
+        return mem[i][j];
     }
 
     // non-recursive
