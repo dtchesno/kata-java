@@ -1,5 +1,7 @@
 package com.dtchesno.kata.struct;
 
+import org.jvnet.staxex.BinaryText;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -196,6 +198,37 @@ public class ArrayStringTasks {
             return new int[0];
         }
         return Arrays.copyOfRange(a, i, j + 1);
+    }
+
+    // Byte-by-byte pg.5
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        return nums1.length <= nums2.length
+                ? findMedianSortedArrays(nums1, nums2, (nums1.length + 1 ) / 2 - 1, (nums1.length + 1) / 2 - 1)
+                : findMedianSortedArrays(nums2, nums1, (nums2.length + 1) / 2 - 1, (nums2.length + 1) / 2 - 1);
+    }
+
+    private static double findMedianSortedArrays(int[] nums1, int[] nums2, int i, int iLast) {
+        // calculate partition
+        int shortLeft = i < 0 ? Integer.MIN_VALUE : nums1[i];
+        int shortRight = i + 1 >= nums1.length ? Integer.MAX_VALUE : nums1[i + 1];
+        int shortLeftCount = i + 1;
+        int longLeftCount = (nums1.length + nums2.length + 1) / 2 - shortLeftCount;
+        int longLeft = longLeftCount <= 0 ? Integer.MIN_VALUE : nums2[longLeftCount - 1];
+        int longRight = longLeftCount >= nums2.length ? Integer.MAX_VALUE : nums2[longLeftCount];
+
+        // exit condition
+        if (shortLeft <= longRight && longLeft <= shortRight) {
+            return (nums1.length + nums2.length) % 2 == 1
+                    ? Math.max(shortLeft, longLeft)
+                    : ((double)Math.max(shortLeft, longLeft) + Math.min(shortRight, longRight)) / 2;
+        }
+
+        // TODO: iLast will be neighbor - we need to use interval instead of and
+        // go to the middle of left or right subintervals partitioned by i
+        // move pointer left or right
+        return (longLeft > shortRight)
+            ? findMedianSortedArrays(nums1, nums2, (i + iLast) / 2 + 1, i)
+            : findMedianSortedArrays(nums1, nums2, (i + iLast) / 2 - 1, i);
     }
 
     // done

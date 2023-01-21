@@ -98,4 +98,12 @@ public class ArrayTest {
         assertTrue(Arrays.equals(new int[] {-1, 3, -2}, ArrayStringTasks.findZeroSum(new int[] {2, -1, 3, -2, 5})));
         assertTrue(Arrays.equals(new int[0], ArrayStringTasks.findZeroSum(new int[] {2, 3, -2, 5})));
     }
+
+    @Test
+    public void testFindMedianSortedArrays() {
+        assertEquals(2.5, ArrayStringTasks.findMedianSortedArrays(new int[] { 1, 2 }, new int[] { 3, 4 }), 0.0001);
+        assertEquals(2, ArrayStringTasks.findMedianSortedArrays(new int[] { 1, 3 }, new int[] { 2 }), 0.0001);
+        assertEquals(11, ArrayStringTasks.findMedianSortedArrays(new int[] { 1, 3, 8, 9, 15 }, new int[] { 7, 11, 18, 19, 21, 25 }), 0.0001);
+        assertEquals(13.5, ArrayStringTasks.findMedianSortedArrays(new int[] { 3, 5, 7, 9, 11, 16 }, new int[] { 23, 26, 31, 35 }), 0.0001);
+    }
 }

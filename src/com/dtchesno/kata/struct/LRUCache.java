@@ -4,17 +4,7 @@ import java.util.HashMap;
 
 public class LRUCache {
 
-    // TODO: running multiple tests at once will fail due to static context
     private static class Node {
-        static Node head = new Node(0, 0);
-        static Node tail = new Node(0, 0);
-        static int size = 0;
-
-        static {
-            head.next = tail;
-            tail.prev = head;
-        }
-
         int key;
         int value;
         Node prev;
@@ -24,8 +14,19 @@ public class LRUCache {
             this.key = key;
             this.value = value;
         }
+    }
 
-        static void add(Node n) {
+    private static class Queue {
+        private Node head = new Node(0, 0);
+        private Node tail = new Node(0, 0);
+        private int size = 0;
+
+        public Queue() {
+            head.next = tail;
+            tail.prev = head;
+        }
+
+        public void add(Node n) {
             Node prev = tail.prev;
             prev.next = n;
             n.prev = prev;
@@ -34,25 +35,26 @@ public class LRUCache {
             size++;
         }
 
-        static void remove(Node n) {
+        public void remove(Node n) {
             n.prev.next = n.next;
             n.next.prev = n.prev;
             size--;
         }
 
-        static Node poll() {
+        public Node poll() {
             Node n = head.next;
             remove(n);
             return n;
         }
 
-        static int size() {
+        public int size() {
             return size;
         }
     }
 
     int capacity;
     HashMap<Integer, Node> cache = new HashMap<>();
+    Queue queue = new Queue();
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
@@ -64,8 +66,8 @@ public class LRUCache {
         if (node == null)
             return -1;
 
-        Node.remove(node);
-        Node.add(node);
+        queue.remove(node);
+        queue.add(node);
         return node.value;
     }
 
@@ -74,24 +76,24 @@ public class LRUCache {
 
         if (entry != null) {
             entry.value = value;
-            Node.remove(entry);
-            Node.add(entry);
+            queue.remove(entry);
+            queue.add(entry);
             return;
         }
 
         entry = new Node(key, value);
 
         if (cache.size() == capacity) {
-            Node expiredEntry = Node.poll();
+            Node expiredEntry = queue.poll();
             cache.remove(expiredEntry.key);
         }
 
         cache.put(key, entry);
-        Node.add(entry);
+        queue.add(entry);
     }
 
     public int size() {
-        if (Node.size() != cache.size()) {
+        if (queue.size() != cache.size()) {
             throw new RuntimeException("size mismatch");
         }
         return cache.size();
