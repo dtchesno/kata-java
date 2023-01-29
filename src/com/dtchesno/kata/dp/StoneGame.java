@@ -20,11 +20,6 @@ public class StoneGame {
 
     public static boolean isWin(int[] stones) {
         int[][] mem = new int[stones.length][stones.length];
-        for (int i = 0; i < stones.length; i++) {
-            for (int j = 0; j < stones.length; j++) {
-                mem[i][j] = Integer.MIN_VALUE;
-            }
-        }
         return advantage(stones, 0, stones.length - 1, mem) > 0;
 //        return advantage(stones, mem) > 0;
 //        return advantage2(stones) > 0;
@@ -35,7 +30,7 @@ public class StoneGame {
         if (i == j) {
             return stones[i];
         }
-        if (mem[i][j] != Integer.MIN_VALUE) {
+        if (mem[i][j] != 0) {
             return mem[i][j];
         }
 

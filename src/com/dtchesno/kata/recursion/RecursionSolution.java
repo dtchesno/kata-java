@@ -3,6 +3,8 @@ package com.dtchesno.kata.recursion;
 import java.util.*;
 
 public class RecursionSolution {
+
+
     public static List<String> permuteBraces(int n) {
         List<String> result = new ArrayList<>();
         permuteBraces(n, n, "", result);
@@ -52,7 +54,6 @@ public class RecursionSolution {
         for (int val: values) {
             s.push(val);
         }
-        //sortStack(s);
         sortStackI(s);
         int[] result = new int[s.size()];
         for (int i = 0; i < result.length; i++) {
@@ -61,31 +62,19 @@ public class RecursionSolution {
         return result;
     }
 
-    private static void sortStack(Stack<Integer> s) {
-        if (s.size() == 1) {
-            return;
-        }
-
-        int top = s.pop();
-        while (top > s.peek()) {
-            int temp = s.pop();
-            s.push(top);
-            top = temp;
-            sortStack(s);
-        }
-        s.push(top);
-    }
-
     private static void sortStackI(Stack<Integer> s) {
         Stack<Integer> s2 = new Stack<>();
         while (!s.isEmpty()) {
             int top = s.pop();
-            while (!s2.isEmpty() && s2.peek() < top) {
+            while (!s2.isEmpty() && s2.peek() > top) {
                 s.push(s2.pop());
             }
             s2.push(top);
         }
-        s.addAll(s2);
+
+        while (!s2.isEmpty()) {
+            s.push(s2.pop());
+        }
     }
 
 

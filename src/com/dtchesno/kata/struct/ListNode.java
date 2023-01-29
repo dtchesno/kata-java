@@ -29,6 +29,21 @@ public class ListNode {
         return this.next == null ? null : this.next.get(n - 1);
     }
 
+    // byte-by-byte, pg.32
+    public static boolean hasCycle(ListNode list) {
+        ListNode cur = list;
+        ListNode runner = list;
+
+        while (cur != null && runner != null) {
+            cur = cur.next;
+            runner = (runner.next != null) ? runner.next.next : null;
+            if (cur == runner) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // split a linked list in halves
     // byte-by-byte #41 pg31
     // [selected - 1]
@@ -38,17 +53,22 @@ public class ListNode {
             node = node.next;
             runner = runner.next.next;
         }
-        ListNode root2 = node.next;
-        root2.prev = null;
-        node.next = null;
-        return root2;
-    }
 
+        ListNode splitHead = node.next;
+        splitHead.prev = null;
+        node.next = null;
+        return splitHead;
+    }
 
     // find begin of circle
     // cracking the coding interview #2.5 pg.109
     // [selected - 1]
-    // s1->(s2+s3); s1 + s2 = (s1 + s2 + k * (s2 + s3)) / 2 => s1 = (k - 1) * (s2 + s3) + s3
+    // s1->(loop node)->d->(meet point), s2 - length of loop
+    //      ptr will travel s1+d
+    //      runner will travel s1+d+s2; we need to divide by 2 to get equal number of moves
+    //      s1 + d = (s1 + d + s2) / 2 => s1 + d = s2 => s1 = s2 - d
+    //      so, if ptr starts over and runner from meet point with the same speed, they should meet at start of loop
+    //      runner could make multiple loop runs (k * s2), but this doesn't change things, it will do so for final step either
     public static ListNode findStartLoop(ListNode root) {
         ListNode ptr = root.next;
         ListNode runner = root.next.next;
@@ -84,13 +104,13 @@ public class ListNode {
     // [selected - 2]
     public static ListNode reverse(ListNode root) {
         ListNode prev = root;
-        ListNode curr = root.next;
+        ListNode cur = root.next;
         root.next = null;
-        while (curr != null) {
-            ListNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
         }
         return prev;
     }
@@ -103,21 +123,23 @@ public class ListNode {
         if (l1 == null && l2 == null && carry == 0) {
             return null;
         }
+
         int value = carry;
+
         if (l1 != null) {
             value += l1.value;
             l1 = l1.next;
         }
+
         if (l2 != null) {
             value += l2.value;
             l2 = l2.next;
         }
-        carry = value / 10;
-        value %= 10;
-        ListNode res = new ListNode(value);
-        ListNode next = ListNode.add(l1, l2, carry);
-        res.next = next;
-        return res;
+
+        ListNode node = new ListNode(value % 10);
+        ListNode next = add(l1, l2, value / 10);
+        node.next = next;
+        return node;
     }
 
     public static void merge(ListNode l1, ListNode l2) {

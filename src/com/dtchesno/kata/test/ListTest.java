@@ -17,6 +17,15 @@ public class ListTest {
     public void tearDown() throws Exception {
     }
 
+    @Test
+    public void testHasCycle() {
+        ListNode l = new ListNode(new int[] { 1, 2, 3, 4, 5 }, false);
+        assertFalse(ListNode.hasCycle(l));
+
+        // 5->2
+        l.next.next.next.next.next = l.next;
+        assertTrue(ListNode.hasCycle(l));
+    }
 
     @Test
     public void testSplit() {

@@ -156,19 +156,19 @@ public class TreeTest {
     public void isSubtree() {
         TreeNode t1 = createTestTree();
 
-        assertEquals(t1.isSubtree(t1), true);
-        assertEquals(t1.isSubtree(null), true);
-        assertEquals(t1.isSubtree(new TreeNode(100)), false);
-        assertEquals(t1.isSubtree(new TreeNode(20)), true);
-        assertEquals(t1.isSubtree(new TreeNode(180)), true);
+        assertTrue(t1.isSubtree(t1));
+        assertTrue(t1.isSubtree(null));
+        assertFalse(t1.isSubtree(new TreeNode(100)));
+        assertTrue(t1.isSubtree(new TreeNode(20)));
+        assertTrue(t1.isSubtree(new TreeNode(180)));
 
         int[] arr = new int[] { 50, 100, 150 };
         TreeNode t2 = TreeNode.createBST(arr);
-        assertEquals(t1.isSubtree(t2), false);
-        assertEquals(t1.isSubtree(t2.insert(20)), false);
-        assertEquals(t1.isSubtree(t2.insert(70)), false);
-        assertEquals(t1.isSubtree(t2.insert(180)), false);
-        assertEquals(t1.isSubtree(t2.insert(120)), true);
+        assertFalse(t1.isSubtree(t2));
+        assertFalse(t1.isSubtree(t2.insert(20)));
+        assertFalse(t1.isSubtree(t2.insert(70)));
+        assertFalse(t1.isSubtree(t2.insert(180)));
+        assertTrue(t1.isSubtree(t2.insert(120)));
     }
     @Test
     public void findSum() {
@@ -285,5 +285,30 @@ public class TreeTest {
         TreeNode t = new TreeNode(new Integer[] { 5, 3, 6, 2, 4, null, 7, 1, null, null, null, null, 8 });
         assertEquals(3, TreeNode.distanceBST(t, t.left.left.left, t.left.right));
         assertEquals(6, TreeNode.distanceBST(t, t.left.left.left, t.right.right.right));
+    }
+
+    @Test
+    public void testFindLCA() {
+        TreeNode root = new TreeNode(new Integer[] { 3,5,1,6,2,0,8,null,null,7,4 });
+        assertEquals(3, TreeNode.findLCA(root, root.left, root.right).key);
+        assertEquals(5, TreeNode.findLCA(root.left, root.left, root.left.right.right).key);
+        TreeNode root2 = new TreeNode(new Integer[] { 1, 2 });
+        assertEquals(1, TreeNode.findLCA(root2, root2, root2.left).key);
+    }
+
+    @Test
+    public void testLcaDeepestLeaves() {
+        TreeNode root = new TreeNode(new Integer[] { 3,5,1,6,2,0,8,null,null,7,4 });
+        assertEquals(2, root.lcaDeepestLeaves(root).key);
+
+        TreeNode root2 = new TreeNode(new Integer[] { 0,1,3,null,2 });
+        assertEquals(2, root.lcaDeepestLeaves(root2).key);
+
+        TreeNode root3 = new TreeNode(new Integer[] { 1 });
+        assertEquals(1, root.lcaDeepestLeaves(root3).key);
+    }
+
+    @Test
+    public void testVerticalTraversal() {
     }
 }

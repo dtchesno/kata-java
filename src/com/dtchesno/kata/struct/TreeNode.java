@@ -1,5 +1,8 @@
 package com.dtchesno.kata.struct;
 
+import javafx.util.Pair;
+
+import java.time.temporal.Temporal;
 import java.util.*;
 
 public class TreeNode {
@@ -178,9 +181,8 @@ public class TreeNode {
     }
 
 
-
     // is tree is subtree of this
-    // Cracking...4.7 pg.130
+    // Cracking...4.7 pg.130 (2010)
     public boolean isSubtree(TreeNode tree) {
         if (tree == null) {
             return true;
@@ -192,39 +194,43 @@ public class TreeNode {
         if (t1 == null) {
             return false;
         }
-        if (t1.key == t2.key) {
-            return matchTree(t1, t2);
+
+        if (isMatch(t1, t2)) {
+            return true;
         }
+
         return isSubtree(t1.left, t2) || isSubtree(t1.right, t2);
     }
 
-    private static boolean matchTree(TreeNode t1, TreeNode t2) {
+    private static boolean isMatch(TreeNode t1, TreeNode t2) {
         if (t1 == null && t2 == null) {
             return true;
         }
-        if (t1 == null || t2 == null) {
-            return false;
-        }
-        if (t1.key != t2.key) {
-            return false;
-        }
-        return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
-    }
 
+        if (t1 == null || t2 == null || t1.key != t2.key) {
+            return false;
+        }
+
+        return isMatch(t1.left, t2.left) && isMatch(t1.right, t2.right);
+    }
 
     // find all paths which sum up to the given sum, not need to start @root
     // Cracking...4.8 pg.131
     // [selected - 1]
-    public Set<ArrayList<Integer>> findSum(int sum) {
-        Set<ArrayList<Integer>> acc = new HashSet<>();
+    public Set<List<Integer>> findSum(int sum) {
+        Set<List<Integer>> acc = new HashSet<>();
         findSum(this, sum, new ArrayList<Integer>(), acc);
         return acc;
     }
 
-    private static void findSum(TreeNode t, int sum, ArrayList<Integer> buffer, Set<ArrayList<Integer>> acc) {
-        if (t == null) return;
+    private static void findSum(TreeNode t, int sum, List<Integer> buffer, Set<List<Integer>> acc) {
+        if (t == null) {
+            return;
+        }
+
         buffer.add(t.key);
 
+        // check for sum
         int pathSum = 0;
         for (int i = buffer.size() - 1; i >= 0; i--) {
             pathSum += buffer.get(i);
@@ -232,11 +238,11 @@ public class TreeNode {
                 acc.add(new ArrayList<>(buffer.subList(i, buffer.size())));
             }
         }
+
         findSum(t.left, sum, buffer, acc);
         findSum(t.right, sum, buffer, acc);
         buffer.remove(buffer.size() - 1);
     }
-
 
     // build doubly-linked list from tree
     // byte-by-byte #21 pg20
@@ -292,27 +298,35 @@ public class TreeNode {
         return result;
     }
 
+    // returns how many added
     private static int findKthLargestElements(TreeNode root, int k, int[] result) {
         if (k == 0) {
             return 0;
         }
         if (root == null) {
-            return k;
+            return 0;
         }
 
-        if (root.right != null) {
-            k = findKthLargestElements(root.right, k, result);
-        }
-        if (k != 0) {
+        int addedCount = 0;
+
+        // start from right
+        addedCount += findKthLargestElements(root.right, k, result);
+        k -= addedCount;
+
+        // add current
+        if (k > 0) {
             result[k - 1] = root.key;
+            addedCount++;
             k--;
         }
-        if (k != 0) {
-            k = findKthLargestElements(root.left, k, result);
-        }
-        return k;
-    }
 
+        // continue with left
+        if (k > 0) {
+            addedCount += findKthLargestElements(root.left, k, result);
+        }
+
+        return addedCount;
+    }
 
     // test whether tree can be cut once, so, two parts will have same sum of node values
     // FACEBOOK: https://www.careercup.com/question?id=4871620274421760
@@ -489,7 +503,7 @@ public class TreeNode {
     }
 
     private static boolean isLeaf(TreeNode node) {
-        return node.left == null && node.right == null;
+        return node != null && node.left == null && node.right == null;
     }
 
     // https://leetcode.com/discuss/interview-question/125084/given-a-binary-search-tree-find-the-distance-between-2-nodes
@@ -511,12 +525,164 @@ public class TreeNode {
         return 1 + distanceBST(node.key < root.key ? root.left : root.right, node);
     }
 
-    // done
-    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
-    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iv/
+    // leetcode 236
+    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
+    public static TreeNode findLCA(TreeNode root, TreeNode p, TreeNode q) {
+        sLca = null;
+        traverse(root, p, q);
+        return sLca;
+    }
+
+    private static TreeNode sLca;
+
+    private static boolean traverse(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || sLca != null) {
+            return false;
+        }
+
+        int left = traverse(root.left, p, q) ? 1 : 0;
+        int right = traverse(root.right, p, q) ? 1 : 0;
+        int mid = (root == p || root == q) ? 1: 0;
+
+        if (sLca == null && left + right + mid == 2) {
+            sLca = root;
+        }
+
+        return left + right + mid > 0;
+    }
+
     // https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
-    // https://leetcode.com/problems/binary-tree-cameras/
+    public TreeNode lcaDeepestLeaves(TreeNode root) {
+        return traverse(root, 0).lca;
+    }
+
+    private static class LcaPair {
+        TreeNode lca;
+        int depth;
+
+        LcaPair(TreeNode lca, int depth) {
+            this.lca = lca;
+            this.depth= depth;
+        }
+    }
+
+    private static LcaPair traverse(TreeNode root, int depth) {
+        if (root == null) {
+            return null;
+        }
+
+        if (isLeaf(root.left) && isLeaf(root.right)) {
+            return new LcaPair(root, depth + 1);
+        }
+
+        LcaPair left = traverse(root.left, depth + 1);
+        LcaPair right = traverse(root.right, depth + 1);
+
+        if (left != null && right != null) {
+            if (left.depth > right.depth) {
+                return left;
+            } else if (right.depth > left.depth) {
+                return right;
+            } else {
+                // since depths are the same lca will be root for now
+                return new LcaPair(root, left.depth);
+            }
+        }
+
+        if (left != null) {
+            return left;
+        }
+
+        if (right != null) {
+            return right;
+        }
+
+        // same depth - nothing found, this is leaf
+        return new LcaPair(root, depth);
+    }
+
+
+    // leetcode 987: // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]
+    public static List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(root, 0, 0);
+
+        for (int i = minColumn; i <= maxColumn; i++ ) {
+            List<Pair<Integer, Integer>> column = map.get(i);
+            Collections.sort(column, new Comparator<Pair<Integer, Integer>>() {
+                @Override
+                public int compare(Pair<Integer, Integer> o1, Pair<Integer, Integer> o2) {
+                    if (o1.getKey() != o2.getKey())
+                        return o1.getKey() - o2.getKey();
+                    else
+                        return o1.getValue() - o2.getValue();
+                }
+            });
+
+            ArrayList<Integer> sortedColumn = new ArrayList<>();
+            for (Pair<Integer, Integer> p : column) {
+                sortedColumn.add(p.getValue());
+            }
+            result.add(sortedColumn);
+        }
+
+        return result;
+    }
+
+    private static Map<Integer, ArrayList<Pair<Integer, Integer>>> map = new HashMap<>();
+    private static int minColumn = 0;
+    private static int maxColumn = 0;
+
+    private static void dfs(TreeNode root, int row, int col) {
+        if (root == null) {
+            return;
+        }
+
+        if (!map.containsKey(col)) {
+            map.put(col, new ArrayList<Pair<Integer, Integer>>());
+        }
+
+        map.get(col).add(new Pair<Integer, Integer>(row, root.key));
+        minColumn = Math.min(minColumn, col);
+        maxColumn = Math.max(maxColumn, col);
+
+        dfs(root.left, row + 1, col - 1);
+        dfs(root.right, row + 1, col + 1);
+    }
+
+    // leetcode 96): https://leetcode.com/problems/binary-tree-cameras/
+    private int count = 0;
+    private HashSet<TreeNode> covered = new HashSet<>();
+
+    public int minCameraCover(TreeNode root) {
+        // leaves will be covered by parent - that's best greedy strategy
+        covered.add(null);
+        minCameraCoveDdfs(root, null);
+        return count;
+    }
+
+    private void minCameraCoveDdfs(TreeNode node, TreeNode parent) {
+        if (node == null) {
+            return;
+        }
+
+        minCameraCoveDdfs(node.left, node);
+        minCameraCoveDdfs(node.right, node);
+
+        // we have put camera if node is not covered and root (otherwise it goes to parent)
+        // or, leaves are not covered
+        if (parent == null && !covered.contains(node)
+                || !covered.contains(node.left) || !covered.contains(node.right)) {
+            count++;
+            covered.add(node);
+            covered.add(parent);
+            covered.add(node.left);
+            covered.add(node.right);
+        }
+    }
+
+    // done
+
     // https://leetcode.com/problems/binary-tree-vertical-order-traversal/ (medium) [tree, bfs]
     // https://leetcode.com/problems/binary-tree-right-side-view/ (medium) [tree, bfs]
-    // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]
 }

@@ -59,6 +59,16 @@ public class RecursionTest {
     }
 
     @Test
+    public void testSortStack() {
+        assertEquals(true, Arrays.equals(
+                new int[] { 1, 2, 3, 4, 5, 6, 7 },
+                RecursionSolution.sortStack(new int[] { 7, 1, 3, 5, 2, 4, 6})));
+        assertEquals(true, Arrays.equals(
+                new int[] { 1, 2, 3, 4, 5, 6, 7 },
+                RecursionSolution.sortStack(new int[] { 1, 7, 3, 5, 2, 6, 4 })));
+    }
+
+    @Test
     public void testGetAllPermutations() {
         List<Integer> input = Arrays.asList(1, 2, 3);
         HashSet<List<Integer>> expected = new HashSet<>();
@@ -72,12 +82,5 @@ public class RecursionTest {
         List<List<Integer>> result = RecursionSolution.getAllPermutations(input);
         assertEquals(expected.size(), result.size());
         assertTrue(expected.containsAll(result));
-    }
-
-    @Test
-    public void testSortStack() {
-        assertEquals(true, Arrays.equals(
-                new int[] { 1, 2, 3, 4, 5, 6, 7 },
-                RecursionSolution.sortStack(new int[] { 7, 1, 3, 5, 2, 4, 6})));
     }
 }

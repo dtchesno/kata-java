@@ -7,20 +7,30 @@ import java.util.Map;
 
 public class LRUCacheSimplified {
 
+    private static class Entry extends Pair<Integer, Integer> {
+        Entry(int key, int value) {
+            super(key, value);
+        }
+    }
+
     private int capacity;
-    private LinkedList<Pair<Integer, Integer>> queue = new LinkedList<>();
-    private Map<Integer, Pair<Integer, Integer>> cache = new HashMap<>();
+
+    private Map<Integer, Entry> cache = new HashMap<>();
+    private LinkedList<Entry> queue  = new LinkedList<>();
 
     public LRUCacheSimplified(int capacity) {
         this.capacity = capacity;
     }
 
     public int get(int key) {
-        Pair<Integer, Integer> entry = cache.get(key);
+        Entry entry = cache.get(key);
 
-        if (entry == null)
+        if (entry == null) {
             return -1;
+        }
 
+        // this is simplification and not fully efficient
+        // ideally we want to have pointer to element in LRU queue to have O(1) access cost
         queue.remove(entry);
         queue.add(entry);
 
@@ -28,31 +38,23 @@ public class LRUCacheSimplified {
     }
 
     public void put(int key, int value) {
-        Pair<Integer, Integer> entry = cache.get(key);
-        if (entry != null) {
-            queue.remove(entry);
-            if (entry.getValue() != value) {
-                entry = new Pair<Integer, Integer>(key, value);
-                cache.put(key, entry);
-            }
-            queue.add(entry);
-            return;
-        }
+        Entry current = cache.get(key);
+        Entry newEntry = new Entry(key, value);
 
-        if (queue.size() == capacity) {
-            Pair<Integer, Integer> expiredEntry = queue.pop();
-            cache.remove(expiredEntry.getKey(), expiredEntry);
+        // key is in cache
+        if (current != null) {
+            queue.remove(current);
         }
-
-        Pair<Integer, Integer> newEntry = new Pair<>(key, value);
         queue.add(newEntry);
         cache.put(key, newEntry);
+
+        if (queue.size() > capacity) {
+            Entry expired = queue.remove();
+            cache.remove(expired.getKey());
+        }
     }
 
     public int size() {
-        if (queue.size() != cache.size()) {
-            throw new RuntimeException("size mismatch");
-        }
-        return cache.size();
+        return queue.size();
     }
 }

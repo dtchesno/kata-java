@@ -58,9 +58,6 @@ public class DpSolution {
     // items[number][2] - weight, value
     public static int knapsack(int maxWeight, int[][] items) {
         int[][] mem = new int[maxWeight + 1][items.length];
-        for (int[] arr: mem) {
-            Arrays.fill(arr, -1);
-        }
         return knapsackDP(maxWeight, items, 0, mem);
     }
 
@@ -68,13 +65,17 @@ public class DpSolution {
         if (i == items.length) {
             return 0;
         }
-        if (mem[weight][i] == -1) {
-            mem[weight][i] = items[i][0] > weight
-                    ? knapsackDP(weight, items, i + 1, mem)
-                    : Math.max(
-                        items[i][1] + knapsackDP(weight - items[i][0], items, i + 1, mem),
-                        knapsackDP(weight, items, i + 1, mem));
+
+        if (mem[weight][i] != 0) {
+            return mem[weight][i];
         }
+
+        mem[weight][i] = items[i][0] <= weight
+                ? Math.max(
+                        items[i][1] + knapsackDP(weight - items[i][0], items, i + 1, mem),
+                        knapsackDP(weight, items, i + 1, mem))
+                : knapsackDP(weight, items, i + 1, mem);
+
         return mem[weight][i];
     }
 
@@ -134,13 +135,24 @@ public class DpSolution {
         if (sum == 0) {
             return 0;
         }
-        if (mem[sum] == 0) {
-            mem[sum] = Integer.MAX_VALUE;
-            for (int coin: coins) {
-                if (coin > sum) continue;
-                mem[sum] = Integer.min(mem[sum], 1 + minChangeDP(sum - coin, coins, mem));
-            }
+
+        if (mem[sum] != 0) {
+            return mem[sum];
         }
+
+        int min = Integer.MAX_VALUE;
+        for (int value : coins) {
+            if (value > sum) {
+                continue;
+            }
+            if (value == sum) {
+                mem[sum] = 1;
+                break;
+            }
+            mem[sum] = Math.min(min, 1 + minChangeDP(sum - value, coins, mem));
+            min = mem[sum];
+        }
+
         return mem[sum];
     }
 
@@ -155,8 +167,32 @@ public class DpSolution {
         for (int[] arr: mem) {
             Arrays.fill(arr, -1);
         }
-        return //minDistanceDP(w1, w1.length, w2, w2. length, mem);
-        w1.length + w2.length - 2 * lcs(w1, w1.length, w2, w2. length, mem);
+        //return minDistanceDP(w1, w1.length, w2, w2. length, mem);
+        //return w1.length + w2.length - 2 * lcs(w1, w1.length, w2, w2.length, mem);
+        return deleteDistanceDP(w1, w2, 0, 0, mem);
+    }
+
+    private static int deleteDistanceDP(char[] w1, char[] w2, int pos1, int pos2, int[][] mem) {
+        if (pos1 == w1.length) {
+            return w2.length - pos2;
+        }
+        if (pos2 == w2.length) {
+            return w1.length - pos1;
+        }
+
+        if (mem[pos1][pos2] != -1) {
+            return mem[pos1][pos2];
+        }
+
+        if (w1[pos1] == w2[pos2]) {
+            mem[pos1][pos2] = deleteDistanceDP(w1, w2, pos1 + 1, pos2 + 1, mem);
+        } else {
+            mem[pos1][pos2] = 1 + Math.min(
+                    deleteDistanceDP(w1, w2, pos1 + 1, pos2, mem),
+                    deleteDistanceDP(w1, w2, pos1, pos2 + 1, mem));
+        }
+
+        return mem[pos1][pos2];
     }
 
     private static int lcs(char[] word1, int len1, char[] word2, int len2, int[][] mem) {
@@ -186,34 +222,38 @@ public class DpSolution {
         for (int[] arr: mem) {
             Arrays.fill(arr, -1);
         }
-        return minDistanceDP(w1, w1.length, w2, w2. length, mem);
+        return minDistanceDP(w1, w2, 0, 0, mem);
     }
 
-    private static int minDistanceDP(char[] word1, int len1, char[] word2, int len2, int[][] mem) {
-        if (len1 == 0) {
-            return len2;
+    private static int minDistanceDP(char[] w1, char[] w2, int pos1, int pos2, int[][] mem) {
+        if (pos1 == w1.length) {
+            return w2.length - pos2;
         }
-        if (len2 == 0) {
-            return len1;
+        if (pos2 == w2.length) {
+            return w1.length - pos1;
         }
-        if (mem[len1][len2] == -1) {
-            if (word1[len1 - 1] == word2[len2 - 1]) {
-                mem[len1][len2] = minDistanceDP(word1, len1 - 1, word2, len2 - 1, mem);
-            } else {
-                // delete & insert
-                int d1 = 1 + Math.min(
-                    minDistanceDP(word1, len1 - 1, word2, len2, mem),
-                    minDistanceDP(word1, len1, word2, len2 - 1, mem)
-                );
 
-                // replace
-                int d2 = 1 + minDistanceDP(word1, len1 - 1, word2, len2 - 1, mem);
-
-                mem[len1][len2] = Math.min(d1, d2);
-            }
+        if (mem[pos1][pos2] != -1) {
+            return mem[pos1][pos2];
         }
-        return mem[len1][len2];
+
+        if (w1[pos1] == w2[pos2]) {
+            mem[pos1][pos2] = minDistanceDP(w1, w2, pos1 + 1, pos2 + 1, mem);
+        } else {
+            // delete & insert are opposite pos1/pos2 increments, but min formula is the same
+            int d1 = 1 + Math.min(
+                    minDistanceDP(w1, w2, pos1 + 1, pos2, mem),
+                    minDistanceDP(w1, w2, pos1, pos2 + 1, mem));
+
+            // replace
+            int d2 = 1 + minDistanceDP(w1, w2, pos1 + 1, pos2 + 1, mem);
+
+            mem[pos1][pos2] = Math.min(d1, d2);
+        }
+
+        return mem[pos1][pos2];
     }
+
 
     public static int fibonacci(int index) {
         if (index == 0) {

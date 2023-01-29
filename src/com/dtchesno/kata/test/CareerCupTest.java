@@ -68,12 +68,13 @@ public class CareerCupTest {
     //isOneEditAway
     @Test
     public void testIsOneEditAway() {
-        assertTrue(!MiscSolution.isOneEditAway("cat", "dog"));
+        assertFalse(MiscSolution.isOneEditAway("cat", "cat"));
+        assertFalse(MiscSolution.isOneEditAway("cat", "dog"));
         assertTrue(MiscSolution.isOneEditAway("cat", "cats"));
         assertTrue(MiscSolution.isOneEditAway("cat", "cut"));
         assertTrue(MiscSolution.isOneEditAway("cat", "cast"));
         assertTrue(MiscSolution.isOneEditAway("cat", "at"));
-        assertTrue(!MiscSolution.isOneEditAway("cat", "act"));
+        assertFalse(MiscSolution.isOneEditAway("cat", "act"));
     }
 
     @Test

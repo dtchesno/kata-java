@@ -3,9 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="07e19c97-bd1d-4234-a34c-a383936823b7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/PatternMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/PatternMatching.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/StoneGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/StoneGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Backtracking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Backtracking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCacheSimplified.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCacheSimplified.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ListTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,8 +86,8 @@
       <recent name="com.dtchesno.kata.tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LRUCacheTest">
-    <configuration name="ArrayTest.testFindMedianSortedArrays" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.DpTest.testMinDistance">
+    <configuration name="DpTest.testDeleteDistance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -83,14 +96,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.ArrayTest" />
-      <option name="METHOD_NAME" value="testFindMedianSortedArrays" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
+      <option name="METHOD_NAME" value="testDeleteDistance" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LRUCacheTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DpTest.testMinChange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -99,29 +112,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.LRUCacheTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SortTest.testHeapSort" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="kata-java1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.SortTest" />
-      <option name="METHOD_NAME" value="testHeapSort" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
+      <option name="METHOD_NAME" value="testMinChange" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SortTest.testQuickSort" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DpTest.testMinDistance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -130,14 +128,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.SortTest" />
-      <option name="METHOD_NAME" value="testQuickSort" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
+      <option name="METHOD_NAME" value="testMinDistance" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TreeTest.testDistanceInBST" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DpTest.testknapsack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -146,8 +144,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.TreeTest" />
-      <option name="METHOD_NAME" value="testDistanceInBST" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
+      <option name="METHOD_NAME" value="testknapsack" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PuzzlesTest.testStoneGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kata-java1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dtchesno.kata.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.PuzzlesTest" />
+      <option name="METHOD_NAME" value="testStoneGame" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -167,19 +181,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.TreeTest.testDistanceInBST" />
-      <item itemvalue="JUnit.ArrayTest.testFindMedianSortedArrays" />
-      <item itemvalue="JUnit.SortTest.testQuickSort" />
-      <item itemvalue="JUnit.SortTest.testHeapSort" />
-      <item itemvalue="JUnit.LRUCacheTest" />
+      <item itemvalue="JUnit.PuzzlesTest.testStoneGame" />
+      <item itemvalue="JUnit.DpTest.testknapsack" />
+      <item itemvalue="JUnit.DpTest.testMinChange" />
+      <item itemvalue="JUnit.DpTest.testDeleteDistance" />
+      <item itemvalue="JUnit.DpTest.testMinDistance" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LRUCacheTest" />
-        <item itemvalue="JUnit.SortTest.testHeapSort" />
-        <item itemvalue="JUnit.SortTest.testQuickSort" />
-        <item itemvalue="JUnit.ArrayTest.testFindMedianSortedArrays" />
-        <item itemvalue="JUnit.TreeTest.testDistanceInBST" />
+        <item itemvalue="JUnit.DpTest.testMinDistance" />
+        <item itemvalue="JUnit.DpTest.testDeleteDistance" />
+        <item itemvalue="JUnit.DpTest.testMinChange" />
+        <item itemvalue="JUnit.DpTest.testknapsack" />
+        <item itemvalue="JUnit.PuzzlesTest.testStoneGame" />
       </list>
     </recent_temporary>
   </component>
@@ -238,32 +252,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
-          <line>324</line>
+          <line>338</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
-          <line>332</line>
+          <line>346</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
-          <line>397</line>
+          <line>411</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java</url>
-          <line>177</line>
+          <line>174</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java</url>
-          <line>101</line>
+          <line>102</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java</url>
-          <line>328</line>
+          <line>329</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -278,42 +292,40 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
-          <line>246</line>
+          <line>286</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java</url>
-          <line>297</line>
+          <line>298</line>
           <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
-          <line>168</line>
+          <line>171</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
-          <line>220</line>
+          <line>249</line>
           <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
-          <line>228</line>
+          <line>257</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
-          <line>231</line>
+          <line>260</line>
           <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
+          <line>297</line>
+          <option name="timeStamp" value="82" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="JUnit">
-        <watch expression="sb.length()" language="JAVA" />
-        <watch expression="part.length()" language="JAVA" />
-        <watch expression="hash" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

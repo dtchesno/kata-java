@@ -142,15 +142,12 @@ public class MiscSolution {
     // 8 9 4
     // 7 6 5
     public static int[][] spiral(int n) {
-        int [][] arr = new int[n][n];
-        for (int[] a: arr) {
-            Arrays.fill(a, 0);
-        }
-
+        int[][] arr = new int[n][n];
         int i = 0;
         int j = 0;
         arr[i][j] = 1;
         int direction = 0; // 0/1/2/3 - right/down/left/up
+
         for (int k = 2; k <= n * n; k++) {
             while (true) {
                 int i1 = 0, j1 = 0;
@@ -191,10 +188,7 @@ public class MiscSolution {
         }
 
         if (s1.length() == s2.length()) {
-            if (i == s1.length()) {
-                return true;
-            }
-            return s1.substring(i + 1).equals(s2.substring(i + 1));
+            return i == s1.length() ? false : s1.substring(i + 1).equals(s2.substring(i + 1));
         }
 
         return (s1.length() > s2.length()) ? s1.substring(i + 1).equals(s2.substring(i))
@@ -238,11 +232,10 @@ public class MiscSolution {
             right = x;
         }
 
-        //while (compare(left, right, epsilon) < 0) {
         while (left < right) {
             double mid = (left + right) / 2;
             double midSquared = mid * mid;
-            if (compare(midSquared, x, epsilon) == 0) {
+            if (Math.abs(x - midSquared) < epsilon) {
                 return mid;
             }
             if (x > midSquared) {
@@ -254,17 +247,34 @@ public class MiscSolution {
         return left;
     }
 
-    private static int compare(double v1, double v2, double epsilon) {
-        double diff = v1 - v2;
-        if (diff < 0 && -diff > epsilon) {
-            return -1;
-        }
-        if (diff > 0 && diff > epsilon) {
-            return 1;
-        }
-        return 0;
-    }
-
-    // DONE
     // https://leetcode.com/problems/largest-rectangle-in-histogram/
+    // use stack to store indices, starting with -1;
+    // we use indices to calculate weight, height could be taken from input by popped index;
+    // on each iteration we will remove higher bars as current will be dominant going further;
+    // have -1 at the bottom of the stack lets us calculate area when everything on left of current are higher
+    public static int largestRectangleAreaStack(int[] heights) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+
+        int maxArea = 0;
+        for (int i = 0; i < heights.length; i++) {
+            while (stack.peek() != -1 && heights[stack.peek()] > heights[i]) {
+                // calculate area for current popped rect, width is between ith and next small dominant in stack
+                int currentHeight = heights[stack.pop()];
+                int currentWidth = i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, currentHeight * currentWidth);
+            }
+            stack.push(i);
+        }
+
+        // now for each remainder in stack - look backward for next dominant (or -1)
+        // and calculate area with current height and width from dominant till end of array
+        while (stack.peek() != -1) {
+            int currentHeight = heights[stack.pop()];
+            int currentWidth = heights.length - stack.peek() - 1;
+            maxArea = Math.max(maxArea, currentHeight * currentWidth);
+        }
+
+        return maxArea;
+    }
 }

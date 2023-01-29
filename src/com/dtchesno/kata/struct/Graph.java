@@ -69,31 +69,34 @@ public class Graph {
         return edges.size();
     }
 
+    // inputs: edges
+    // outputs: vArray - vertices in bfs; parent array for vertices
     public Traversal bfs(int start) {
         int size = edges.size();
         ArrayList<Integer> vertices = new ArrayList<>(size);
         int[] parent = new int[size];
-        //boolean[] processed = new boolean[size];
-        boolean[] discovered = new boolean[size];
+        int[] state = new int[size]; // 0/1/2 - white/gray/black
 
         LinkedList<Integer> q = new LinkedList<>();
         q.add(start);
-        discovered[start] = true;
+        state[start] = 1;
         while (!q.isEmpty()) {
             int v = q.poll();
             vertices.add(v);
-            for (Edge e: edges.get(v)) {
-                if (!discovered[e.y]) {
-                    discovered[e.y] = true;
-                    parent[e.y] = v;
-                    q.add(e.y);
+            for (Edge e : edges.get(v)) {
+                int u = e.y;
+                if (state[u] == 0) {
+                    state[u] = 1;
+                    parent[u] = v;
+                    q.add(u);
                 }
             }
+            state[v] = 2;
         }
 
         int[] vArray = new int[vertices.size()];
-        for (int i = 0; i < vArray.length; i++) {
-            vArray[i] = vertices.get(i);
+        for (int i = 0; i < vertices.size(); i++) {
+             vArray[i] = vertices.get(i);
         }
         return new Traversal(vArray, parent);
     }
@@ -110,16 +113,18 @@ public class Graph {
     }
 
     private void dfs(int v, TraversalCtx ctx) {
-        ctx.discovered[v] = ctx.processed[v] = true;
+        ctx.discovered[v] = true;
         ctx.vertices.add(v);
-        for (Edge e: edges.get(v)) {
-            if (!ctx.discovered[e.y]) {
-                ctx.parent[e.y] = v;
-                dfs(e.y, ctx);
+        for (Edge e : edges.get(v)) {
+            int u = e.y;
+            if (!ctx.discovered[u]) {
+                ctx.discovered[u] = true;
+                ctx.parent[u] = v;
+                dfs(u, ctx);
             }
         }
+        ctx.processed[v] = true;
     }
-
 
     // return min distance form source to all nodes
     // g[i] is int[][], array of int pairs - vertex connected to i vertex and weight of the edge
@@ -171,24 +176,24 @@ public class Graph {
 
     // exercises
 
-    public static List<Integer> bfs(int[][] G) {
-        ArrayList<Integer> res = new ArrayList<>();
+    public static List<Integer> bfs(int G[][]) {
+        ArrayList<Integer> result = new ArrayList<>();
         int[] state = new int[G.length];
         LinkedList<Integer> q = new LinkedList<>();
         q.add(0);
-        state[0] = 1; // discovered
         while (!q.isEmpty()) {
             int v = q.poll();
-            for (int u: G[v]) {
+            state[v] = 1;
+            for (int u : G[v]) {
                 if (state[u] == 0) {
+                    state[u] = 1;
                     q.add(u);
-                    state[u] = 1; // discovered
                 }
             }
-            state[v] = 2; // exhausted edges - processed
-            res.add(v);
+            state[v] = 2;
+            result.add(v);
         }
-        return res;
+        return result;
     }
 
     public static List<Integer> dfs(int[][] G) {
@@ -213,17 +218,12 @@ public class Graph {
     public static Integer[] listEventualSafeNodes(int[][] g) {
         // 0/1/2 - white/gray/black - undiscovered/discovered/processed
         int[] color = new int[g.length];
-        for (int i = 0; i < color.length; i++) {
-            color[i] = 0;
-        }
-
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < g.length; i++) {
             if (listEventualSafeNodesDFS(i, g, color)) {
                 result.add(i);
             }
         }
-
         return result.toArray(new Integer[0]);
     }
 
@@ -236,17 +236,19 @@ public class Graph {
         }
 
         color[node] = 1;
-        for (int child: g[node]) {
-            if (color[child] == 2) {
-                continue;
+
+        for (int u : g[node]) {
+            if (color[u] == 1) {
+                return false; // we've been here and haven't reached terminal state (2)
             }
-            if (color[child] == 1) {
-                return false;
+            if (color[u] == 2) {
+                continue; // it leads to terminal state, but we need to check all 'childs'
             }
-            if (!listEventualSafeNodesDFS(child, g, color)) {
-                return false;
+            if (!listEventualSafeNodesDFS(u, g, color)) {
+                return false; // dfs, and fail if there is a loop via child
             }
         }
+
         color[node] = 2;
         return true;
     }
@@ -254,7 +256,6 @@ public class Graph {
     public static List<Integer> buildOrder(int[][] steps) {
         ArrayList<Integer> order = new ArrayList<>();
         int[] state = new int[steps.length];
-        Arrays.fill(state, 0);
         for (int v = 0; v < steps.length; v++) {
             if (state[v] != 0) {
                 continue;

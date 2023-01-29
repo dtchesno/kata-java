@@ -1,9 +1,9 @@
 package com.dtchesno.kata.struct;
 
+import javafx.util.Pair;
 import org.jvnet.staxex.BinaryText;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 public class ArrayStringTasks {
 
@@ -30,21 +30,24 @@ public class ArrayStringTasks {
     // reverse all words in sentence
     // Aziz 7.6 pg.101
     // [selected - 1]
+    // reverse entire buffer, then go over buffer and reverse word when found whitespace
     public static String reverseWords(String input) {
-        char[] buf = input.toCharArray();
-        reverse(buf, 0, buf.length - 1);
+        char[] result = input.toCharArray();
+        reverse(result, 0, result.length - 1);
+
         int start = 0;
-        for (int i = 0; i < buf.length; i++) {
-            if (buf[i] == ' ' && start < i - 1) {
-                reverse(buf, start, i - 1);
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] == ' ') {
+                reverse(result, start, i - 1);
                 start = i + 1;
             }
         }
-        // last word
-        if (start < buf.length) {
-            reverse(buf, start, buf.length - 1);
+
+        if (start < result.length) {
+            reverse(result, start, result.length - 1);
         }
-        return String.valueOf(buf);
+
+        return String.valueOf(result);
     }
 
     private static void reverse(char[] str, int i, int j) {
@@ -200,35 +203,198 @@ public class ArrayStringTasks {
         return Arrays.copyOfRange(a, i, j + 1);
     }
 
-    // Byte-by-byte pg.5
-    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        return nums1.length <= nums2.length
-                ? findMedianSortedArrays(nums1, nums2, (nums1.length + 1 ) / 2 - 1, (nums1.length + 1) / 2 - 1)
-                : findMedianSortedArrays(nums2, nums1, (nums2.length + 1) / 2 - 1, (nums2.length + 1) / 2 - 1);
-    }
 
-    private static double findMedianSortedArrays(int[] nums1, int[] nums2, int i, int iLast) {
-        // calculate partition
-        int shortLeft = i < 0 ? Integer.MIN_VALUE : nums1[i];
-        int shortRight = i + 1 >= nums1.length ? Integer.MAX_VALUE : nums1[i + 1];
-        int shortLeftCount = i + 1;
-        int longLeftCount = (nums1.length + nums2.length + 1) / 2 - shortLeftCount;
-        int longLeft = longLeftCount <= 0 ? Integer.MIN_VALUE : nums2[longLeftCount - 1];
-        int longRight = longLeftCount >= nums2.length ? Integer.MAX_VALUE : nums2[longLeftCount];
+    // byte-by-byte merge sorted arrays, pg.10
+    // going backwards and copy into result
+    // then copy remainder of smaller array if any
+    public static int[] mergeSortedArrays(int[] a, int[] b, int aLen, int bLen) {
+        int i = aLen - 1;
+        int j = bLen - 1;
+        int pos = a.length - 1;
 
-        // exit condition
-        if (shortLeft <= longRight && longLeft <= shortRight) {
-            return (nums1.length + nums2.length) % 2 == 1
-                    ? Math.max(shortLeft, longLeft)
-                    : ((double)Math.max(shortLeft, longLeft) + Math.min(shortRight, longRight)) / 2;
+        // going backwards, copy at the end of result array
+        while (i >= 0 && j >= 0) {
+            if (a[i] > b[j]) {
+                a[pos--] = a[i--];
+            } else {
+                a[pos--] = b[j--];
+            }
         }
 
-        // TODO: iLast will be neighbor - we need to use interval instead of and
-        // go to the middle of left or right subintervals partitioned by i
-        // move pointer left or right
-        return (longLeft > shortRight)
-            ? findMedianSortedArrays(nums1, nums2, (i + iLast) / 2 + 1, i)
-            : findMedianSortedArrays(nums1, nums2, (i + iLast) / 2 - 1, i);
+        // copy remainder of smaller array
+        while (j >= 0) {
+            a[pos--] = b[j--];
+        }
+
+        return a;
+    }
+
+    // Byte-by-byte pg.5
+//    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+//        return nums1.length <= nums2.length
+//                ? findMedianSortedArrays(nums1, nums2, (nums1.length + 1 ) / 2 - 1, (nums1.length + 1) / 2 - 1)
+//                : findMedianSortedArrays(nums2, nums1, (nums2.length + 1) / 2 - 1, (nums2.length + 1) / 2 - 1);
+//    }
+//
+//    private static double findMedianSortedArrays(int[] nums1, int[] nums2, int i, int iLast) {
+//        // calculate partition
+//        int shortLeft = i < 0 ? Integer.MIN_VALUE : nums1[i];
+//        int shortRight = i + 1 >= nums1.length ? Integer.MAX_VALUE : nums1[i + 1];
+//        int shortLeftCount = i + 1;
+//        int longLeftCount = (nums1.length + nums2.length + 1) / 2 - shortLeftCount;
+//        int longLeft = longLeftCount <= 0 ? Integer.MIN_VALUE : nums2[longLeftCount - 1];
+//        int longRight = longLeftCount >= nums2.length ? Integer.MAX_VALUE : nums2[longLeftCount];
+//
+//        // exit condition
+//        if (shortLeft <= longRight && longLeft <= shortRight) {
+//            return (nums1.length + nums2.length) % 2 == 1
+//                    ? Math.max(shortLeft, longLeft)
+//                    : ((double)Math.max(shortLeft, longLeft) + Math.min(shortRight, longRight)) / 2;
+//        }
+//
+//        // TODO: iLast will be neighbor - we need to use interval instead of and
+//        // go to the middle of left or right subintervals partitioned by i
+//        // move pointer left or right
+//        return (longLeft > shortRight)
+//            ? findMedianSortedArrays(nums1, nums2, (i + iLast) / 2 + 1, i)
+//            : findMedianSortedArrays(nums1, nums2, (i + iLast) / 2 - 1, i);
+//    }
+
+    // leetcode: https://leetcode.com/problems/median-of-two-sorted-arrays/description/
+    // move along arrays - find left and right (could be the same - single element); take med of elements
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int len = nums1.length + nums2.length;
+        int iLeft = (len - 1) / 2;
+        int iRight = len / 2;
+
+        double[] elements = iLeft == iRight ? new double[1] : new double[2];
+        int i = 0;
+        int j = 0;
+        while (i + j <= iRight) {
+            int index = (i + j <= iLeft) || iLeft == iRight ? 0 : 1;
+            if (i == nums1.length) {
+                elements[index] = nums2[j++];
+            } else if (j == nums2.length) {
+                elements[index] = nums1[i++];
+            } else if (nums1[i] < nums2[j]) {
+                elements[index] = nums1[i++];
+            } else {
+                elements[index] = nums2[j++];
+            }
+        }
+
+        return iLeft == iRight ? elements[0] : (elements[0] + elements[1]) / 2;
+    }
+
+    // byte-by-byte: Merge K Arrays, pg.9, https://www.byte-by-byte.com/mergekarrays/
+    // create priority queue with (arraysId, arrPos, value)
+    // initialize with heads and interate by pulling top and adding next into queue from the given array if any
+    public static int[] mergeKSortedArrays(int[][] arrays) {
+        // array index, array pos, value
+        PriorityQueue<int[]> q = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[2] - o2[2];
+            }
+        });
+
+        int len = 0;
+        for (int i = 0; i < arrays.length; i++) {
+            if (arrays[i].length == 0) {
+                continue;
+            }
+            q.add(new int[] { i, 0, arrays[i][0] });
+            len += arrays[i].length;
+        }
+
+        int[] result = new int[len];
+        int pos = 0;
+        while (!q.isEmpty()) {
+            int[] top = q.poll();
+            result[pos++] = top[2];
+            top[1]++;
+            if (arrays[top[0]].length > top[1]) {
+                top[2] = arrays[top[0]][top[1]];
+                q.add(top);
+            }
+        }
+
+        return result;
+    }
+
+    // leetcode: https://leetcode.com/problems/longest-consecutive-sequence/description/
+    public static int longestConsecutive(int[] nums) {
+        HashSet<Integer> map = new HashSet<>();
+
+        for (int val : nums) {
+            map.add(val);
+        }
+
+        int maxLen = 0;
+        for (int val : nums) {
+            // value already part of some sequence
+            if (!map.contains(val)) {
+                continue;
+            }
+
+            // will try to expand from here, so, start with len 1
+            int len = 1;
+
+            // go forward
+            int next = val + 1;
+            while (map.contains(next)) {
+                map.remove(next);
+                next++;
+                len++;
+            }
+
+            // go backward
+            int prev = val - 1;
+            while (map.contains(prev)) {
+                map.remove(prev);
+                prev--;
+                len++;
+            }
+
+            maxLen = Math.max(maxLen, len);
+        }
+
+        return maxLen;
+    }
+
+    // leetcode: https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
+    // build byte array for ASCII (256); set counts per char index; iterate and compare arrays; one in - one out
+    public static List<Integer> findAnagrams(String s, String p) {
+        if (p.isEmpty() || p.length() > s.length()) {
+            return new ArrayList<>();
+        }
+
+        byte[] sHash = new byte[256];
+        byte[] pHash = new byte[256];
+        int len = p.length();
+
+        for (int i = 0; i < p.length(); i++) {
+            sHash[s.charAt(i)]++;
+            pHash[p.charAt(i)]++;
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+
+        int pos = 0;
+        while (true) {
+            if (Arrays.equals(sHash, pHash)) {
+                result.add(pos);
+            }
+
+            if (pos + len == s.length())
+                break;
+
+            sHash[s.charAt(pos)]--;
+            sHash[s.charAt(pos + len)]++;
+            pos++;
+        }
+
+        return result;
     }
 
     // done

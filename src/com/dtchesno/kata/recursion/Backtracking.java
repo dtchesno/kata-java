@@ -1,6 +1,7 @@
 package com.dtchesno.kata.recursion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Backtracking {
@@ -61,6 +62,35 @@ public class Backtracking {
                 backtrack(sb, pos, balance, leftRem, rightRem - 1, result);
                 sb.insert(pos, c);
             }
+        }
+    }
+
+    // leetcode 39 - https://leetcode.com/problems/combination-sum/description/
+    // backtracking vs DP - we look for ALL unique combinations
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        Arrays.sort(candidates);
+        backtrackCombinationSum(candidates, target, path, result);
+        return result;
+    }
+
+    private static void backtrackCombinationSum(int[] candidates, int target, List<Integer> path, List<List<Integer>> result) {
+        if (target == 0) {
+            result.add(new ArrayList<Integer>(path));
+            return;
+        }
+
+        for (int c : candidates) {
+            if (c > target) {
+                continue;
+            }
+            if (!path.isEmpty() && path.get(path.size() - 1) > c) {
+                continue;
+            }
+            path.add(c);
+            backtrackCombinationSum(candidates, target - c, path, result);
+            path.remove(path.size() - 1);
         }
     }
 }
