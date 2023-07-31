@@ -1,8 +1,6 @@
 package com.dtchesno.kata.struct;
 
 import javafx.util.Pair;
-
-import java.time.temporal.Temporal;
 import java.util.*;
 
 public class TreeNode {
@@ -224,7 +222,7 @@ public class TreeNode {
     }
 
     private static void findSum(TreeNode t, int sum, List<Integer> buffer, Set<List<Integer>> acc) {
-        if (t == null) {
+         if (t == null) {
             return;
         }
 
@@ -379,6 +377,7 @@ public class TreeNode {
 
 
     // compute distance between nodes
+    // https://leetcode.com/problems/find-distance-in-a-binary-tree/
     // [selected - 1]
     public static int distance(TreeNode root, TreeNode node1, TreeNode node2) {
         if (node1 == node2) {
@@ -393,80 +392,85 @@ public class TreeNode {
             return new int[] {-1, -1};
         }
 
-        int[] leftDistance = distanceH(root.left, node1, node2);
-        int[] rightDistance = distanceH(root.right, node1, node2);
-
-        // both are in left subtree
-        if (leftDistance[0] >= 0 && leftDistance[1] >= 0) {
-            return leftDistance;
+        int[] left = distanceH(root.left, node1, node2);
+        if (left[0] != -1 && left[1] != -1) {
+            return left;
         }
 
-        // both are in right subtree
-        if (rightDistance[0] >= 0 && rightDistance[1] >= 0) {
-            return rightDistance;
+        int[] right = distanceH(root.right, node1, node2);
+        if (right[0] != -1 && right[1] != -1) {
+            return right;
         }
 
-        // node could be the same as root, in left/right subtree or not found in either
-        int distance1 = Math.max(leftDistance[0], rightDistance[0]);
-        int distance2 = Math.max(leftDistance[1], rightDistance[1]);
+        int d1 = Math.max(left[0], right[0]);
+        int d2 = Math.max(left[1], right[1]);
         return new int[] {
-                root == node1 ? 0 : distance1 == -1 ? -1 : 1 + distance1,
-                root == node2 ? 0 : distance2 == -1 ? -1 : 1 + distance2
+                root == node1 ? 0 : d1 != -1 ? d1 + 1 : -1,
+                root == node2 ? 0 : d2 != -1 ? d2 + 1 : -1
         };
     }
 
 
     // find all nodes with distance K in binary tree
     // https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+    // Solution:
+    //  - dfs to establish parent path
+    //  - use 'seen' HashSet to avoid going same path via parent
+    //  - bfs from target to left/right/parent, adding null and increasing distance when 'layer' is done (when peek is null from prev.layer)
+    //  - return bfs queue content except top null entry
+    //  - return bfs queue content except top null entry
     public static List<Integer> distanсeK(TreeNode root, TreeNode target, int K) {
-        ArrayList<Integer> result = new ArrayList<>();
-        if (root == null || target == null || K < 0) {
-            return result;
+        Map<TreeNode, TreeNode> parent = new HashMap<>();
+        distanсeKDFS(root, null, parent);
+
+        Queue<TreeNode> q = new LinkedList<>();
+        Set<TreeNode> seen = new HashSet<>();
+        seen.add(null); // to avoid check for null left/right/parent
+        q.add(target);
+        q.add(null);
+        int distance = 0;
+        while (!q.isEmpty() && distance < K) {
+            TreeNode top = q.poll();
+            if (top == null) {
+                continue;
+            }
+            seen.add(top);
+
+            if (!seen.contains(top.left)) {
+                q.add(top.left);
+            }
+            if (!seen.contains(top.right)) {
+                q.add(top.right);
+            }
+            if (!seen.contains(parent.get(top))) {
+                q.add(parent.get(top));
+            }
+            if (!q.isEmpty() && q.peek() == null) {
+                distance++;
+                q.add(null);
+            }
         }
-        HashMap<TreeNode, TreeNode> parent = new HashMap<>();
-        LinkedList<TreeNode> q = new LinkedList<>();
-        q.push(root);
+
+        List<Integer> res = new ArrayList<>();
         while (!q.isEmpty()) {
-            TreeNode n = q.pop();
-            if (n == target) {
-                break;
+            TreeNode entry = q.poll();
+            if (entry == null) {
+                continue;
             }
-            if (n.left != null) {
-                q.push(n.left);
-                parent.put(n.left, n);
-            }
-            if (n.right != null) {
-                q.push(n.right);
-                parent.put(n.right, n);
-            }
+            res.add(entry.key);
         }
-        distanceK(target, null, K, result);
-        TreeNode p = parent.get(target);
-        TreeNode guard = target;
-        int k = K - 1;
-        while (p != null && k >= 0) {
-            distanceK(p, guard, k--, result);
-            guard = p;
-            p = parent.get(p);
-        }
-        return result;
+        return res;
     }
 
-    private static void distanceK(TreeNode parent, TreeNode guard, int K, List<Integer> result) {
-        if (parent == null) {
+    private static void distanсeKDFS(TreeNode node, TreeNode parent, Map<TreeNode, TreeNode> map) {
+        if (node == null) {
             return;
         }
-        if (K == 0) {
-            result.add(parent.key);
-            return;
-        }
-        if (parent.left != guard) {
-            distanceK(parent.left, null, K - 1, result);
-        }
-        if (parent.right != guard) {
-            distanceK(parent.right, null, K - 1, result);
-        }
+        map.put(node, parent);
+        distanсeKDFS(node.left, node, map);
+        distanсeKDFS(node.right, node, map);
     }
+
 
     // Aziz 10.15 pg169
     // [selected - 2]
@@ -508,25 +512,23 @@ public class TreeNode {
 
     // https://leetcode.com/discuss/interview-question/125084/given-a-binary-search-tree-find-the-distance-between-2-nodes
     public static int distanceBST(TreeNode root, TreeNode node1, TreeNode node2) {
-        TreeNode lca = root;
-        while (node1.key < lca.key && node2.key < lca.key) {
-            lca = lca.left;
-        }
-        while (node1.key > lca.key && node2.key > lca.key) {
-            lca = lca.right;
-        }
-        return distanceBST(lca, node1) + distanceBST(lca, node2);
+        TreeNode p = root;
+        while (p.key > node1.key && p.key > node2.key) p = p.left;
+        while (p.key < node1.key && p.key < node2.key) p = p.right;
+        return distanceBST(p, node1) + distanceBST(p, node2);
     }
 
-    private static int distanceBST(TreeNode root, TreeNode node) {
-        if (node.key == root.key) {
-            return 0;
+    private static int distanceBST(TreeNode p, TreeNode n) {
+        int d = 0;
+        while (p != n) {
+            p = p.key > n.key ? p.left : p.right;
+            d++;
         }
-        return 1 + distanceBST(node.key < root.key ? root.left : root.right, node);
+        return d;
     }
 
     // leetcode 236
-    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
+    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/sss
     public static TreeNode findLCA(TreeNode root, TreeNode p, TreeNode q) {
         sLca = null;
         traverse(root, p, q);
@@ -535,20 +537,26 @@ public class TreeNode {
 
     private static TreeNode sLca;
 
-    private static boolean traverse(TreeNode root, TreeNode p, TreeNode q) {
+    private static int traverse(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || sLca != null) {
-            return false;
+            return 0;
         }
 
-        int left = traverse(root.left, p, q) ? 1 : 0;
-        int right = traverse(root.right, p, q) ? 1 : 0;
-        int mid = (root == p || root == q) ? 1: 0;
+        int left = traverse(root.left, p, q);
+        if (sLca != null) {
+            return left;
+        }
 
-        if (sLca == null && left + right + mid == 2) {
+        int right = traverse(root.right, p, q);
+        if (sLca != null) {
+            return right;
+        }
+
+        int mid = root == p || root == q ? 1 : 0;
+        if (left + right + mid == 2) {
             sLca = root;
         }
-
-        return left + right + mid > 0;
+        return left + right + mid;
     }
 
     // https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
@@ -567,40 +575,19 @@ public class TreeNode {
     }
 
     private static LcaPair traverse(TreeNode root, int depth) {
-        if (root == null) {
-            return null;
-        }
-
-        if (isLeaf(root.left) && isLeaf(root.right)) {
-            return new LcaPair(root, depth + 1);
-        }
+        if (root == null) return null;
 
         LcaPair left = traverse(root.left, depth + 1);
         LcaPair right = traverse(root.right, depth + 1);
 
+        if (left == null && right == null) return new LcaPair(root, depth);
+
         if (left != null && right != null) {
-            if (left.depth > right.depth) {
-                return left;
-            } else if (right.depth > left.depth) {
-                return right;
-            } else {
-                // since depths are the same lca will be root for now
-                return new LcaPair(root, left.depth);
-            }
+            return left.depth > right.depth ? left : right.depth > left.depth ? right : new LcaPair(root, left.depth);
         }
 
-        if (left != null) {
-            return left;
-        }
-
-        if (right != null) {
-            return right;
-        }
-
-        // same depth - nothing found, this is leaf
-        return new LcaPair(root, depth);
+        return left == null ? right : left;
     }
-
 
     // leetcode 987: // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]
     public static List<List<Integer>> verticalTraversal(TreeNode root) {
@@ -651,33 +638,29 @@ public class TreeNode {
     }
 
     // leetcode 96): https://leetcode.com/problems/binary-tree-cameras/
-    private int count = 0;
-    private HashSet<TreeNode> covered = new HashSet<>();
+    private static int count = 0;
+    private static HashSet<TreeNode> covered = new HashSet<>();
 
-    public int minCameraCover(TreeNode root) {
-        // leaves will be covered by parent - that's best greedy strategy
+    public static int minCameraCover(TreeNode root) {
         covered.add(null);
-        minCameraCoveDdfs(root, null);
+        minCameraCoverDfs(root, null);
         return count;
     }
 
-    private void minCameraCoveDdfs(TreeNode node, TreeNode parent) {
+    private static void minCameraCoverDfs(TreeNode node, TreeNode parent) {
         if (node == null) {
             return;
         }
 
-        minCameraCoveDdfs(node.left, node);
-        minCameraCoveDdfs(node.right, node);
+        minCameraCoverDfs(node.left, node);
+        minCameraCoverDfs(node.right, node);
 
-        // we have put camera if node is not covered and root (otherwise it goes to parent)
-        // or, leaves are not covered
-        if (parent == null && !covered.contains(node)
-                || !covered.contains(node.left) || !covered.contains(node.right)) {
+        if (!covered.contains(node.left) || !covered.contains(node.right) || (!covered.contains(node) && parent == null)) {
             count++;
             covered.add(node);
-            covered.add(parent);
             covered.add(node.left);
             covered.add(node.right);
+            covered.add(parent);
         }
     }
 

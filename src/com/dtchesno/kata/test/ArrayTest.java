@@ -1,5 +1,6 @@
 package com.dtchesno.kata.test;
 
+import com.dtchesno.kata.misc.MiscSolution;
 import com.dtchesno.kata.struct.ArrayStringTasks;
 import org.junit.After;
 import org.junit.Assert;
@@ -154,4 +155,12 @@ public class ArrayTest {
                 Arrays.asList(new Integer[] { 0, 1, 2 }),
                 ArrayStringTasks.findAnagrams("abab", "ab"));
     }
+
+    @Test
+    public void testLargestRectangleAreaStack() {
+        Assert.assertEquals(10, MiscSolution.largestRectangleAreaStack(new int[] {2,1,5,6,2,3}));
+        Assert.assertEquals(4, MiscSolution.largestRectangleAreaStack(new int[] {2,4}));
+    }
+
+
 }

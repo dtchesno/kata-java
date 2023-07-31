@@ -1,5 +1,6 @@
 package com.dtchesno.kata.dp;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class DpSolution {
     // find max length of non-decreasing seq, next element doesn't have to immediately follow previous
     // e.g. 0,8,4,12,2,10,6,14,1,9 -> [0,4,10,14] or [0,2,6,9]
     // Aziz 17.12 pg.330
+    // https://leetcode.com/problems/longest-increasing-subsequence/
     // [selected - 3]
     public static int longestNondecreasingSeq(int[] array) {
         int[] length = new int[array.length];
@@ -86,35 +88,27 @@ public class DpSolution {
     // [selected - 2]
     public static int maxMatrixProduct(int[][] matrix) {
         int[][][] mem = new int[matrix.length][matrix.length][];
+        int len = matrix.length;
+        int last = matrix[len - 1][len - 1];
+        mem[len - 1][len - 1] = last >= 0 ? new int[] { last, 0 } : new int[] { 0, last };
         return maxMatrixProductDP(matrix, 0, 0, mem)[0];
     }
 
     // return int[2] max positive & min negative results
     private static int[] maxMatrixProductDP(int[][] matrix, int i, int j, int[][][] mem) {
-        if (i >= matrix.length || j >= matrix.length) {
-            return new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE};
-        }
-        if (i == matrix.length - 1 && j == matrix.length - 1) {
-            return matrix[i][j] >= 0 ? new int[] { matrix[i][j], 0 } : new int[] { 0, matrix[i][j]};
+        if (i == matrix.length || j == matrix.length) {
+            return new int[] { Integer.MIN_VALUE, Integer.MAX_VALUE };
         }
 
-        if (mem[i][j] == null) {
-            int[] right = maxMatrixProductDP(matrix, i, j + 1, mem);
-            int[] down = maxMatrixProductDP(matrix, i + 1, j, mem);
+        if (mem[i][j] != null) return mem[i][j];
 
-            int current = matrix[i][j];
-            if (current >= 0) {
-                mem[i][j] = new int[] {
-                        current * Math.max(right[0], down[0]),
-                        current * Math.min(right[1], down[1])
-                };
-            } else {
-                mem[i][j] = new int[] {
-                        current * Math.min(right[1], down[1]),
-                        current * Math.max(right[0], down[0])
-                };
-            }
-        }
+        int current = matrix[i][j];
+        int[] right = maxMatrixProductDP(matrix, i,j + 1, mem);
+        int[] down = maxMatrixProductDP(matrix, i + 1,j, mem);
+
+        mem[i][j] = (current >= 0)
+                ? new int[] { current * Math.max(right[0], down[0]), current * Math.min(right[1], down[1])}
+                : new int[] { current * Math.min(right[1], down[1]), current * Math.max(right[0], down[0])};
         return mem[i][j];
     }
 

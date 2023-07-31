@@ -1,5 +1,7 @@
 package com.dtchesno.kata.struct;
 
+import org.apache.commons.compress.archivers.ar.ArArchiveEntry;
+
 import java.util.*;
 
 public class Graph {
@@ -253,6 +255,7 @@ public class Graph {
         return true;
     }
 
+    // build order byte-by-byte
     public static List<Integer> buildOrder(int[][] steps) {
         ArrayList<Integer> order = new ArrayList<>();
         int[] state = new int[steps.length];
@@ -282,37 +285,47 @@ public class Graph {
     // e.g. [[0,1,100], [1,2,100], [0,2,500]], src=0, dst=2, k=1; result=200 (0->1->2)
     // https://leetcode.com/problems/cheapest-flights-within-k-stops/
     public static int findCheapest(int[][] flights, int src, int dst, int stops) {
-        Map<Integer, List<int[]>> prices = new HashMap<>();
-        for (int i = 0; i < flights.length; i++) {
-            List<int[]> connections = prices.getOrDefault(flights[i][0], new ArrayList<>());
-            connections.add(new int[] { flights[i][1], flights[i][2] });
-            prices.put(flights[i][0], connections);
+        int n = 0;
+        // src->(dst,price)
+        Map<Integer, List<int[]>> connections = new HashMap<>();
+        for (int[] flight : flights) {
+            connections.putIfAbsent(flight[0], new ArrayList<>());
+            List<int[]> c = connections.get(flight[0]);
+            c.add(new int[] {flight[1], flight[2]});
+            n = Math.max(n, flight[0] + 1);
+            n = Math.max(n, flight[1] + 1);
         }
 
         int minCost = Integer.MAX_VALUE;
 
-        // [port, cost, nstop]
-        PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[1] - b[1]);
-        q.add(new int[] { src, 0, stops });
+        // (v, cost, stops)
+        Queue<int[]> q = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        q.add(new int[] {src, 0, 0});
+        int[] stopCache = new int[n];
+        Arrays.fill(stopCache, Integer.MAX_VALUE);
         while (!q.isEmpty()) {
-            int[] stop = q.poll();
-            int port = stop[0];
-            int cost = stop[1];
-            int nstops = stop[2];
+            int[] top = q.poll();
+            int v = top[0];
+            int cost = top[1];
+            int nstops = top[2];
 
-            if (port == dst) {
-                return cost;
+            if (nstops > stops + 1 || nstops > stopCache[v]) {
+                continue;
             }
+            stopCache[v] = nstops;
 
-            if (nstops < 0 || !prices.containsKey(port)) {
+            if (v == dst) {
+                minCost = Math.min(minCost, cost);
                 continue;
             }
 
-            for (int[] connection : prices.get(port)) {
-                q.add(new int[] { connection[0], cost + connection[1], nstops - 1 });
+            List<int[]> conn = connections.get(v);
+            for (int[] c : conn) {
+                q.add(new int[] {c[0], cost + c[1], nstops + 1});
             }
         }
-        return -1;
+
+        return minCost;
     }
 
     public static int findCheapest2(int[][] flights, int src, int dst, int stops) {
@@ -383,7 +396,6 @@ public class Graph {
             }
         }
     }
-
 
     // find articulation point
     public static List<Integer> findAP(int[][] G) {

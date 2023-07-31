@@ -1,8 +1,10 @@
 package com.dtchesno.kata.struct;
 
+import gnu.trove.TDoubleArrayList;
 import javafx.util.Pair;
 import org.jvnet.staxex.BinaryText;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ArrayStringTasks {
@@ -180,7 +182,6 @@ public class ArrayStringTasks {
         return remainder.equals(part) ? "" : remainder;
     }
 
-
     // find any subarray which sum == 0
     // byte-by-byte #11 pg.11
     // [selected - 2]
@@ -263,63 +264,53 @@ public class ArrayStringTasks {
     // leetcode: https://leetcode.com/problems/median-of-two-sorted-arrays/description/
     // move along arrays - find left and right (could be the same - single element); take med of elements
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int len = nums1.length + nums2.length;
-        int iLeft = (len - 1) / 2;
-        int iRight = len / 2;
-
-        double[] elements = iLeft == iRight ? new double[1] : new double[2];
+        int iLeft = (nums1.length + nums2.length - 1) / 2;
         int i = 0;
         int j = 0;
-        while (i + j <= iRight) {
-            int index = (i + j <= iLeft) || iLeft == iRight ? 0 : 1;
+        int left = 0;
+        while (i + j <= iLeft) {
             if (i == nums1.length) {
-                elements[index] = nums2[j++];
+                left = nums2[j++];
             } else if (j == nums2.length) {
-                elements[index] = nums1[i++];
-            } else if (nums1[i] < nums2[j]) {
-                elements[index] = nums1[i++];
+                left = nums1[i++];
+            } else if (nums1[i] <= nums2[j]) {
+                left = nums1[i++];
             } else {
-                elements[index] = nums2[j++];
+                left = nums2[j++];
             }
         }
 
-        return iLeft == iRight ? elements[0] : (elements[0] + elements[1]) / 2;
+        if ((nums1.length + nums2.length) % 2 == 1) return left;
+
+        int right = i == nums1.length ? nums2[j] : j == nums2.length ? nums1[i] : Math.min(nums1[i], nums2[j]);
+        return ((double) left + right) / 2;
     }
+
 
     // byte-by-byte: Merge K Arrays, pg.9, https://www.byte-by-byte.com/mergekarrays/
     // create priority queue with (arraysId, arrPos, value)
-    // initialize with heads and interate by pulling top and adding next into queue from the given array if any
+    // initialize with heads and iterate by pulling top and adding next into queue from the given array if any
     public static int[] mergeKSortedArrays(int[][] arrays) {
-        // array index, array pos, value
-        PriorityQueue<int[]> q = new PriorityQueue<>(new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                return o1[2] - o2[2];
-            }
-        });
+        List<Integer> resultList = new ArrayList<>();
 
-        int len = 0;
+        // arrayId, arrayOffset, value
+        PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+
         for (int i = 0; i < arrays.length; i++) {
-            if (arrays[i].length == 0) {
-                continue;
-            }
-            q.add(new int[] { i, 0, arrays[i][0] });
-            len += arrays[i].length;
+            if (arrays[i].length == 0) continue;
+            q.add(new int[] {i, 0, arrays[i][0]});
         }
 
-        int[] result = new int[len];
-        int pos = 0;
         while (!q.isEmpty()) {
             int[] top = q.poll();
-            result[pos++] = top[2];
+            resultList.add(top[2]);
             top[1]++;
-            if (arrays[top[0]].length > top[1]) {
+            if (top[1] < arrays[top[0]].length) {
                 top[2] = arrays[top[0]][top[1]];
                 q.add(top);
             }
         }
-
-        return result;
+        return resultList.stream().mapToInt(i -> i).toArray();
     }
 
     // leetcode: https://leetcode.com/problems/longest-consecutive-sequence/description/
@@ -361,6 +352,29 @@ public class ArrayStringTasks {
 
         return maxLen;
     }
+
+//    public static int longestConsecutive(int[] nums) {
+//        Set<Integer> cache = new TreeSet<>();
+//        for (int n : nums) {
+//            cache.add(n);
+//        }
+//
+//        int maxLen = 0;
+//        int len = 1;
+//        int prev = Integer.MIN_VALUE;
+//        for (int n : cache) {
+//            if (n == prev + 1) {
+//                len++;
+//                prev = n;
+//                maxLen = Math.max(maxLen, len);
+//            } else {
+//                maxLen = Math.max(maxLen, len);
+//                len = 1;
+//                prev = n;
+//            }
+//        }
+//        return maxLen;
+//    }
 
     // leetcode: https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
     // build byte array for ASCII (256); set counts per char index; iterate and compare arrays; one in - one out

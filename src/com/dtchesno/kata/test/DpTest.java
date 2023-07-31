@@ -1,6 +1,7 @@
 package com.dtchesno.kata.test;
 
 import com.dtchesno.kata.dp.DpSolution;
+import com.dtchesno.kata.dp.Robot;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -115,5 +116,13 @@ public class DpTest {
                 { true, true, true, true, false },
                 { false, true, true, true, false },
                 { true, false, false, false, false }}));
+    }
+
+    @Test
+    public void testRobotCount() {
+        System.out.println(Robot.count(2,2));
+        System.out.println(Robot.count(3,3));
+        System.out.println(Robot.count(3,2));
+        System.out.println(Robot.count(2,3));
     }
 }

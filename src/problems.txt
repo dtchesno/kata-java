@@ -1,0 +1,44 @@
+Google
+---
+https://leetcode.com/problem-list/top-google-questions/?difficulty=HARD&page=1
+https://leetcode.com/problems/trapping-rain-water (stack)
+??? https://leetcode.com/problems/race-car/ (bfs+hash/dp)
+https://leetcode.com/problems/text-justification (strings, pace calc)
+https://leetcode.com/problems/sliding-window-maximum/ (queue, optimization - prune queue)
+https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/ (bfs, visited w/ equal - [row,col,walls])
+https://leetcode.com/problems/meeting-rooms-iii/ (two priority queues - used, available)
+https://leetcode.com/problems/find-median-from-data-stream/ (two heaps, min & max, keep them at the same size, so, med would be 'product' of tops)
+https://leetcode.com/problems/maximum-number-of-visible-points/
+https://leetcode.com/problems/range-module/
+https://leetcode.com/problems/sum-of-prefix-scores-of-strings
+
+TODO
+https://leetcode.com/problems/number-of-good-paths/ (don't understand optimal solution; dfs gives O(N^2))
+
+https://leetcode.com/problems/word-search/
+
+Leetcode Algo170 hard
+---
+https://leetcode.com/problemset/all/?listId=552y65ke&page=1&difficulty=HARD&sorting=W3sic29ydE9yZGVyIjoiREVTQ0VORElORyIsIm9yZGVyQnkiOiJGUkVRVUVOQ1kifV0%3D
+https://leetcode.com/problems/max-stack
+https://leetcode.com/problems/design-in-memory-file-system
+https://leetcode.com/problems/edit-distance/
+https://leetcode.com/problems/alien-dictionary
+https://leetcode.com/problems/basic-calculator
+https://leetcode.com/problems/basic-calculator-iii
+TODO: https://leetcode.com/problems/basic-calculator-iv/
+https://leetcode.com/problems/number-of-ships-in-a-rectangle/
+https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/
+
+Dynamic Programming
+---
+https://leetcode.com/problemset/all/?topicSlugs=dynamic-programming&page=2&difficulty=HARD&sorting=W3sic29ydE9yZGVyIjoiREVTQ0VORElORyIsIm9yZGVyQnkiOiJGUkVRVUVOQ1kifV0%3D
+https://leetcode.com/problems/largest-multiple-of-three
+https://leetcode.com/problems/combinations/description/
+https://leetcode.com/problems/word-break/
+
+https://leetcode.com/problems/word-break-ii/
+https://leetcode.com/problems/maximum-profit-in-job-scheduling/
+https://leetcode.com/problems/split-array-largest-sum/
+https://leetcode.com/problems/maximum-score-from-performing-multiplication-operations/
+https://leetcode.com/problems/number-of-ways-to-separate-numbers/

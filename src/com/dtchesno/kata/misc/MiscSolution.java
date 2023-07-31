@@ -11,6 +11,23 @@ import java.util.Stack;
 
 public class MiscSolution {
 
+//    public static boolean isBracesBalanced(String str) {
+//        Stack<Character> s = new Stack<>();
+//
+//        for (char c : str.toCharArray()) {
+//            if (c == ')') {
+//                if (s.isEmpty() || s.peek() != '(') {
+//                    return false;
+//                }
+//                s.pop();
+//            }
+//            if (c == '(') {
+//                s.push(c);
+//            }
+//        }
+//
+//        return s.isEmpty();
+//    }
     public static boolean isBracesBalanced(String str) {
         int count = 0;
         for (char c: str.toCharArray()) {
@@ -253,28 +270,24 @@ public class MiscSolution {
     // on each iteration we will remove higher bars as current will be dominant going further;
     // have -1 at the bottom of the stack lets us calculate area when everything on left of current are higher
     public static int largestRectangleAreaStack(int[] heights) {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(-1);
+        Stack<Integer> s = new Stack<>();
+        s.push(-1);
 
-        int maxArea = 0;
+        int max = 0;
         for (int i = 0; i < heights.length; i++) {
-            while (stack.peek() != -1 && heights[stack.peek()] > heights[i]) {
-                // calculate area for current popped rect, width is between ith and next small dominant in stack
-                int currentHeight = heights[stack.pop()];
-                int currentWidth = i - stack.peek() - 1;
-                maxArea = Math.max(maxArea, currentHeight * currentWidth);
+            while (s.peek() != -1 && heights[s.peek()] > heights[i]) {
+                int top = s.pop();
+                int w = i - s.peek() - 1;
+                max = Math.max(max, w * heights[top]);
             }
-            stack.push(i);
+            s.add(i);
         }
 
-        // now for each remainder in stack - look backward for next dominant (or -1)
-        // and calculate area with current height and width from dominant till end of array
-        while (stack.peek() != -1) {
-            int currentHeight = heights[stack.pop()];
-            int currentWidth = heights.length - stack.peek() - 1;
-            maxArea = Math.max(maxArea, currentHeight * currentWidth);
+        while (s.peek() != -1) {
+            int top = s.pop();
+            int w = heights.length - s.peek() - 1;
+            max = Math.max(max, w * heights[top]);
         }
-
-        return maxArea;
+        return max;
     }
 }

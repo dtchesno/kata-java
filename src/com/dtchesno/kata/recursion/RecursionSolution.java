@@ -77,7 +77,6 @@ public class RecursionSolution {
         }
     }
 
-
     // generate all permutations of given list: byte-by-byte #12 pg.12
     // [selected - 2]
     public static List<List<Integer>> getAllPermutations(List<Integer> input) {

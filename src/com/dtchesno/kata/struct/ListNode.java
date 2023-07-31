@@ -72,7 +72,6 @@ public class ListNode {
     public static ListNode findStartLoop(ListNode root) {
         ListNode ptr = root.next;
         ListNode runner = root.next.next;
-
         while (ptr != runner) {
             ptr = ptr.next;
             runner = runner.next.next;
@@ -103,16 +102,16 @@ public class ListNode {
 
     // [selected - 2]
     public static ListNode reverse(ListNode root) {
-        ListNode prev = root;
-        ListNode cur = root.next;
-        root.next = null;
-        while (cur != null) {
-            ListNode next = cur.next;
-            cur.next = prev;
-            prev = cur;
+        ListNode cur = root;
+        ListNode next = root.next;
+        cur.next = null;
+        while (next != null) {
+            ListNode prev = cur;
             cur = next;
+            next = cur.next;
+            cur.next = prev;
         }
-        return prev;
+        return cur;
     }
 
     // add numbers represented by lists; 1's digit @ head

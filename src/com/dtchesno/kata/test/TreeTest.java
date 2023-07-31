@@ -309,6 +309,13 @@ public class TreeTest {
     }
 
     @Test
+    public void testMinCameraCover() {
+        // TODO: problem with tree construction below
+        assertEquals(1, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,null,0,0 })));
+        assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,null,0,null,0,null,null,0 })));
+    }
+
+    @Test
     public void testVerticalTraversal() {
     }
 }
