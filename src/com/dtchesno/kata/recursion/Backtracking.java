@@ -93,4 +93,38 @@ public class Backtracking {
             path.remove(path.size() - 1);
         }
     }
+
+    // leetcode 79 - https://leetcode.com/problems/word-search/description/
+    // Using backtrack approach since we need to 'test' all possible start points before we found the word exists
+    // or return false if not.
+    // Since we need only get true or false - we can optimize w/o building candidates explicitly and iterate over,
+    // by simply call method recursively for possible candidate - tru-or-false.
+    public static boolean wordSearchExist(char[][] board, String word) {
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[0].length; col++) {
+                if (wordSearchBacktrack(word, 0, board, row, col)) return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean wordSearchBacktrack(String word, int pos, char[][] board, int row, int col) {
+        if (pos == word.length()) return true;
+
+        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) return false;
+
+        if (word.charAt(pos) != board[row][col]) return false;
+
+        board[row][col] = '$';
+
+        if (wordSearchBacktrack(word, pos + 1, board, row - 1, col)
+                || wordSearchBacktrack(word, pos + 1, board, row + 1, col)
+                || wordSearchBacktrack(word, pos + 1, board, row, col - 1)
+                || wordSearchBacktrack(word, pos + 1, board, row, col + 1)) {
+            return true;
+        }
+
+        board[row][col] = word.charAt(pos);
+        return false;
+    }
 }
