@@ -1,5 +1,7 @@
 package com.dtchesno.kata.test;
 
+import com.dtchesno.kata.struct.AlienDictionary;
+import com.dtchesno.kata.struct.FileSystem;
 import com.dtchesno.kata.struct.PQueue;
 import com.dtchesno.kata.struct.Trie;
 import org.junit.After;
@@ -9,7 +11,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -52,5 +53,31 @@ public class StructTest {
         assertEquals(5, (int) q.poll());
         assertEquals(6, (int) q.poll());
         assertEquals(0, q.size());
+    }
+
+    @Test
+    public void testFileSystem() {
+        FileSystem fs = new FileSystem();
+        assertEquals(new ArrayList<>(), fs.ls("/"));
+
+        fs.mkdir("/a/b/c");
+        fs.addContentToFile("/a/b/c/d", "hello");
+        assertEquals(Arrays.asList("a"), fs.ls("/"));
+        assertEquals(Arrays.asList("d"), fs.ls("/a/b/c"));
+        assertEquals("hello", fs.readContentFromFile("/a/b/c/d"));
+
+        fs.addContentToFile("/a/b/c/d", " world!");
+        assertEquals("hello world!", fs.readContentFromFile("/a/b/c/d"));
+
+        fs.mkdir("/a/b/c/e");
+        assertEquals(Arrays.asList("d", "e"), fs.ls("/a/b/c"));
+    }
+
+    @Test
+    public void testAlienDictionary() {
+        AlienDictionary dict = new AlienDictionary();
+        assertEquals("wertf", dict.alienOrder(new String[] {"wrt", "wrf", "er", "ett", "rftt"}));
+        assertEquals("zx", dict.alienOrder(new String[] {"z", "x"}));
+        assertEquals("", dict.alienOrder(new String[] {"z", "x", "z"}));
     }
 }

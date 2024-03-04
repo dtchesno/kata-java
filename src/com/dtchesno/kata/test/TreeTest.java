@@ -9,9 +9,7 @@ import org.junit.Test;
 //import javax.xml.bind.annotation.XmlElementRef;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 //            100
 //          /       \
@@ -311,8 +309,11 @@ public class TreeTest {
     @Test
     public void testMinCameraCover() {
         // TODO: problem with tree construction below
-        assertEquals(1, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,null,0,0 })));
-        assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,null,0,null,0,null,null,0 })));
+        assertEquals(1, TreeNode.minCameraCover(new TreeNode(new Integer[] { 8,4,null,2,6 })));
+        assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 8,4,null,3,null,1,null,null,2 })));
+        assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,null,null,0,0,null,null,0,0 })));
+        assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,null,0,null,0,null,0 })));
+        assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,0,null,null,null,0 })));
     }
 
     @Test

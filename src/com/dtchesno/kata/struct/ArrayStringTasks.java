@@ -1,10 +1,5 @@
 package com.dtchesno.kata.struct;
 
-import gnu.trove.TDoubleArrayList;
-import javafx.util.Pair;
-import org.jvnet.staxex.BinaryText;
-
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ArrayStringTasks {
@@ -61,7 +56,6 @@ public class ArrayStringTasks {
             j--;
         }
     }
-
 
     // convert to/from Roman
     // [selected - 3]
@@ -182,6 +176,7 @@ public class ArrayStringTasks {
         return remainder.equals(part) ? "" : remainder;
     }
 
+
     // find any subarray which sum == 0
     // byte-by-byte #11 pg.11
     // [selected - 2]
@@ -205,7 +200,7 @@ public class ArrayStringTasks {
     }
 
 
-    // byte-by-byte merge sorted arrays, pg.10
+    // byte-by-byte merge sorted arrays, pg.10, https://www.byte-by-byte.com/mergearrays/
     // going backwards and copy into result
     // then copy remainder of smaller array if any
     public static int[] mergeSortedArrays(int[] a, int[] b, int aLen, int bLen) {
@@ -409,6 +404,147 @@ public class ArrayStringTasks {
         }
 
         return result;
+    }
+
+
+    // https://leetcode.com/problems/text-justification/
+    public static List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> result = new ArrayList<>();
+        List<String> line = new ArrayList<>();
+        int currentLineLength = 0;
+        for (int i = 0; i < words.length; i++) {
+            if (currentLineLength + line.size() + words[i].length() > maxWidth) {
+                result.add(buildLine(line, maxWidth - currentLineLength));
+                line.clear();
+                currentLineLength = 0;
+            }
+            line.add(words[i]);
+            currentLineLength += words[i].length();
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.join(" ", line));
+        addSpaces(sb, maxWidth - currentLineLength - (line.size() - 1));
+        result.add(sb.toString());
+        return result;
+    }
+
+    private static String buildLine(List<String> words, int spaceCount) {
+        StringBuilder sb = new StringBuilder();
+
+        // to handle 'special' case when there is single word in the line (division by zero)
+        for (int i = 0; i < words.size() - 1; i++) {
+            sb.append(words.get(i));
+            int spaces = (int)Math.ceil((double)spaceCount / (words.size() - 1 - i));
+            addSpaces(sb, spaces);
+            spaceCount -= spaces;
+        }
+        sb.append(words.get(words.size() - 1));
+        addSpaces(sb, spaceCount);
+        return sb.toString();
+    }
+
+    private static void addSpaces(StringBuilder sb, int count) {
+        for (int i = 0; i < count; i++) {
+            sb.append(" ");
+        }
+    }
+
+
+    // https://leetcode.com/problems/sliding-window-maximum/description/
+    public static int[] maxSlidingWindow(int[] nums, int k) {
+        int[] result = new int[nums.length - k + 1];
+        Deque<Integer> q = new LinkedList<>();
+        for (int i = 0; i < k; i++) {
+            while (!q.isEmpty() && nums[q.peekLast()] < nums[i]) {
+                q.pollLast();
+            }
+            q.add(i);
+        }
+        result[0] = nums[q.peekFirst()];
+        for (int i = k; i < nums.length; i++) {
+            while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) {
+                q.removeLast();
+            }
+            while (!q.isEmpty() && q.peekFirst() < i - k + 1) {
+                q.removeFirst();
+            }
+            q.add(i);
+            result[i - k + 1] = nums[q.peekFirst()];
+        }
+        return result;
+    }
+
+    // https://leetcode.com/problems/meeting-rooms-iii/
+    public static int mostBooked(int n, int[][] meetings) {
+        int[] count = new int[n];
+
+        List<int[]> _meetings = new ArrayList<>();
+        for (int i = 0; i < meetings.length; i++) {
+            _meetings.add(new int[] { meetings[i][0], meetings[i][1]});
+        }
+        Collections.sort(_meetings, (a, b) -> a[0] - b[0]);
+
+        // rooms: (id, start time)
+        Queue<int[]> available = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        Queue<int[]> inUse = new PriorityQueue<>((a, b) -> a[1] == b[1] ? a[0] - b[0] : a[1] - b[1]);
+        for (int i = 0; i < n; i++) {
+            available.add(new int[] { i, 0 });
+        }
+
+        for (int[] m : _meetings) {
+            while (!inUse.isEmpty() && inUse.peek()[1] <= m[0]) {
+                available.add(inUse.poll());
+            }
+            if (available.isEmpty()) {
+                available.add(inUse.poll());
+            }
+            int[] room = available.poll();
+            count[room[0]]++;
+            room[1] = room[1] <= m[0] ? m[1] : room[1] + m[1] - m[0];
+            inUse.add(room);
+        }
+
+        int iMax = 0;
+        int max = count[0];
+        for (int i = 1; i < n; i++) {
+            if (count[i] > max) {
+                max = count[i];
+                iMax = i;
+            }
+        }
+        return iMax;
+    }
+
+    // https://leetcode.com/problems/longest-increasing-subsequence/
+    public static int longestIncreasingSubseq(int[] seq) {
+        List<Integer> result = new ArrayList<>();
+        result.add(seq[0]);
+        for (int i = 1; i < seq.length; i++) {
+            if (seq[i] > result.get(result.size() - 1)) {
+                result.add(seq[i]);
+            } else {
+                int pos = longestIncreasingSubseqFindInsertPos(seq[i], result);
+                result.set(pos, seq[i]);
+            }
+        }
+        return result.size();
+    }
+
+    private static int longestIncreasingSubseqFindInsertPos(int val, List<Integer> seq) {
+        int left = 0;
+        int right = seq.size();
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (val == seq.get(mid)) {
+                return mid;
+            } else if (val < seq.get(mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
     }
 
     // done

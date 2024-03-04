@@ -20,45 +20,28 @@ public class PatternMatching {
     //  - for star matching we simply loop and try to match by skipping repeated/. chars, if nothing matches,
     //      we do final call from position where we reached to
     public static boolean isMatch(String s, String p) {
-        if (s == null || p == null) return false;
-
         // -1 - no match, 1 - match, 0 - not calculated
         int[][] mem = new int[s.length() + 1][p.length() + 1];
         return isMatch(s, p, 0, 0, mem) == 1;
     }
 
     private static int isMatch(String s, String p, int i, int j, int[][] mem) {
-        if (i > s.length() || j > p.length()) {
-            return -1;
-        }
-
         if (mem[i][j] != 0) {
             return mem[i][j];
         }
 
         if (i == s.length() && j == p.length()) {
             mem[i][j] = 1;
-        } else if (j == p.length()) {   // it's fine if s is over, we still could match empty string with e.g. 'a*'
+        } else if (j == p.length()) {
             mem[i][j] = -1;
-        } else if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
-            mem[i][j] = isMatchStar(s, p, i, j, mem);
-        } else if (p.charAt(j) == '.' || (i < s.length() && p.charAt(j) == s.charAt(i))) {
-            mem[i][j] = isMatch(s, p, i + 1, j + 1, mem);
         } else {
-            mem[i][j] = -1;
-        }
-
-        return mem[i][j];
-    }
-
-    private static int isMatchStar(String s, String p, int i, int j, int[][] mem) {
-        char repeated = p.charAt(j);
-        j += 2;
-        while (i < s.length() && (s.charAt(i) == repeated || repeated == '.')) {
-            if (isMatch(s, p, i++, j, mem) == 1) {
-                return 1;
+            boolean isMatch = i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');
+            if (j + 1 < p.length() && p.charAt(j + 1) == '*') {
+                mem[i][j] = Math.max(isMatch(s, p, i, j + 2, mem), isMatch ? isMatch(s, p, i + 1, j, mem) : -1);
+            } else {
+                mem[i][j] = isMatch ? isMatch(s, p, i + 1, j + 1, mem) : -1;
             }
         }
-        return isMatch(s, p, i, j, mem);
+        return mem[i][j];
     }
 }

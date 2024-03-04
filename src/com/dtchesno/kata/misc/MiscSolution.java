@@ -272,22 +272,37 @@ public class MiscSolution {
     public static int largestRectangleAreaStack(int[] heights) {
         Stack<Integer> s = new Stack<>();
         s.push(-1);
-
-        int max = 0;
+        int maxArea = 0;
         for (int i = 0; i < heights.length; i++) {
             while (s.peek() != -1 && heights[s.peek()] > heights[i]) {
                 int top = s.pop();
-                int w = i - s.peek() - 1;
-                max = Math.max(max, w * heights[top]);
+                int width = i - s.peek() + 1 - 2;
+                maxArea = Math.max(maxArea, width * heights[top]);
             }
             s.add(i);
         }
-
         while (s.peek() != -1) {
             int top = s.pop();
-            int w = heights.length - s.peek() - 1;
-            max = Math.max(max, w * heights[top]);
+            int width = (heights.length - 1) - s.peek();
+            maxArea = Math.max(maxArea, width * heights[top]);
         }
-        return max;
+        return maxArea;
+    }
+
+    // https://leetcode.com/problems/trapping-rain-water/
+    public static int trap(int[] height) {
+        Stack<Integer> s = new Stack<>();
+        s.push(-1);
+        int total = 0;
+        for (int i = 0; i < height.length; i++) {
+            while (s.peek() != -1 && height[s.peek()] <= height[i]) {
+                int top = s.pop();
+                int w = i - s.peek() - 1;
+                int h = s.peek() == -1 ? 0 : Math.min(height[s.peek()], height[i]) - height[top];
+                total += w * h;
+            }
+            s.push(i);
+        }
+        return total;
     }
 }

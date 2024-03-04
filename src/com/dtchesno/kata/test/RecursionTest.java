@@ -1,6 +1,7 @@
 package com.dtchesno.kata.test;
 
 import com.dtchesno.kata.misc.MiscSolution;
+import com.dtchesno.kata.recursion.Calculator;
 import com.dtchesno.kata.recursion.RecursionSolution;
 import org.junit.After;
 import org.junit.Before;
@@ -82,5 +83,15 @@ public class RecursionTest {
         List<List<Integer>> result = RecursionSolution.getAllPermutations(input);
         assertEquals(expected.size(), result.size());
         assertTrue(expected.containsAll(result));
+    }
+
+    @Test
+    public void testCalculator() {
+        Calculator calc = new Calculator();
+        assertEquals(2, calc.calculate("1 +1"));
+        assertEquals(3, calc.calculate(" 2-1 + 2 "));
+        assertEquals(23, calc.calculate("(1+(4+5+2)-3)+(6+8)"));
+        assertEquals(4, calc.calculate("6-4/2"));
+        assertEquals(21, calc.calculate("2*(5+5*2)/3+(6/2+8)"));
     }
 }

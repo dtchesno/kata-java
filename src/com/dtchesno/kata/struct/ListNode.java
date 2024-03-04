@@ -44,7 +44,9 @@ public class ListNode {
         return false;
     }
 
+
     // split a linked list in halves
+    // https://www.byte-by-byte.com/splitlinkedlist/
     // byte-by-byte #41 pg31
     // [selected - 1]
     public static ListNode split(ListNode node) {
@@ -60,6 +62,7 @@ public class ListNode {
         return splitHead;
     }
 
+
     // find begin of circle
     // cracking the coding interview #2.5 pg.109
     // [selected - 1]
@@ -70,18 +73,18 @@ public class ListNode {
     //      so, if ptr starts over and runner from meet point with the same speed, they should meet at start of loop
     //      runner could make multiple loop runs (k * s2), but this doesn't change things, it will do so for final step either
     public static ListNode findStartLoop(ListNode root) {
-        ListNode ptr = root.next;
+        ListNode current = root.next;
         ListNode runner = root.next.next;
-        while (ptr != runner) {
-            ptr = ptr.next;
+        while (current != runner) {
+            current = current.next;
             runner = runner.next.next;
         }
-        ptr = root;
-        while (ptr != runner) {
-            ptr = ptr.next;
+        current = root;
+        while (current != runner) {
+            current = current.next;
             runner = runner.next;
         }
-        return runner;
+        return current;
     }
 
     // 0, 1, 2, 3, 4, 5 -> 0, 5, 1, 4, 2, 3 // n0, nlast, n1, nlast-1...
@@ -102,20 +105,24 @@ public class ListNode {
 
     // [selected - 2]
     public static ListNode reverse(ListNode root) {
+        ListNode prev = null;
         ListNode cur = root;
         ListNode next = root.next;
-        cur.next = null;
         while (next != null) {
-            ListNode prev = cur;
-            cur = next;
-            next = cur.next;
+            cur.prev = next;
             cur.next = prev;
+            prev = cur;
+            cur = next;
+            next = next.next;
         }
+        cur.next = prev;
+        cur.prev = null;
         return cur;
     }
 
     // add numbers represented by lists; 1's digit @ head
     // e.g. (3->1->5) + (5->9->2) = (8->0->8)
+    // https://leetcode.com/problems/add-two-numbers/
     // cracking #2.4 pg.50
     // [selected - 2]
     public static ListNode add(ListNode l1, ListNode l2, int carry) {

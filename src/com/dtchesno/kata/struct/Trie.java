@@ -4,61 +4,54 @@ import java.util.*;
 
 
 public class Trie {
-
-    public static class Node {
-        Character key;
-        String value;
-        HashMap<Character, Node> childs = new HashMap<>();
-
-        Node(Character key, String value) {
-            this.key = key;
-            this.value = value;
-        }
+    private static class Node {
+        Map<Character, Node> childs = new HashMap<>();
+        String word;
     }
 
-    Node root = new Node(null, null);
+    private Node root = new Node();
 
     public static Trie build(List<String> words) {
         Trie t = new Trie();
-        for (String s: words) {
-            t.add(s);
+        for (String word : words) {
+            t.add(word);
         }
         return t;
     }
 
-    public void add(String word) {
-        Node node = root;
-        for (char c: word.toCharArray()) {
-            if (!node.childs.containsKey(c)) {
-                Node n = new Node(c, null);
-                node.childs.put(c, n);
-            }
-            node = node.childs.get(c);
-        }
-        node.value = word;
-    }
-
     public List<String> getValues(String prefix) {
-        ArrayList<String> res = new ArrayList<>();
-        Node node = root;
-        for (char c: prefix.toCharArray()) {
-            if (!node.childs.containsKey(c)) {
-                return res;
+        List<String> result = new ArrayList<>();
+        Node n = root;
+        for (char c : prefix.toCharArray()) {
+            n = n.childs.get(c);
+            if (n == null) {
+                return result;
             }
-            node = node.childs.get(c);
         }
-
-        LinkedList<Node> q = new LinkedList<>();
-        q.add(node);
+        Queue<Node> q = new LinkedList<>();
+        q.add(n);
         while (!q.isEmpty()) {
-            Node n = q.poll();
-            if (n.value != null) {
-                res.add(n.value);
+            n = q.poll();
+            if (n.word != null) {
+                result.add(n.word);
             }
-            for (Node child: n.childs.values()) {
+            for (Node child : n.childs.values()) {
                 q.add(child);
             }
         }
-        return res;
+        return result;
+    }
+
+    private void add(String word) {
+        Node n = root;
+        for (int i = 0; i < word.length(); i++) {
+            Node next = n.childs.get(word.charAt(i));
+            if (next == null) {
+                next = new Node();
+                n.childs.put(word.charAt(i), next);
+            }
+            n = next;
+        }
+        n.word = word;
     }
 }

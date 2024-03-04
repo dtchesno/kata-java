@@ -1,7 +1,5 @@
 package com.dtchesno.kata.struct;
 
-import org.apache.commons.compress.archivers.ar.ArArchiveEntry;
-
 import java.util.*;
 
 public class Graph {
@@ -216,186 +214,129 @@ public class Graph {
         res.add(v);
     }
 
+
     // https://leetcode.com/articles/find-eventual-safe-states/
     public static Integer[] listEventualSafeNodes(int[][] g) {
-        // 0/1/2 - white/gray/black - undiscovered/discovered/processed
         int[] color = new int[g.length];
-        ArrayList<Integer> result = new ArrayList<>();
-        for (int i = 0; i < g.length; i++) {
-            if (listEventualSafeNodesDFS(i, g, color)) {
-                result.add(i);
+        List<Integer> result = new ArrayList<>();
+        for (int v = 0; v < g.length; v++) {
+            if (listEventualSafeNodesDFS(v, g, color)) {
+                result.add(v);
             }
         }
         return result.toArray(new Integer[0]);
     }
 
-    private static boolean listEventualSafeNodesDFS(int node, int[][] g, int[] color) {
-        if (color[node] == 1) {
-            return false;
+    private static boolean listEventualSafeNodesDFS(int v, int[][] g, int[] color) {
+        if (color[v] == 2) return true;
+        if (color[v] == 1) return false;
+        color[v] = 1;
+        for (int u : g[v]) {
+            if (color[u] == 1) return false;
+            if (color[u] == 2) continue;
+            if (listEventualSafeNodesDFS(u, g, color)) return false;
         }
-        if (color[node] == 2) {
-            return true;
-        }
-
-        color[node] = 1;
-
-        for (int u : g[node]) {
-            if (color[u] == 1) {
-                return false; // we've been here and haven't reached terminal state (2)
-            }
-            if (color[u] == 2) {
-                continue; // it leads to terminal state, but we need to check all 'childs'
-            }
-            if (!listEventualSafeNodesDFS(u, g, color)) {
-                return false; // dfs, and fail if there is a loop via child
-            }
-        }
-
-        color[node] = 2;
+        color[v] = 2;
         return true;
     }
 
+
     // build order byte-by-byte
     public static List<Integer> buildOrder(int[][] steps) {
-        ArrayList<Integer> order = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
         int[] state = new int[steps.length];
         for (int v = 0; v < steps.length; v++) {
             if (state[v] != 0) {
                 continue;
             }
-            dfsBuildOrder(v, steps, state, order);
+            buildOrderDFS(v, steps, state, result);
         }
-        return order;
+        return result;
     }
 
-    private static void dfsBuildOrder(int v, int[][] steps, int[] state, List<Integer> order) {
+    private static void buildOrderDFS(int v, int[][] steps, int[] state, List<Integer> result) {
         state[v] = 1;
-        for (int u: steps[v]) {
-            if (state[u] != 0) {
-                continue;
-            }
-            dfsBuildOrder(u, steps, state, order);
+        for (int u : steps[v]) {
+            if (state[u] != 0) continue;
+            buildOrderDFS(u, steps, state, result);
         }
+        result.add(v);
         state[v] = 2;
-        order.add(v);
     }
 
 
     // find cheapest price from src to dst up to k stops in directed weighted graph
     // e.g. [[0,1,100], [1,2,100], [0,2,500]], src=0, dst=2, k=1; result=200 (0->1->2)
     // https://leetcode.com/problems/cheapest-flights-within-k-stops/
-    public static int findCheapest(int[][] flights, int src, int dst, int stops) {
-        int n = 0;
-        // src->(dst,price)
+    public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         Map<Integer, List<int[]>> connections = new HashMap<>();
-        for (int[] flight : flights) {
-            connections.putIfAbsent(flight[0], new ArrayList<>());
-            List<int[]> c = connections.get(flight[0]);
-            c.add(new int[] {flight[1], flight[2]});
-            n = Math.max(n, flight[0] + 1);
-            n = Math.max(n, flight[1] + 1);
+        for (int[] con : flights) {
+            int v1 = con[0];
+            int v2 = con[1];
+            int price = con[2];
+            List<int[]> adj = connections.get(v1);
+            if (adj == null) {
+                adj = new ArrayList<>();
+                connections.put(v1, adj);
+            }
+            adj.add(new int[] { v2, price});
         }
 
-        int minCost = Integer.MAX_VALUE;
-
-        // (v, cost, stops)
+        // city, cost, rem.stops
         Queue<int[]> q = new PriorityQueue<>((a, b) -> a[1] - b[1]);
         q.add(new int[] {src, 0, 0});
-        int[] stopCache = new int[n];
-        Arrays.fill(stopCache, Integer.MAX_VALUE);
+        int[] stops = new int[n];
+        Arrays.fill(stops, Integer.MAX_VALUE);
         while (!q.isEmpty()) {
             int[] top = q.poll();
-            int v = top[0];
-            int cost = top[1];
-            int nstops = top[2];
-
-            if (nstops > stops + 1 || nstops > stopCache[v]) {
+            if (top[2] > stops[top[0]] || top[2] > k + 1) {
                 continue;
             }
-            stopCache[v] = nstops;
-
-            if (v == dst) {
-                minCost = Math.min(minCost, cost);
+            if (top[0] == dst) {
+                return top[1];
+            }
+            stops[top[0]] = top[2];
+            List<int[]> adj = connections.get(top[0]);
+            if (adj == null) {
                 continue;
             }
-
-            List<int[]> conn = connections.get(v);
-            for (int[] c : conn) {
-                q.add(new int[] {c[0], cost + c[1], nstops + 1});
+            for (int[] c : adj) {
+                q.add(new int[] {c[0], top[1] + c[1], top[2] + 1});
             }
         }
-
-        return minCost;
-    }
-
-    public static int findCheapest2(int[][] flights, int src, int dst, int stops) {
-        // cache connections & prices: start->{(dest, price)*}
-        Map<Integer, Map<Integer, Integer>> prices = new HashMap<>();
-        for (int[] flight : flights) {
-            Map<Integer, Integer> connections = prices.getOrDefault(flight[0], new HashMap<>());
-            connections.put(flight[1], flight[2]);
-            prices.put(flight[0], connections);
-        }
-
-        // p.queue: (port, stops, cost)
-        PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[2] - b[2]);
-        q.add(new int[] { src, stops, 0 });
-        while (!q.isEmpty()) {
-            int[] current = q.poll();
-            int port = current[0];
-            int remainingStops = current[1];
-            int cost = current[2];
-
-            if (port == dst) {
-                return cost;
-            }
-
-            if (remainingStops < 0 || !prices.containsKey(port))  {
-                continue;
-            }
-
-            // check for connections from current port
-            for (Map.Entry<Integer, Integer> next : prices.get(port).entrySet()) {
-                q.add(new int[] { next.getKey(), remainingStops - 1, cost + next.getValue() });
-            }
-        }
-
         return -1;
     }
+
 
     // find shortest path between graph nodes
     // byte-by-byte #16 pg.16
     public static List<Integer> findShortestPath(int[][] G, int src, int dst) {
-        LinkedList<Integer> q = new LinkedList<>();
-        HashMap<Integer, Integer> parent = new HashMap<>();
+        Map<Integer, Integer> parent = new HashMap<>();
+        Queue<Integer> q = new LinkedList<>();
         q.add(src);
         while (!q.isEmpty()) {
             int v = q.poll();
-            for (int u: G[v]) {
-                if (parent.containsKey(u)) {
-                    continue;
-                }
-                parent.put(u, v);
-                if (u == dst) {
-                    break;
-                }
+            if (v == dst) break;
+            for (int u : G[v]) {
+                if (parent.containsKey(u)) continue;
                 q.add(u);
+                parent.put(u, v);
             }
         }
         if (!parent.containsKey(dst)) {
-            return new ArrayList<Integer>();
+            return new ArrayList<>();
         }
-        List<Integer> res = new ArrayList<>();
-        int v = dst;
-        res.add(v);
-        while (true) {
-            v = parent.get(v);
-            res.add(0, v);
-            if (v == src) {
-                return res;
-            }
+        ArrayList<Integer> result = new ArrayList<>();
+        int cur = dst;
+        while (cur != src) {
+            result.add(cur);
+            cur = parent.get(cur);
         }
+        result.add(src);
+        Collections.reverse(result);
+        return result;
     }
+
 
     // find articulation point
     public static List<Integer> findAP(int[][] G) {
@@ -442,6 +383,52 @@ public class Graph {
         }
     }
 
-    // Done
+    public static List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> acc = new ArrayList<>();
+        acc.add(0);
+        allPathsSourceTargetDFS(graph, 0, acc, result);
+        return result;
+    }
+
+    private static void allPathsSourceTargetDFS(
+            int[][] graph,
+            int v,
+            List<Integer> acc,
+            List<List<Integer>> result) {
+        if (v == graph.length - 1) {
+            result.add(new ArrayList<>(acc));
+            return;
+        }
+        for (int u : graph[v]) {
+            acc.add(u);
+            allPathsSourceTargetDFS(graph, u, acc, result);
+            acc.remove(acc.size() - 1);
+        }
+    }
+
+
     // https://leetcode.com/problems/is-graph-bipartite/submissions/
+    public static boolean isBipartite(int[][] graph) {
+        int[] state = new int[graph.length];
+        Arrays.fill(state, -1);
+        for (int v = 0; v < graph.length; v++) {
+            if (state[v] != -1) continue;
+            state[v] = 0;
+            if (!isBipartiteDFS(v, graph, state)) return false;
+        }
+        return true;
+    }
+
+    private static boolean isBipartiteDFS(int v, int[][] graph, int[] state) {
+        for (int u : graph[v]) {
+            if (state[u] != -1) {
+                if (state[v] == state[u]) return false;
+                continue;
+            }
+            state[u] = (state[v] + 1) % 2;
+            if (!isBipartiteDFS(u, graph, state)) return false;
+        }
+        return true;
+    }
 }

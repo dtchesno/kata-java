@@ -1,5 +1,6 @@
 package com.dtchesno.kata.struct;
 
+import com.intellij.ui.treeStructure.Tree;
 import javafx.util.Pair;
 import java.util.*;
 
@@ -181,65 +182,56 @@ public class TreeNode {
 
     // is tree is subtree of this
     // Cracking...4.7 pg.130 (2010)
-    public boolean isSubtree(TreeNode tree) {
-        if (tree == null) {
+    public boolean isSubtree(TreeNode t2) {
+        if (t2 == null) {
             return true;
         }
-        return isSubtree(this, tree);
+        TreeNode t1 = this;
+        while (t1 != null) {
+            if (t1.key == t2.key) {
+                return isSubtree(t1, t2);
+            }
+            t1 = t2.key < t1.key ? t1.left : t1.right;
+        }
+        return false;
     }
 
-    private static boolean isSubtree(TreeNode t1, TreeNode t2) {
-        if (t1 == null) {
-            return false;
-        }
-
-        if (isMatch(t1, t2)) {
-            return true;
-        }
-
-        return isSubtree(t1.left, t2) || isSubtree(t1.right, t2);
-    }
-
-    private static boolean isMatch(TreeNode t1, TreeNode t2) {
+    private boolean isSubtree(TreeNode t1, TreeNode t2) {
         if (t1 == null && t2 == null) {
             return true;
         }
-
         if (t1 == null || t2 == null || t1.key != t2.key) {
             return false;
         }
-
-        return isMatch(t1.left, t2.left) && isMatch(t1.right, t2.right);
+        return isSubtree(t1.left, t2.left) && isSubtree(t1.right, t2.right);
     }
 
     // find all paths which sum up to the given sum, not need to start @root
-    // Cracking...4.8 pg.131
+    // Cracking...4.8 pg.131 (2010)
     // [selected - 1]
     public Set<List<Integer>> findSum(int sum) {
-        Set<List<Integer>> acc = new HashSet<>();
-        findSum(this, sum, new ArrayList<Integer>(), acc);
-        return acc;
+        Set<List<Integer>> result = new HashSet<>();
+        List<Integer> acc = new ArrayList<>();
+        findSumDfs(this, sum, acc, result);
+        return result;
     }
 
-    private static void findSum(TreeNode t, int sum, List<Integer> buffer, Set<List<Integer>> acc) {
-         if (t == null) {
+    private void findSumDfs(TreeNode root, int sum, List<Integer> acc, Set<List<Integer>> result) {
+        if (root == null) {
             return;
         }
 
-        buffer.add(t.key);
-
-        // check for sum
-        int pathSum = 0;
-        for (int i = buffer.size() - 1; i >= 0; i--) {
-            pathSum += buffer.get(i);
-            if (pathSum == sum) {
-                acc.add(new ArrayList<>(buffer.subList(i, buffer.size())));
+        acc.add(root.key);
+        int total = sum;
+        for (int i = acc.size() - 1; i >= 0; i--) {
+            total -= acc.get(i);
+            if (total == 0) {
+                result.add(new ArrayList<>(acc.subList(i, acc.size())));
             }
         }
 
-        findSum(t.left, sum, buffer, acc);
-        findSum(t.right, sum, buffer, acc);
-        buffer.remove(buffer.size() - 1);
+        findSumDfs(root.left, sum, acc, result);
+        findSumDfs(root.right, sum, acc, result);
     }
 
     // build doubly-linked list from tree
@@ -325,6 +317,7 @@ public class TreeNode {
 
         return addedCount;
     }
+
 
     // test whether tree can be cut once, so, two parts will have same sum of node values
     // FACEBOOK: https://www.careercup.com/question?id=4871620274421760
@@ -419,60 +412,102 @@ public class TreeNode {
     //  - bfs from target to left/right/parent, adding null and increasing distance when 'layer' is done (when peek is null from prev.layer)
     //  - return bfs queue content except top null entry
     //  - return bfs queue content except top null entry
+//    public static List<Integer> distanсeK(TreeNode root, TreeNode target, int K) {
+//        Map<TreeNode, TreeNode> parent = new HashMap<>();
+//        distanсeKDFS(root, null, parent);
+//
+//        Queue<TreeNode> q = new LinkedList<>();
+//        Set<TreeNode> seen = new HashSet<>();
+//        seen.add(null); // to avoid check for null left/right/parent
+//        q.add(target);
+//        q.add(null);
+//        int distance = 0;
+//        while (!q.isEmpty() && distance < K) {
+//            TreeNode top = q.poll();
+//            if (top == null) {
+//                continue;
+//            }
+//            seen.add(top);
+//
+//            if (!seen.contains(top.left)) {
+//                q.add(top.left);
+//            }
+//            if (!seen.contains(top.right)) {
+//                q.add(top.right);
+//            }
+//            if (!seen.contains(parent.get(top))) {
+//                q.add(parent.get(top));
+//            }
+//            if (!q.isEmpty() && q.peek() == null) {
+//                distance++;
+//                q.add(null);
+//            }
+//        }
+//
+//        List<Integer> res = new ArrayList<>();
+//        while (!q.isEmpty()) {
+//            TreeNode entry = q.poll();
+//            if (entry == null) {
+//                continue;
+//            }
+//            res.add(entry.key);
+//        }
+//        return res;
+//    }
+//
+//    private static void distanсeKDFS(TreeNode node, TreeNode parent, Map<TreeNode, TreeNode> map) {
+//        if (node == null) {
+//            return;
+//        }
+//        map.put(node, parent);
+//        distanсeKDFS(node.left, node, map);
+//        distanсeKDFS(node.right, node, map);
+//    }
+
+    // another approach for above - dfs to find parent, then bfs to find K-distance
     public static List<Integer> distanсeK(TreeNode root, TreeNode target, int K) {
-        Map<TreeNode, TreeNode> parent = new HashMap<>();
-        distanсeKDFS(root, null, parent);
-
-        Queue<TreeNode> q = new LinkedList<>();
-        Set<TreeNode> seen = new HashSet<>();
-        seen.add(null); // to avoid check for null left/right/parent
-        q.add(target);
-        q.add(null);
-        int distance = 0;
-        while (!q.isEmpty() && distance < K) {
-            TreeNode top = q.poll();
-            if (top == null) {
-                continue;
-            }
-            seen.add(top);
-
-            if (!seen.contains(top.left)) {
-                q.add(top.left);
-            }
-            if (!seen.contains(top.right)) {
-                q.add(top.right);
-            }
-            if (!seen.contains(parent.get(top))) {
-                q.add(parent.get(top));
-            }
-            if (!q.isEmpty() && q.peek() == null) {
-                distance++;
-                q.add(null);
-            }
-        }
-
-        List<Integer> res = new ArrayList<>();
-        while (!q.isEmpty()) {
-            TreeNode entry = q.poll();
-            if (entry == null) {
-                continue;
-            }
-            res.add(entry.key);
-        }
-        return res;
+        Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+        dfs(null, root, target, parentMap);
+        List<Integer> result = new ArrayList<>();
+        dfs(target, target, K, parentMap, result);
+        return result;
     }
 
-    private static void distanсeKDFS(TreeNode node, TreeNode parent, Map<TreeNode, TreeNode> map) {
-        if (node == null) {
+    private static void dfs(TreeNode parent, TreeNode root, TreeNode target, Map<TreeNode, TreeNode> parentMap) {
+        if (root == null) {
             return;
         }
-        map.put(node, parent);
-        distanсeKDFS(node.left, node, map);
-        distanсeKDFS(node.right, node, map);
+        parentMap.put(root, parent);
+        if (root == target) {
+            return;
+        }
+        dfs(root, root.left, target, parentMap);
+        dfs(root, root.right, target, parentMap);
     }
 
+    private static void dfs(TreeNode root, TreeNode guard, int K, Map<TreeNode, TreeNode> parentMap, List<Integer> result) {
+        if (root == null) {
+            return;
+        }
+        if (K == 0) {
+            result.add(root.key);
+            return;
+        }
+
+        // go down
+        if (root.left != guard) {
+            dfs(root.left, root, K - 1, parentMap, result);
+        }
+        if (root.right != guard) {
+            dfs(root.right, root, K - 1, parentMap, result);
+        }
+
+        // go up
+        dfs(parentMap.get(root), root, K - 1, parentMap, result);
+    }
 
     // Aziz 10.15 pg169
+    // https://leetcode.com/problems/boundary-of-binary-tree/description/
     // [selected - 2]
     public static List<Integer> exteriorBinaryTree(TreeNode root) {
         ArrayList<Integer> result = new ArrayList<>();
@@ -527,6 +562,7 @@ public class TreeNode {
         return d;
     }
 
+
     // leetcode 236
     // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/sss
     public static TreeNode findLCA(TreeNode root, TreeNode p, TreeNode q) {
@@ -559,60 +595,61 @@ public class TreeNode {
         return left + right + mid;
     }
 
+
     // https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
     public TreeNode lcaDeepestLeaves(TreeNode root) {
-        return traverse(root, 0).lca;
+        return traverse(root, 0).getKey();
     }
 
-    private static class LcaPair {
-        TreeNode lca;
-        int depth;
-
-        LcaPair(TreeNode lca, int depth) {
-            this.lca = lca;
-            this.depth= depth;
-        }
-    }
-
-    private static LcaPair traverse(TreeNode root, int depth) {
-        if (root == null) return null;
-
-        LcaPair left = traverse(root.left, depth + 1);
-        LcaPair right = traverse(root.right, depth + 1);
-
-        if (left == null && right == null) return new LcaPair(root, depth);
-
-        if (left != null && right != null) {
-            return left.depth > right.depth ? left : right.depth > left.depth ? right : new LcaPair(root, left.depth);
+    private static Pair<TreeNode, Integer> traverse(TreeNode root, int depth) {
+        if (root == null) {
+            return null;
         }
 
-        return left == null ? right : left;
+        Pair<TreeNode, Integer> left = traverse(root.left, depth + 1);
+        Pair<TreeNode, Integer> right = traverse(root.right, depth + 1);
+
+        if (root.left == null && root.right == null) {
+            return new Pair(root, depth);
+        } else if (left == null) {
+            return right;
+        }
+        if (right == null) {
+            return left;
+        }
+
+        if (left.getValue() > right.getValue()) {
+            return left;
+        } else if (right.getValue() > left.getValue()) {
+            return right;
+        }
+        return new Pair<>(root, left.getValue());
     }
+
 
     // leetcode 987: // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]
-    public static List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        dfs(root, 0, 0);
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        TreeMap<Integer, List<Integer>> columns = new TreeMap<>();
 
-        for (int i = minColumn; i <= maxColumn; i++ ) {
-            List<Pair<Integer, Integer>> column = map.get(i);
-            Collections.sort(column, new Comparator<Pair<Integer, Integer>>() {
-                @Override
-                public int compare(Pair<Integer, Integer> o1, Pair<Integer, Integer> o2) {
-                    if (o1.getKey() != o2.getKey())
-                        return o1.getKey() - o2.getKey();
-                    else
-                        return o1.getValue() - o2.getValue();
-                }
-            });
-
-            ArrayList<Integer> sortedColumn = new ArrayList<>();
-            for (Pair<Integer, Integer> p : column) {
-                sortedColumn.add(p.getValue());
+        // (column index, node); left to right; 0 is root
+        Queue<Pair<Integer, TreeNode>> q = new LinkedList<>();
+        q.add(new Pair(0, root));
+        while (!q.isEmpty()) {
+            var top = q.poll();
+            if (top.getValue() == null) {
+                continue;
             }
-            result.add(sortedColumn);
+            var column = columns.getOrDefault(top.getKey(), new ArrayList<>());
+            columns.put(top.getKey(), column);
+            column.add(top.getValue().key);
+            q.add(new Pair(top.getKey() - 1, top.getValue().left));
+            q.add(new Pair(top.getKey() + 1, top.getValue().right));
         }
 
+        List<List<Integer>> result = new ArrayList<>();
+        for (var column : columns.values()) {
+            result.add(column);
+        }
         return result;
     }
 
@@ -638,25 +675,24 @@ public class TreeNode {
     }
 
     // leetcode 96): https://leetcode.com/problems/binary-tree-cameras/
-    private static int count = 0;
-    private static HashSet<TreeNode> covered = new HashSet<>();
-
     public static int minCameraCover(TreeNode root) {
+        Set<TreeNode> cameras = new HashSet<>();
+        Set<TreeNode> covered = new HashSet<>();
         covered.add(null);
-        minCameraCoverDfs(root, null);
-        return count;
+        minCameraCoverDfs(root, null, covered, cameras);
+        return cameras.size() + (!covered.contains(root) ? 1 : 0);
     }
 
-    private static void minCameraCoverDfs(TreeNode node, TreeNode parent) {
+    private static void minCameraCoverDfs(TreeNode node, TreeNode parent, Set<TreeNode> covered, Set<TreeNode> cameras) {
         if (node == null) {
             return;
         }
 
-        minCameraCoverDfs(node.left, node);
-        minCameraCoverDfs(node.right, node);
+        minCameraCoverDfs(node.left, node, covered, cameras);
+        minCameraCoverDfs(node.right, node, covered, cameras);
 
-        if (!covered.contains(node.left) || !covered.contains(node.right) || (!covered.contains(node) && parent == null)) {
-            count++;
+        if (!covered.contains(node.left) || !covered.contains(node.right)) {
+            cameras.add(node);
             covered.add(node);
             covered.add(node.left);
             covered.add(node.right);

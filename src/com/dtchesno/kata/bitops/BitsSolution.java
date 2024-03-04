@@ -5,6 +5,7 @@ public class BitsSolution {
     // replace bits i..j in <n> by bits from <m>
     // Cracking... 5.1 pg.133
     // [selected - 1]
+    // Input: N=10000000000,M=10011,i=2,j=6 Output:N = 10001001100
     public static int replace(int n, int m, int i, int j) {
         int mask = (1 << (j - i) + 1) - 1;
 
@@ -179,41 +180,38 @@ public class BitsSolution {
     // Aziz 5.5 pg.51
     public static int multiply(int x, int y) {
         int product = 0;
-        while (x != 0) {
-            if ((x & 1) != 0) {
-                product = add(product, y);
+        while (y != 0) {
+            if ((y & 1) != 0) {
+                product = add(product, x);
             }
-            x >>>= 1;
-            y <<= 1;
+            y >>>= 1;
+            x <<= 1;
         }
         return product;
     }
 
+
     // sum w/o arithmetic ops
-    // Aziz 5.5 pg.51 + byte-bybyte
+    // Aziz 5.5 pg.51 + byte-by-byte
     public static int add(int x, int y) {
         int carry = 0;
-        int a = x;
-        int b = y;
         do {
-            int sum = a ^ b;
-            carry = (a & b) << 1;
-            a = sum;
-            b = carry;
+            int sum = x ^ y;
+            carry = (x & y) << 1;
+            x = sum;
+            y = carry;
         } while (carry != 0);
-        return a;
+        return x;
     }
+
 
     // rotate number to right
     // byte-by-byte #36 pg32
     public static int rotate(int value, int n) {
         n %= 32;
-        if (n == 0) return value;
-
-        // TODO: no masks needed - just combine shift!!!
-        int lmask = (1 << n) - 1;
-        int lower = value & lmask;
-        int upper = value & (~lmask);
+        int mask = (1 << n) - 1;
+        int lower = value & mask;
+        int upper = value & (~mask);
         return (lower << (32 - n)) | (upper >>> n);
     }
 }

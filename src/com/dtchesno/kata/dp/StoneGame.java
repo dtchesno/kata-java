@@ -21,8 +21,6 @@ public class StoneGame {
     public static boolean isWin(int[] stones) {
         int[][] mem = new int[stones.length][stones.length];
         return advantage(stones, 0, stones.length - 1, mem) > 0;
-//        return advantage(stones, mem) > 0;
-//        return advantage2(stones) > 0;
     }
 
     // recursive

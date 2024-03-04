@@ -23,6 +23,7 @@ public class PatternMatchingTest {
 
     @Test
     public void PatterMatching_IsMatch() {
+        assertTrue(PatternMatching.isMatch("bbbba", ".*a*a"));
         assertFalse(PatternMatching.isMatch("aa", "a"));
         assertTrue(PatternMatching.isMatch("aa", "a*"));
         assertTrue(PatternMatching.isMatch("ab", ".*"));

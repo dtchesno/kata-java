@@ -162,5 +162,52 @@ public class ArrayTest {
         Assert.assertEquals(4, MiscSolution.largestRectangleAreaStack(new int[] {2,4}));
     }
 
+    @Test
+    public void testTrapWater() {
+        Assert.assertEquals(6, MiscSolution.trap(new int[] {0,1,0,2,1,0,1,3,2,1,2,1}));
+        Assert.assertEquals(9, MiscSolution.trap(new int[] {4,2,0,3,2,5}));
+    }
 
+    @Test
+    public void testTextJustification() {
+        Assert.assertEquals(
+                Arrays.asList("This    is    an","example  of text","justification.  "),
+                ArrayStringTasks.fullJustify(new String[] {"This", "is", "an", "example", "of", "text", "justification."}, 16));
+        Assert.assertEquals(
+                Arrays.asList("What   must   be","acknowledgment  ","shall be        "),
+                ArrayStringTasks.fullJustify(new String[] {"What","must","be","acknowledgment","shall","be"}, 16));
+        Assert.assertEquals(
+                Arrays.asList("Science  is  what we","understand      well","enough to explain to","a  computer.  Art is","everything  else  we","do                  "),
+                ArrayStringTasks.fullJustify(new String[] {"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"}, 20));
+    }
+
+    @Test
+    public void testMaxSlidingWindow() {
+        Assert.assertArrayEquals(
+                new int[] {3,3,5,5,6,7},
+                ArrayStringTasks.maxSlidingWindow(new int[] {1,3,-1,-3,5,3,6,7}, 3));
+        Assert.assertArrayEquals(
+                new int[] {1},
+                ArrayStringTasks.maxSlidingWindow(new int[] {1}, 1));
+        Assert.assertArrayEquals(
+                new int[] {3,3,2,5},
+                ArrayStringTasks.maxSlidingWindow(new int[] {1,3,1,2,0,5}, 3));
+    }
+
+    @Test
+    public void testMostBooked() {
+        Assert.assertEquals(0, ArrayStringTasks.mostBooked(2, new int[][] {
+            {0,10},{1,5},{2,7},{3,4}
+        }));
+        Assert.assertEquals(1, ArrayStringTasks.mostBooked(3, new int[][] {
+            {1,20},{2,10},{3,5},{4,9},{6,8}
+        }));
+    }
+
+    @Test
+    public void testLongestIncreasingSubseq() {
+        Assert.assertEquals(4, ArrayStringTasks.longestIncreasingSubseq(new int[] {10,9,2,5,3,7,101,18}));
+        Assert.assertEquals(4, ArrayStringTasks.longestIncreasingSubseq(new int[] {0,1,0,3,2,3}));
+        Assert.assertEquals(1, ArrayStringTasks.longestIncreasingSubseq(new int[] {7,7,7,7,7,7,7}));
+    }
 }

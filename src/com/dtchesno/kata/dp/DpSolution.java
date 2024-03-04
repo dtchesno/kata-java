@@ -1,8 +1,6 @@
 package com.dtchesno.kata.dp;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class DpSolution {
 
@@ -114,6 +112,7 @@ public class DpSolution {
 
 
     // find min # of coins to change amount
+    // https://leetcode.com/problems/coin-change/
     // byte-by-byte #26 pg.25
     // [selected - 1]
     public static int minChange(int sum, int[] coins) {
@@ -122,31 +121,31 @@ public class DpSolution {
             if (coin > sum) continue;
             mem[coin] = 1;
         }
-        return minChangeDP(sum, coins, mem);
+        int n = minChangeDP(sum, coins, mem);
+        return n == Integer.MAX_VALUE ? -1 : n;
     }
 
     private static int minChangeDP(int sum, int[] coins, int[] mem) {
         if (sum == 0) {
             return 0;
         }
-
         if (mem[sum] != 0) {
             return mem[sum];
         }
-
-        int min = Integer.MAX_VALUE;
-        for (int value : coins) {
-            if (value > sum) {
+        mem[sum] = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            if (coin > sum) {
                 continue;
             }
-            if (value == sum) {
+            if (coin == sum) {
                 mem[sum] = 1;
-                break;
             }
-            mem[sum] = Math.min(min, 1 + minChangeDP(sum - value, coins, mem));
-            min = mem[sum];
+            int n = minChangeDP(sum - coin, coins, mem);
+            if (n == Integer.MAX_VALUE) {
+                continue;
+            }
+            mem[sum] = Math.min(mem[sum], n + 1);
         }
-
         return mem[sum];
     }
 
@@ -189,63 +188,77 @@ public class DpSolution {
         return mem[pos1][pos2];
     }
 
-    private static int lcs(char[] word1, int len1, char[] word2, int len2, int[][] mem) {
-        if (len1 == 0 || len2 == 0) {
-            return 0;
-        }
-        if (mem[len1][len2] == -1) {
-            if (word1[len1 - 1] == word2[len2 - 1]) {
-                mem[len1][len2] = 1 + lcs(word1, len1 - 1, word2, len2 - 1, mem);
-            } else {
-                mem[len1][len2] = Math.max(
-                        lcs(word1, len1 - 1, word2, len2, mem),
-                        lcs(word1, len1, word2, len2 - 1, mem)
-                );
+
+    // https://leetcode.com/problems/longest-common-subsequence
+    public static int longestCommonSubsequence(String text1, String text2) {
+        int[][] mem = new int[text1.length()][text2.length()];
+        for (int i = 0; i < mem.length; i++) {
+            for (int j = 0; j < mem[0].length; j++) {
+                mem[i][j] = -1;
             }
         }
-        return mem[len1][len2];
+        lcs(text1.toCharArray(), text2.toCharArray(), 0, 0, mem);
+        return mem[0][0];
     }
+
+    private static int lcs(char[] word1, char[] word2, int i, int j, int[][] mem) {
+        if (i == word1.length || j== word2.length) {
+            return 0;
+        }
+
+        if (mem[i][j] != -1) {
+            return mem[i][j];
+        }
+
+        if (word1[i] == word2[j]) {
+            mem[i][j] = 1 + lcs(word1, word2, i + 1, j + 1, mem);
+        } else {
+            mem[i][j] = Math.max(
+                    lcs(word1, word2, i, j + 1, mem),
+                    lcs(word1, word2, i + 1, j, mem));
+        }
+        return mem[i][j];
+    }
+
 
     // find min # of operations (insert, delete, replace) to make word1 & word2 the same
     // https://leetcode.com/problems/edit-distance/
     // [selected - 1]
     public static int minDistance(String word1, String word2) {
-        char[] w1 = word1.toCharArray();
-        char[] w2 = word2.toCharArray();
-        int[][] mem = new int[w1.length + 1][w2.length + 1];
-        for (int[] arr: mem) {
-            Arrays.fill(arr, -1);
+        int[][] mem = new int[word1.length()][word2.length()];
+        for (int i = 0; i < mem.length; i++) {
+            for (int j = 0; j < mem[0].length; j++) {
+                mem[i][j] = -1;
+            }
         }
-        return minDistanceDP(w1, w2, 0, 0, mem);
+        minDistanceDP(word1, word2, 0, 0, mem);
+        return mem[0][0];
     }
 
-    private static int minDistanceDP(char[] w1, char[] w2, int pos1, int pos2, int[][] mem) {
-        if (pos1 == w1.length) {
-            return w2.length - pos2;
+    private static int minDistanceDP(String word1, String word2, int i, int j, int[][] mem) {
+        if (i == word1.length()) {
+            return word2.length() - j;
         }
-        if (pos2 == w2.length) {
-            return w1.length - pos1;
+        if (j == word2.length()) {
+            return word1.length() - i;
         }
-
-        if (mem[pos1][pos2] != -1) {
-            return mem[pos1][pos2];
+        if (mem[i][j] != -1) {
+            return mem[i][j];
         }
-
-        if (w1[pos1] == w2[pos2]) {
-            mem[pos1][pos2] = minDistanceDP(w1, w2, pos1 + 1, pos2 + 1, mem);
+        if (word1.charAt(i) == word2.charAt(j)) {
+            mem[i][j] = minDistanceDP(word1, word2, i + 1, j + 1, mem);
         } else {
-            // delete & insert are opposite pos1/pos2 increments, but min formula is the same
-            int d1 = 1 + Math.min(
-                    minDistanceDP(w1, w2, pos1 + 1, pos2, mem),
-                    minDistanceDP(w1, w2, pos1, pos2 + 1, mem));
+            // delete/insert
+            int d1 = Math.min(
+                    minDistanceDP(word1, word2, i + 1, j, mem),
+                    minDistanceDP(word1, word2, i, j + 1, mem));
 
             // replace
-            int d2 = 1 + minDistanceDP(w1, w2, pos1 + 1, pos2 + 1, mem);
+            int d2 = minDistanceDP(word1, word2, i + 1, j + 1, mem);
 
-            mem[pos1][pos2] = Math.min(d1, d2);
+            mem[i][j] = Math.min(d1, d2) + 1;
         }
-
-        return mem[pos1][pos2];
+        return mem[i][j];
     }
 
 
@@ -299,5 +312,100 @@ public class DpSolution {
             : 0;
 
         return mem[i][j];
+    }
+
+
+    // https://leetcode.com/problems/russian-doll-envelopes/description/
+    // plain DP exceeds time limit - use longest increasing sequence (LIS)
+    public static int maxEnvelopes(int[][] envelops) {
+        PriorityQueue<int[]> q = new PriorityQueue<int[]>((a, b) -> (a[0] != b[0] ? a[0] - b[0] : b[1] - a[1]));
+        for (int[] e : envelops) {
+            q.add(e);
+        }
+        int[] seq = new int[envelops.length];
+        for (int i = 0; i < envelops.length; i++) {
+            seq[i] = q.poll()[1];
+        }
+        List<Integer> result = new ArrayList<>();
+        result.add(seq[0]);
+        for (int i = 1; i < seq.length; i++) {
+            if (seq[i] > result.get(result.size() - 1)) {
+                result.add(seq[i]);
+            } else {
+                int j = maxEnvelopesFindLis(result, seq[i]);
+                result.set(j, seq[i]);
+            }
+        }
+        return result.size();
+    }
+
+    private static int maxEnvelopesFindLis(List<Integer> result, int val) {
+        int left = 0;
+        int right = result.size();
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (val == result.get(mid)) {
+                return mid;
+            } else if (val < result.get(mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
+    // Aziz
+    // (price, weight)
+    public static int knapsack(int[][] clocks, int size) {
+        int[][] mem = new int[clocks.length][size + 1];
+        for (int i = 0; i < clocks.length; i++) {
+            Arrays.fill(mem[i], -1);
+        }
+        return knapsackDP(clocks, 0, size, mem);
+    }
+
+    private static int knapsackDP(int[][] clocks, int i, int size, int[][] mem) {
+        if (size == 0 || i == clocks.length) {
+            return 0;
+        }
+        if (mem[i][size] != -1) {
+            return mem[i][size];
+        }
+        if (clocks[i][1] > size) {
+            mem[i][size] = knapsackDP(clocks, i + 1, size, mem);
+        } else {
+            mem[i][size] = Math.max(
+                    knapsackDP(clocks, i + 1, size - clocks[i][1], mem) + clocks[i][0],
+                    knapsackDP(clocks, i + 1, size, mem));
+        }
+        return mem[i][size];
+    }
+
+
+    // https://leetcode.com/problems/word-break
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        int[] mem = new int[s.length()];
+        return wordBreakDP(s, 0, wordDict, mem);
+    }
+
+    private static boolean wordBreakDP(String s, int offset, List<String > wordDict, int[] mem) {
+        if (offset == s.length()) {
+            return true;
+        }
+        if (mem[offset] != 0) {
+            return mem[offset] == 1;
+        }
+        mem[offset] = -1;
+        for (String w : wordDict) {
+            if (w.length() > s.length() - offset) {
+                continue;
+            }
+            if (s.startsWith(w, offset) && wordBreakDP(s, offset + w.length(), wordDict, mem)) {
+                mem[offset] = 1;
+                break;
+            }
+        }
+        return mem[offset] == 1;
     }
 }
