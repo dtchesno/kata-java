@@ -1,6 +1,7 @@
 package com.dtchesno.kata.test;
 
 import com.dtchesno.kata.struct.LRUCache;
+import com.dtchesno.kata.struct.LRUCacheList;
 import com.dtchesno.kata.struct.LRUCacheSimplified;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -11,7 +12,7 @@ public class LRUCacheTest {
         // ["LRUCache","put","put","get","put","get","put","get","get","get"]
         // [[2],[1,0],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
         // [null,null,null,0,null,-1,null,-1,3,4]
-        LRUCache cache = new LRUCache(2);
+        var cache = getCache(2);
         cache.put(1, 0);
         cache.put(2, 2);
         assertEquals(0, cache.get(1));
@@ -28,7 +29,7 @@ public class LRUCacheTest {
         // ["LRUCache","get","put","get","put","put","get","get"]
         // [[2],[2],[2,6],[1],[1,5],[1,2],[1],[2]]
         // [null,-1,null,-1,null,null,2,6]
-        LRUCache cache = new LRUCache(2);
+        var cache = getCache(2);
         assertEquals(-1, cache.get(2));
         cache.put(2, 6);
         assertEquals(-1, cache.get(1));
@@ -43,7 +44,7 @@ public class LRUCacheTest {
         // ["LRUCache","put","put","get","put","get","put","get","get","get"]
         // [[2],[1,0],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
         // [null,null,null,0,null,-1,null,-1,3,4]
-        LRUCache cache = new LRUCache(2);
+        var cache = getCache(2);
         cache.put(1, 0);
         cache.put(2, 2);
         assertEquals(0, cache.get(1));
@@ -57,7 +58,7 @@ public class LRUCacheTest {
 
     @Test
     public void TestCacheSize() {
-        LRUCache cache = new LRUCache(2);
+        var cache = getCache(2);
         cache.put(1, 101);
         cache.put(2, 202);
         cache.put(2, 202);
@@ -65,4 +66,12 @@ public class LRUCacheTest {
         assertEquals(101, cache.get(1));
         assertEquals(2, cache.size());
     }
+
+    private static LRUCache getCache(int capacity) {
+        return new LRUCache(capacity);
+    }
+
+//    private static LRUCacheList getCache(int capacity) {
+//        return new LRUCacheList(capacity);
+//    }
 }

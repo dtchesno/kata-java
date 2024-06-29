@@ -1,5 +1,7 @@
 package com.dtchesno.kata.struct;
 
+import java.util.List;
+
 public class ListNode {
     public ListNode next = null;
     public ListNode prev = null;
@@ -86,6 +88,7 @@ public class ListNode {
         }
         return current;
     }
+
 
     // 0, 1, 2, 3, 4, 5 -> 0, 5, 1, 4, 2, 3 // n0, nlast, n1, nlast-1...
     public static ListNode reorder(ListNode root) {

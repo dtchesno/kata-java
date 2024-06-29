@@ -29,23 +29,21 @@ public class TaskScheduler {
         return leastIntervalMath(tasks, n);
     }
 
-    // match solution based on most frequent tasks and intervals
+    // math solution based on most frequent tasks and intervals
     private static int leastIntervalMath(char[] tasks, int n) {
-        int fmax = 0;
-        int[] freq = new int['Z' - 'A' + 1];
-        for (int t : tasks) {
-            freq[t - 'A']++;
-            fmax = Math.max(fmax, freq[t - 'A']);
-        }
-
+        int[] count = new int[256];
+        int max = 0;
         int nmax = 0;
-        for (int f : freq) {
-            if (f == fmax) {
+        for (int i = 0; i < tasks.length; i++) {
+            count[tasks[i]]++;
+            if (count[tasks[i]] == max) {
                 nmax++;
+            } else if (count[tasks[i]] > max) {
+                max = count[tasks[i]];
+                nmax = 1;
             }
         }
-
-        return Math.max(tasks.length, (fmax - 1) * (n + 1) + nmax);
+        return Math.max(tasks.length, (max - 1) * (n + 1) + nmax);
     }
 
     private static int leastIntervalBruteForce(char[] tasks, int n) {

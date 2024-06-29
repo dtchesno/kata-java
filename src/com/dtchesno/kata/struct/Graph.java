@@ -217,26 +217,25 @@ public class Graph {
 
     // https://leetcode.com/articles/find-eventual-safe-states/
     public static Integer[] listEventualSafeNodes(int[][] g) {
-        int[] color = new int[g.length];
         List<Integer> result = new ArrayList<>();
+        int[] state = new int[g.length];
         for (int v = 0; v < g.length; v++) {
-            if (listEventualSafeNodesDFS(v, g, color)) {
-                result.add(v);
-            }
+            if (listEventualSafeNodesDFS(v, g, state)) result.add(v);
         }
         return result.toArray(new Integer[0]);
     }
 
-    private static boolean listEventualSafeNodesDFS(int v, int[][] g, int[] color) {
-        if (color[v] == 2) return true;
-        if (color[v] == 1) return false;
-        color[v] = 1;
+    private static boolean listEventualSafeNodesDFS(int v, int[][] g, int[] state) {
+        if (state[v] == 1) return false;
+        if (state[v] == 2) return true;
+
+        state[v] = 1;
         for (int u : g[v]) {
-            if (color[u] == 1) return false;
-            if (color[u] == 2) continue;
-            if (listEventualSafeNodesDFS(u, g, color)) return false;
+            if (state[u] == 1) return false;
+            if (state[u] == 2) continue;
+            if (!listEventualSafeNodesDFS(u, g, state)) return false;
         }
-        color[v] = 2;
+        state[v] = 2;
         return true;
     }
 
@@ -270,42 +269,69 @@ public class Graph {
     // https://leetcode.com/problems/cheapest-flights-within-k-stops/
     public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         Map<Integer, List<int[]>> connections = new HashMap<>();
-        for (int[] con : flights) {
-            int v1 = con[0];
-            int v2 = con[1];
-            int price = con[2];
-            List<int[]> adj = connections.get(v1);
-            if (adj == null) {
-                adj = new ArrayList<>();
-                connections.put(v1, adj);
-            }
-            adj.add(new int[] { v2, price});
+        for (int[] f : flights) {
+            int v1 = f[0];
+            int v2 = f[1];
+            int price = f[2];
+            List<int[]> c = connections.computeIfAbsent(v1, (key) -> new ArrayList<>());
+            c.add(new int[] {v2, price});
         }
 
-        // city, cost, rem.stops
+        // city, cost, r.stops
         Queue<int[]> q = new PriorityQueue<>((a, b) -> a[1] - b[1]);
-        q.add(new int[] {src, 0, 0});
-        int[] stops = new int[n];
-        Arrays.fill(stops, Integer.MAX_VALUE);
+        q.add(new int[] {src, 0, k});
         while (!q.isEmpty()) {
             int[] top = q.poll();
-            if (top[2] > stops[top[0]] || top[2] > k + 1) {
-                continue;
-            }
-            if (top[0] == dst) {
-                return top[1];
-            }
-            stops[top[0]] = top[2];
-            List<int[]> adj = connections.get(top[0]);
-            if (adj == null) {
-                continue;
-            }
-            for (int[] c : adj) {
-                q.add(new int[] {c[0], top[1] + c[1], top[2] + 1});
+            if (top[0] == dst) return top[1];
+            if (top[2] < 0) continue;
+            List<int[]> c = connections.get(top[0]);
+            if (c == null) continue;
+            for (int[] connection : c) {
+                q.add(new int[] { connection[0], top[1] + connection[1], top[2] - 1});
             }
         }
         return -1;
     }
+
+    // NOTE: as above, but checking already visited with less stops - does it help though???
+//    public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+//        Map<Integer, List<int[]>> connections = new HashMap<>();
+//        for (int[] con : flights) {
+//            int v1 = con[0];
+//            int v2 = con[1];
+//            int price = con[2];
+//            List<int[]> adj = connections.get(v1);
+//            if (adj == null) {
+//                adj = new ArrayList<>();
+//                connections.put(v1, adj);
+//            }
+//            adj.add(new int[] { v2, price});
+//        }
+//
+//        // city, cost, rem.stops
+//        Queue<int[]> q = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+//        q.add(new int[] {src, 0, 0});
+//        int[] stops = new int[n];
+//        Arrays.fill(stops, Integer.MAX_VALUE);
+//        while (!q.isEmpty()) {
+//            int[] top = q.poll();
+//            if (top[2] > stops[top[0]] || top[2] > k + 1) {
+//                continue;
+//            }
+//            if (top[0] == dst) {
+//                return top[1];
+//            }
+//            stops[top[0]] = top[2];
+//            List<int[]> adj = connections.get(top[0]);
+//            if (adj == null) {
+//                continue;
+//            }
+//            for (int[] c : adj) {
+//                q.add(new int[] {c[0], top[1] + c[1], top[2] + 1});
+//            }
+//        }
+//        return -1;
+//    }
 
 
     // find shortest path between graph nodes

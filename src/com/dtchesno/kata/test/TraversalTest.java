@@ -44,4 +44,31 @@ public class TraversalTest {
         Assert.assertEquals(-1, Traversal.shortestPath(new int[][] {
                 {0,1,1},{1,1,1}, {1,0,0}}, 1));
     }
+
+    @Test
+    public void testIsValidNumber() {
+        Assert.assertTrue(Traversal.isValidNumber("2"));
+        Assert.assertTrue(Traversal.isValidNumber("0089"));
+        Assert.assertTrue(Traversal.isValidNumber("-0.1"));
+        Assert.assertTrue(Traversal.isValidNumber("+3.14"));
+        Assert.assertTrue(Traversal.isValidNumber("4."));
+        Assert.assertTrue(Traversal.isValidNumber("-.9"));
+        Assert.assertTrue(Traversal.isValidNumber("2e10"));
+        Assert.assertTrue(Traversal.isValidNumber("-90E3"));
+        Assert.assertTrue(Traversal.isValidNumber("3e+7"));
+        Assert.assertTrue(Traversal.isValidNumber("+6e-1"));
+        Assert.assertTrue(Traversal.isValidNumber("53.5e93"));
+        Assert.assertTrue(Traversal.isValidNumber("-123.456e789"));
+
+        Assert.assertFalse(Traversal.isValidNumber("abc"));
+        Assert.assertFalse(Traversal.isValidNumber("1a"));
+        Assert.assertFalse(Traversal.isValidNumber("1e"));
+        Assert.assertFalse(Traversal.isValidNumber("e3"));
+        Assert.assertFalse(Traversal.isValidNumber("99e2.5"));
+        Assert.assertFalse(Traversal.isValidNumber("--6"));
+        Assert.assertFalse(Traversal.isValidNumber("-+3"));
+        Assert.assertFalse(Traversal.isValidNumber("95a54e53"));
+        Assert.assertFalse(Traversal.isValidNumber("e"));
+        Assert.assertFalse(Traversal.isValidNumber("."));
+    }
 }

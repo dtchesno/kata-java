@@ -4,98 +4,69 @@ import java.util.HashMap;
 
 public class LRUCacheList {
 
-    private static class Node {
+    private static class Entry {
         int key;
         int value;
-        Node prev;
-        Node next;
-
-        Node(int key, int value) {
+        Entry prev;
+        Entry next;
+        Entry(int key, int value) {
             this.key = key;
             this.value = value;
         }
     }
 
-    private static class Queue {
-        private Node head = new Node(0, 0);
-        private Node tail = new Node(0, 0);
-        private int size = 0;
-
-        public Queue() {
-            head.next = tail;
-            tail.prev = head;
-        }
-
-        public void add(Node n) {
-            Node prev = tail.prev;
-            prev.next = n;
-            n.prev = prev;
-            n.next = tail;
-            tail.prev = n;
-            size++;
-        }
-
-        public void remove(Node n) {
-            n.prev.next = n.next;
-            n.next.prev = n.prev;
-            size--;
-        }
-
-        public Node poll() {
-            Node n = head.next;
-            remove(n);
-            return n;
-        }
-
-        public int size() {
-            return size;
-        }
-    }
-
-    int capacity;
-    HashMap<Integer, Node> cache = new HashMap<>();
-    Queue queue = new Queue();
+    private int capacity;
+    private HashMap<Integer, Entry> cache = new HashMap<>();
+    private Entry root = new Entry(0, 0);
+    private Entry tail = new Entry(0, 0);
 
     public LRUCacheList(int capacity) {
         this.capacity = capacity;
+        root.next = tail;
+        tail.prev = root;
     }
 
     public int get(int key) {
-        Node node = cache.get(key);
-
-        if (node == null)
-            return -1;
-
-        queue.remove(node);
-        queue.add(node);
-        return node.value;
+        Entry entry = cache.get(key);
+        if (entry == null) return -1;
+        remove(entry);
+        add(entry);
+        return entry.value;
     }
 
     public void put(int key, int value) {
-        Node entry = cache.get(key);
-
+        Entry entry = cache.get(key);
         if (entry != null) {
+            remove(entry);
             entry.value = value;
-            queue.remove(entry);
-            queue.add(entry);
-            return;
+        } else {
+            entry = new Entry(key, value);
         }
-
-        entry = new Node(key, value);
-
         if (cache.size() == capacity) {
-            Node expiredEntry = queue.poll();
-            cache.remove(expiredEntry.key);
+            remove(root.next);
         }
-
-        cache.put(key, entry);
-        queue.add(entry);
+        add(entry);
     }
 
     public int size() {
-        if (queue.size() != cache.size()) {
-            throw new RuntimeException("size mismatch");
-        }
         return cache.size();
+    }
+
+    private void add(Entry entry) {
+        var last = tail.prev;
+        last.next = entry;
+        entry.prev = last;
+        entry.next = tail;
+        tail.prev = entry;
+        cache.put(entry.key, entry);
+    }
+
+    private void remove(Entry entry) {
+        var prev = entry.prev;
+        var next = entry.next;
+        prev.next = next;
+        next.prev = prev;
+        entry.prev = entry.next = null;
+        cache.remove(entry.key);
     }
 }

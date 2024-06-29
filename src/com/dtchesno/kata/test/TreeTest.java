@@ -1,8 +1,10 @@
 package com.dtchesno.kata.test;
 
+import com.dtchesno.kata.struct.EncodeNTree;
 import com.dtchesno.kata.struct.TreeNode;
 //import com.dtchesno.kata.careercup.CutTree;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -276,6 +278,9 @@ public class TreeTest {
     public void testExteriorBinaryTree() {
         TreeNode t = new TreeNode(new Integer[] { 3, 5, 1, 1, 6, 0, 8, null, null, 7, 4 });
         assertEquals(Arrays.asList(3, 5, 1, 7, 4, 0, 8, 1), TreeNode.exteriorBinaryTree(t));
+
+        TreeNode t2 = new TreeNode(new Integer[] {1,null,2,3,4});
+        assertEquals(Arrays.asList(1,3,4,2), TreeNode.exteriorBinaryTree(t2));
     }
 
     @Test
@@ -283,6 +288,13 @@ public class TreeTest {
         TreeNode t = new TreeNode(new Integer[] { 5, 3, 6, 2, 4, null, 7, 1, null, null, null, null, 8 });
         assertEquals(3, TreeNode.distanceBST(t, t.left.left.left, t.left.right));
         assertEquals(6, TreeNode.distanceBST(t, t.left.left.left, t.right.right.right));
+    }
+
+    @Test
+    public void testDistanceInBST2() {
+        TreeNode t = new TreeNode(new Integer[] { 5, 3, 6, 2, 4, null, 7, 1, null, null, null, null, 8 });
+        assertEquals(3, TreeNode.distanceBST(t, 1, 4));
+        assertEquals(6, TreeNode.distanceBST(t, 1, 8));
     }
 
     @Test
@@ -314,9 +326,54 @@ public class TreeTest {
         assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,null,null,0,0,null,null,0,0 })));
         assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,null,0,null,0,null,0 })));
         assertEquals(2, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,0,null,null,null,0 })));
+        assertEquals(1, TreeNode.minCameraCover(new TreeNode(new Integer[] { 0,0,null,0,0 })));
     }
 
     @Test
     public void testVerticalTraversal() {
+    }
+
+    @Test
+    public void testNTreeSerialize() {
+        EncodeNTree.Node root =
+            new EncodeNTree.Node(1, Arrays.asList(
+                    new EncodeNTree.Node(3, Arrays.asList(
+                            new EncodeNTree.Node(5),
+                            new EncodeNTree.Node(6)
+                    )),
+                    new EncodeNTree.Node(2),
+                    new EncodeNTree.Node(4)
+            ));
+        Assert.assertEquals(
+                Arrays.asList(1,null,3,2,4,null,5,6),
+                root.serialize(root));
+    }
+
+    @Test
+    public void testVerticalOrderMed() {
+        TreeNode root = TreeNode.buildBinaryTree(new Integer[] {1,2,3,4,6,5,7});
+        Assert.assertEquals(
+                Arrays.asList(
+                        Arrays.asList(4),
+                        Arrays.asList(2),
+                        Arrays.asList(1,6,5),
+                        Arrays.asList(3),
+                        Arrays.asList(7)
+                ),
+                TreeNode.verticalOrderMed(root));
+    }
+
+    @Test
+    public void testVerticalOrderHard() {
+        TreeNode root = TreeNode.buildBinaryTree(new Integer[] {1,2,3,4,6,5,7});
+        Assert.assertEquals(
+                Arrays.asList(
+                        Arrays.asList(4),
+                        Arrays.asList(2),
+                        Arrays.asList(1,5,6),
+                        Arrays.asList(3),
+                        Arrays.asList(7)
+                ),
+                TreeNode.verticalOrderHard(root));
     }
 }

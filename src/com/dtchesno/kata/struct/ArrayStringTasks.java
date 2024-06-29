@@ -1,5 +1,6 @@
 package com.dtchesno.kata.struct;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ArrayStringTasks {
@@ -74,23 +75,13 @@ public class ArrayStringTasks {
     }
 
     public static int fromRoman(String roman) {
+        Map<Character, Integer> values = Map.of('I', 1, 'V', 5, 'X', 10, 'L', 50, 'C', 100);
         int result = 0;
-        HashMap<Character, Integer> values = new HashMap<>();
-        values.put('I', 1);
-        values.put('V', 5);
-        values.put('X', 10);
-        values.put('L', 50);
-        values.put('C', 100);
-
-        int prev = 0;
-        for (int i = 0; i < roman.length(); i++) {
-            int curr = values.get(roman.charAt(i));
-            if (curr > prev && prev != 0) {
-                result += (curr - 2 * prev);
-            } else {
-                result += curr;
-            }
-            prev = curr;
+        int prev = Integer.MAX_VALUE;
+        for (char c : roman.toCharArray()) {
+            int value = values.get(c);
+            result += (value <= prev) ? value : value - 2 * prev;
+            prev = value;
         }
         return result;
     }
@@ -226,36 +217,6 @@ public class ArrayStringTasks {
     }
 
     // Byte-by-byte pg.5
-//    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-//        return nums1.length <= nums2.length
-//                ? findMedianSortedArrays(nums1, nums2, (nums1.length + 1 ) / 2 - 1, (nums1.length + 1) / 2 - 1)
-//                : findMedianSortedArrays(nums2, nums1, (nums2.length + 1) / 2 - 1, (nums2.length + 1) / 2 - 1);
-//    }
-//
-//    private static double findMedianSortedArrays(int[] nums1, int[] nums2, int i, int iLast) {
-//        // calculate partition
-//        int shortLeft = i < 0 ? Integer.MIN_VALUE : nums1[i];
-//        int shortRight = i + 1 >= nums1.length ? Integer.MAX_VALUE : nums1[i + 1];
-//        int shortLeftCount = i + 1;
-//        int longLeftCount = (nums1.length + nums2.length + 1) / 2 - shortLeftCount;
-//        int longLeft = longLeftCount <= 0 ? Integer.MIN_VALUE : nums2[longLeftCount - 1];
-//        int longRight = longLeftCount >= nums2.length ? Integer.MAX_VALUE : nums2[longLeftCount];
-//
-//        // exit condition
-//        if (shortLeft <= longRight && longLeft <= shortRight) {
-//            return (nums1.length + nums2.length) % 2 == 1
-//                    ? Math.max(shortLeft, longLeft)
-//                    : ((double)Math.max(shortLeft, longLeft) + Math.min(shortRight, longRight)) / 2;
-//        }
-//
-//        // TODO: iLast will be neighbor - we need to use interval instead of and
-//        // go to the middle of left or right subintervals partitioned by i
-//        // move pointer left or right
-//        return (longLeft > shortRight)
-//            ? findMedianSortedArrays(nums1, nums2, (i + iLast) / 2 + 1, i)
-//            : findMedianSortedArrays(nums1, nums2, (i + iLast) / 2 - 1, i);
-//    }
-
     // leetcode: https://leetcode.com/problems/median-of-two-sorted-arrays/description/
     // move along arrays - find left and right (could be the same - single element); take med of elements
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
@@ -387,16 +348,12 @@ public class ArrayStringTasks {
             pHash[p.charAt(i)]++;
         }
 
-        ArrayList<Integer> result = new ArrayList<>();
-
+        List<Integer> result = new ArrayList<>();
         int pos = 0;
         while (true) {
-            if (Arrays.equals(sHash, pHash)) {
-                result.add(pos);
-            }
+            if (Arrays.equals(sHash, pHash)) result.add(pos);
 
-            if (pos + len == s.length())
-                break;
+            if (pos + len == s.length()) break;
 
             sHash[s.charAt(pos)]--;
             sHash[s.charAt(pos + len)]++;
@@ -406,6 +363,40 @@ public class ArrayStringTasks {
         return result;
     }
 
+    // while not checking arrays every time, it has cost to call update method;
+    // leetcode shows slightly lower perf
+//    public static List<Integer> findAnagrams(String s, String p) {
+//        List<Integer> result = new ArrayList<>();
+//        if (p.length() > s.length()) return result;
+//        int[] diff = new int[256];
+//        int delta = 0;
+//        for (int i = 0; i < p.length(); i++) {
+//            delta = updateDelta(diff, s.charAt(i), delta, 1);
+//            delta = updateDelta(diff, p.charAt(i), delta, -1);
+//        }
+//        if (delta == 0) {
+//            result.add(0);
+//        }
+//        for (int i = 1; i < s.length() - p.length() + 1; i++) {
+//            delta = updateDelta(diff, s.charAt(i - 1), delta, -1);
+//            delta = updateDelta(diff, s.charAt(i + p.length() - 1), delta, 1);
+//            if (delta == 0) {
+//                result.add(i);
+//            }
+//        }
+//        return result;
+//    }
+//    private static int updateDelta(int[] diff, int i, int delta, int d) {
+//        diff[i] += d;
+//        if (diff[i] == 0) {
+//            delta--;
+//        } else if (diff[i] * d > 0) {
+//            delta++;
+//        } else {
+//            delta--;
+//        }
+//        return delta;
+//    }
 
     // https://leetcode.com/problems/text-justification/
     public static List<String> fullJustify(String[] words, int maxWidth) {
@@ -456,65 +447,65 @@ public class ArrayStringTasks {
         int[] result = new int[nums.length - k + 1];
         Deque<Integer> q = new LinkedList<>();
         for (int i = 0; i < k; i++) {
-            while (!q.isEmpty() && nums[q.peekLast()] < nums[i]) {
+            while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) {
                 q.pollLast();
             }
             q.add(i);
         }
-        result[0] = nums[q.peekFirst()];
+        result[0] = nums[q.peek()];
         for (int i = k; i < nums.length; i++) {
             while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) {
-                q.removeLast();
+                q.pollLast();
             }
-            while (!q.isEmpty() && q.peekFirst() < i - k + 1) {
-                q.removeFirst();
-            }
+            if (!q.isEmpty() && q.peek() < i - k + 1) q.poll();
             q.add(i);
-            result[i - k + 1] = nums[q.peekFirst()];
+            result[i - k + 1] = nums[q.peek()];
         }
         return result;
     }
 
+
     // https://leetcode.com/problems/meeting-rooms-iii/
     public static int mostBooked(int n, int[][] meetings) {
-        int[] count = new int[n];
-
+        // sort meetings by start date
         List<int[]> _meetings = new ArrayList<>();
-        for (int i = 0; i < meetings.length; i++) {
-            _meetings.add(new int[] { meetings[i][0], meetings[i][1]});
+        for (int[] m : meetings) {
+            _meetings.add(m);
         }
         Collections.sort(_meetings, (a, b) -> a[0] - b[0]);
 
-        // rooms: (id, start time)
+        // room queues: (id, available time)
         Queue<int[]> available = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        Queue<int[]> inUse = new PriorityQueue<>((a, b) -> a[1] == b[1] ? a[0] - b[0] : a[1] - b[1]);
+        Queue<int[]> inUse = new PriorityQueue<>((a, b) -> a[1] != b[1] ? a[1] - b[1] : a[0] - b[0]);
         for (int i = 0; i < n; i++) {
             available.add(new int[] { i, 0 });
         }
 
+        int[] count = new int[n];
         for (int[] m : _meetings) {
             while (!inUse.isEmpty() && inUse.peek()[1] <= m[0]) {
                 available.add(inUse.poll());
             }
-            if (available.isEmpty()) {
-                available.add(inUse.poll());
-            }
+            if (available.isEmpty()) available.add(inUse.poll());
+
             int[] room = available.poll();
             count[room[0]]++;
-            room[1] = room[1] <= m[0] ? m[1] : room[1] + m[1] - m[0];
+            //room[1] = m[1];
+            room[1] = room[1] <= m[0] ? m[1] : m[1] + (room[1] - m[0]);
             inUse.add(room);
         }
 
         int iMax = 0;
-        int max = count[0];
+        int max = count[iMax];
         for (int i = 1; i < n; i++) {
             if (count[i] > max) {
-                max = count[i];
                 iMax = i;
+                max = count[iMax];
             }
         }
         return iMax;
     }
+
 
     // https://leetcode.com/problems/longest-increasing-subsequence/
     public static int longestIncreasingSubseq(int[] seq) {
@@ -531,21 +522,128 @@ public class ArrayStringTasks {
         return result.size();
     }
 
-    private static int longestIncreasingSubseqFindInsertPos(int val, List<Integer> seq) {
+    private static int longestIncreasingSubseqFindInsertPos(int val, List<Integer> result) {
         int left = 0;
-        int right = seq.size();
+        int right = result.size() - 1;
         while (left < right) {
             int mid = (left + right) / 2;
-            if (val == seq.get(mid)) {
+            if (val == result.get(mid)) {
                 return mid;
-            } else if (val < seq.get(mid)) {
-                right = mid;
-            } else {
+            } else if (val > result.get(mid)) {
                 left = mid + 1;
+            } else {
+                right = mid;
             }
         }
         return left;
     }
+
+
+    // 76 https://leetcode.com/problems/minimum-window-substring
+    // debt: a->0, b->-1, total = 0
+    // "acbbaca"
+    // "aba"
+    // queue: 0->a, 2->b, 3->b, 4->a
+    // result: acbba
+    public static String minWindow(String s, String t) {
+        if (s.length() == 0 || t.length() == 0) return "";
+
+        Map<Character, Integer> dictT = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            int count = dictT.getOrDefault(c, 0);
+            dictT.put(c, count + 1);
+        }
+
+        String minWindow = null;
+        int left = 0;
+        int right = 0;
+        int found = 0;
+        Map<Character, Integer> dictW = new HashMap<>();
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            int count = dictW.getOrDefault(c, 0);
+            dictW.put(c, count + 1);
+
+            if (dictT.get(c) == dictW.get(c)) found++;
+
+            while (left <= right && found == dictT.size()) {
+                if (minWindow == null || minWindow.length() > right - left + 1) {
+                    minWindow = s.substring(left, right + 1);
+                }
+                char c2 = s.charAt(left);
+                dictW.put(c2, dictW.get(c2) - 1);
+                if (dictT.containsKey(c2) && dictW.get(c2) < dictT.get(c2)) found--;
+                left++;
+            }
+            right++;
+        }
+        return minWindow != null ? minWindow : "";
+    }
+
+//    public static String minWindow(String s, String t) {
+//        Map<Character, Integer> debt = new HashMap<>();
+//        for (char c : t.toCharArray()) {
+//            debt.put(c, debt.getOrDefault(c, 0) + 1);
+//        }
+//
+//        String minWindow = "";
+//        int remainedDebt = t.length();
+//        LinkedList<int[]> match = new LinkedList<>();
+//        for (int i = 0; i < s.length(); i++) {
+//            char c = s.charAt(i);
+//            if (!debt.containsKey(c)) {
+//                continue;
+//            }
+//            match.add(new int[] { i, s.charAt(i) });
+//
+//            int currentCharDebt = debt.get(c) - 1;
+//            debt.put(c, currentCharDebt);
+//
+//            // keep going, we already done with char
+//            if (currentCharDebt < 0) {
+//                continue;
+//            }
+//
+//            remainedDebt--;
+//
+//            if (remainedDebt == 0) {
+//                minWindow = getMinWindowAndDrain(minWindow, s, match, debt);
+//
+//                // we removed some chars from the beginning and owe again
+//                remainedDebt = 1;
+//            }
+//        }
+//
+//        return minWindow;
+//    }
+//
+//    private static String getMinWindowAndDrain(
+//            String currentMinWindow,
+//            String s,
+//            LinkedList<int[]> match,
+//            Map<Character, Integer> debt) {
+//
+//        // drain match list while debt is negative, as no impact on match window
+//        while (!match.isEmpty()) {
+//            char ch = (char)match.getFirst()[1];
+//            int d = debt.get(ch);
+//            if (d == 0) {
+//                break;
+//            }
+//            debt.put(ch, d + 1);
+//            match.remove();
+//        }
+//
+//        // now, get current match window
+//        String window = s.substring(match.getFirst()[0], match.getLast()[0] + 1);
+//
+//        // lastly remove first char in match list which brings debt to 1 to slide further
+//        char firstChar = (char)match.getFirst()[1];
+//        debt.put(firstChar, 1);
+//        match.remove();
+//
+//        return window.length() < currentMinWindow.length() || currentMinWindow.equals("") ? window : currentMinWindow;
+//    }
 
     // done
     // https://leetcode.com/problems/valid-number/ (hard) [string, dfa]

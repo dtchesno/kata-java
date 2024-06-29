@@ -2,8 +2,8 @@ package com.dtchesno.kata.struct;
 
 import java.util.*;
 
-
 public class Trie {
+
     private static class Node {
         Map<Character, Node> childs = new HashMap<>();
         String word;

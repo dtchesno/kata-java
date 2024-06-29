@@ -4,7 +4,6 @@ import java.util.*;
 
 public class RecursionSolution {
 
-
     public static List<String> permuteBraces(int n) {
         List<String> result = new ArrayList<>();
         permuteBraces(n, n, "", result);

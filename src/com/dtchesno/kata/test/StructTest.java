@@ -79,5 +79,7 @@ public class StructTest {
         assertEquals("wertf", dict.alienOrder(new String[] {"wrt", "wrf", "er", "ett", "rftt"}));
         assertEquals("zx", dict.alienOrder(new String[] {"z", "x"}));
         assertEquals("", dict.alienOrder(new String[] {"z", "x", "z"}));
+        assertEquals("", dict.alienOrder(new String[] {"abc", "ab"}));
+        assertEquals("z", dict.alienOrder(new String[] {"z", "z"}));
     }
 }

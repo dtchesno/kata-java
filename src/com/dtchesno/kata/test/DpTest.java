@@ -34,8 +34,10 @@ public class DpTest {
 
     @Test
     public void testLongestNondecreasingSeq() {
-        assertEquals(4, DpSolution.longestNondecreasingSeq(
-                new int[] {0, 8, 4, 12, 2, 10, 6, 14, 1, 9}));
+        assertEquals(4, DpSolution.lengthOfLIS(new int[] {0, 8, 4, 12, 2, 10, 6, 14, 1, 9}));
+        assertEquals(4, DpSolution.lengthOfLIS(new int[] {10,9,2,5,3,7,101,18}));
+        assertEquals(4, DpSolution.lengthOfLIS(new int[] {0,1,0,3,2,3}));
+        assertEquals(1, DpSolution.lengthOfLIS(new int[] {7,7,7,7,7,7,7}));
     }
 
     @Test

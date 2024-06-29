@@ -11,42 +11,55 @@ import java.util.Stack;
 
 public class MiscSolution {
 
-//    public static boolean isBracesBalanced(String str) {
+    public static boolean areBracesBalanced(String str) {
+        int balance = 0;
+        for (char c : str.toCharArray()) {
+            if (c == '(') {
+                balance++;
+            } else if (c == ')') {
+                balance--;
+            }
+            if (balance < 0) return false;
+        }
+        return balance == 0;
+    }
+//    public static boolean areBracesBalanced(String str) {
 //        Stack<Character> s = new Stack<>();
 //
 //        for (char c : str.toCharArray()) {
+//            if (c == '(') {
+//                s.push(c);
+//            }
 //            if (c == ')') {
 //                if (s.isEmpty() || s.peek() != '(') {
 //                    return false;
 //                }
 //                s.pop();
 //            }
-//            if (c == '(') {
-//                s.push(c);
-//            }
 //        }
 //
 //        return s.isEmpty();
 //    }
-    public static boolean isBracesBalanced(String str) {
-        int count = 0;
-        for (char c: str.toCharArray()) {
-            switch (c) {
-                case '(':
-                    count++;
-                    break;
-                case ')':
-                    count--;
-                    break;
-                default:
-                    return false;
-            }
-            if (count < 0) {
-                return false;
-            }
-        }
-        return count == 0;
-    }
+
+//    public static boolean isBracesBalanced(String str) {
+//        int count = 0;
+//        for (char c: str.toCharArray()) {
+//            switch (c) {
+//                case '(':
+//                    count++;
+//                    break;
+//                case ')':
+//                    count--;
+//                    break;
+//                default:
+//                    return false;
+//            }
+//            if (count < 0) {
+//                return false;
+//            }
+//        }
+//        return count == 0;
+//    }
 
     private static class Pair {
         String first;
@@ -270,36 +283,36 @@ public class MiscSolution {
     // on each iteration we will remove higher bars as current will be dominant going further;
     // have -1 at the bottom of the stack lets us calculate area when everything on left of current are higher
     public static int largestRectangleAreaStack(int[] heights) {
+        int maxArea = 0;
         Stack<Integer> s = new Stack<>();
         s.push(-1);
-        int maxArea = 0;
         for (int i = 0; i < heights.length; i++) {
-            while (s.peek() != -1 && heights[s.peek()] > heights[i]) {
-                int top = s.pop();
-                int width = i - s.peek() + 1 - 2;
-                maxArea = Math.max(maxArea, width * heights[top]);
+            while (s.peek() != -1 && heights[s.peek()] >= heights[i]) {
+                int j = s.pop();
+                int w = i - s.peek() - 1;
+                maxArea = Math.max(maxArea, w * heights[j]);
             }
-            s.add(i);
+            s.push(i);
         }
         while (s.peek() != -1) {
-            int top = s.pop();
-            int width = (heights.length - 1) - s.peek();
-            maxArea = Math.max(maxArea, width * heights[top]);
+            int j = s.pop();
+            int w = heights.length - s.peek() - 1;
+            maxArea = Math.max(maxArea, w * heights[j]);
         }
         return maxArea;
     }
 
     // https://leetcode.com/problems/trapping-rain-water/
-    public static int trap(int[] height) {
-        Stack<Integer> s = new Stack<>();
-        s.push(-1);
+    public static int trap(int[] heights) {
         int total = 0;
-        for (int i = 0; i < height.length; i++) {
-            while (s.peek() != -1 && height[s.peek()] <= height[i]) {
-                int top = s.pop();
+        Stack<Integer> s = new Stack<>();
+        for (int i = 0; i < heights.length; i++) {
+            while (!s.isEmpty() && heights[s.peek()] <= heights[i]) {
+                int j = s.pop();
+                if (s.isEmpty()) break;
+                int h = Math.min(heights[s.peek()], heights[i]) - heights[j];
                 int w = i - s.peek() - 1;
-                int h = s.peek() == -1 ? 0 : Math.min(height[s.peek()], height[i]) - height[top];
-                total += w * h;
+                total += h * w;
             }
             s.push(i);
         }

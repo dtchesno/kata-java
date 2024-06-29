@@ -1,38 +1,38 @@
 package com.dtchesno.kata.struct;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 public class LRUCache {
 
-    int capacity;
-    LinkedHashMap<Integer, Integer> cache = new LinkedHashMap<>();
+    private int capacity;
+    private LinkedHashMap<Integer, Integer> cache = new LinkedHashMap<>();
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
     }
 
     public int get(int key) {
-        Integer value = cache.remove(key);
-        if (value == null) {
-            return -1;
-        }
+        Integer value = cache.get(key);
+        if (value == null) return -1;
+        cache.remove(key);
         cache.put(key, value);
         return value;
     }
 
     public void put(int key, int value) {
-        int oldValue = get(key);
-        if (oldValue != value) {
+        Integer oldValue = cache.get(key);
+        if (oldValue != null) {
+            cache.remove(key);
             cache.put(key, value);
+            return;
         }
-        if (cache.size() > capacity) {
-            Iterator<Integer> it = cache.keySet().iterator();
-            if (it.hasNext()) {
-                it.next();
-                it.remove();
-            }
+        if (cache.size() == capacity) {
+            // delete
+            var it = cache.keySet().iterator();
+            it.next();
+            it.remove();
         }
+        cache.put(key, value);
     }
 
     public int size() {

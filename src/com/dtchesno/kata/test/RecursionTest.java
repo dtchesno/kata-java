@@ -35,15 +35,15 @@ public class RecursionTest {
 
     @Test
     public void testBracesBalance() {
-        assertTrue(MiscSolution.isBracesBalanced("()"));
-        assertTrue(MiscSolution.isBracesBalanced("()()"));
-        assertTrue(MiscSolution.isBracesBalanced("()(())"));
+        assertTrue(MiscSolution.areBracesBalanced("()"));
+        assertTrue(MiscSolution.areBracesBalanced("()()"));
+        assertTrue(MiscSolution.areBracesBalanced("()(())"));
 
-        assertTrue(!MiscSolution.isBracesBalanced("(("));
-        assertTrue(!MiscSolution.isBracesBalanced("("));
-        assertTrue(!MiscSolution.isBracesBalanced(")"));
-        assertTrue(!MiscSolution.isBracesBalanced("())("));
-        assertTrue(!MiscSolution.isBracesBalanced("()(()"));
+        assertTrue(!MiscSolution.areBracesBalanced("(("));
+        assertTrue(!MiscSolution.areBracesBalanced("("));
+        assertTrue(!MiscSolution.areBracesBalanced(")"));
+        assertTrue(!MiscSolution.areBracesBalanced("())("));
+        assertTrue(!MiscSolution.areBracesBalanced("()(()"));
     }
 
     @Test

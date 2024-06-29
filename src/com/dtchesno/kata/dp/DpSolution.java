@@ -36,19 +36,33 @@ public class DpSolution {
     // Aziz 17.12 pg.330
     // https://leetcode.com/problems/longest-increasing-subsequence/
     // [selected - 3]
-    public static int longestNondecreasingSeq(int[] array) {
-        int[] length = new int[array.length];
-        int max = 1;
-        length[0] = 1;
+    public static int lengthOfLIS(int[] array) {
+        List<Integer> result = new ArrayList<>();
+        result.add(array[0]);
         for (int i = 1; i < array.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (array[j] <= array[i]) {
-                    length[i] = Math.max(length[i], length[j] + 1);
-                }
+            if (array[i] > result.get(result.size() - 1)) {
+                result.add(array[i]);
+            } else {
+                lengthOfLISInsert(result, array[i]);
             }
-            max = Math.max(max, length[i]);
         }
-        return max;
+        return result.size();
+    }
+
+    private static void lengthOfLISInsert(List<Integer> result, int val) {
+        int left = 0;
+        int right = result.size() - 1;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (val == result.get(mid)) {
+                return;
+            } else if (val < result.get(mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        result.set(left, val);
     }
 
 
@@ -389,23 +403,17 @@ public class DpSolution {
         return wordBreakDP(s, 0, wordDict, mem);
     }
 
-    private static boolean wordBreakDP(String s, int offset, List<String > wordDict, int[] mem) {
-        if (offset == s.length()) {
-            return true;
-        }
-        if (mem[offset] != 0) {
-            return mem[offset] == 1;
-        }
-        mem[offset] = -1;
-        for (String w : wordDict) {
-            if (w.length() > s.length() - offset) {
-                continue;
-            }
-            if (s.startsWith(w, offset) && wordBreakDP(s, offset + w.length(), wordDict, mem)) {
-                mem[offset] = 1;
-                break;
-            }
-        }
-        return mem[offset] == 1;
+    private static boolean wordBreakDP(String s, int offset, List<String> wordDict, int[] mem) {
+         if (offset == s.length()) return true;
+         if (mem[offset] != 0) return mem[offset] == 1;
+
+         mem[offset] = -1;
+         for (String w : wordDict) {
+             if (s.startsWith(w, offset) && wordBreakDP(s, offset + w.length(), wordDict, mem)) {
+                 mem[offset] = 1;
+                 break;
+             }
+         }
+         return mem[offset] == 1;
     }
 }

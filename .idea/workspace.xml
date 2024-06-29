@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="07e19c97-bd1d-4234-a34c-a383936823b7" name="Default Changelist" comment="">
+    <list default="true" id="1d1dab49-0c0b-4ac6-8c37-50ecae7a7d2d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/PatternMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/PatternMatching.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/StoneGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/StoneGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/TaskScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/misc/TaskScheduler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Backtracking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Backtracking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/Calculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/recursion/RecursionSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/sort/MergeSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/sort/MergeSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/AlienDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/AlienDictionary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCacheSimplified.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCacheSimplified.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/LRUCacheList.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/ListNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Trie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/struct/Trie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/ListTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/DpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/DpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/LRUCacheTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/LRUCacheTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/PatternMatchingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/PatternMatchingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/RecursionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/StructTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/StructTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/TraversalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/TraversalTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/dtchesno/kata/traversal/Traversal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/dtchesno/kata/traversal/Traversal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +84,7 @@
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.dtchesno.kata.traversal" />
       <recent name="com.dtchesno.kata.dp" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
@@ -82,12 +92,13 @@
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.dtchesno.kata.struct" />
+      <recent name="com.dtchesno.kata.dp" />
       <recent name="com.dtchesno.kata.test" />
       <recent name="com.dtchesno.kata.tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DpTest.testMinDistance">
-    <configuration name="DpTest.testDeleteDistance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ArrayTest.testFirstOccurrence">
+    <configuration name="ArrayTest.testFirstOccurrence" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -96,14 +107,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
-      <option name="METHOD_NAME" value="testDeleteDistance" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.ArrayTest" />
+      <option name="METHOD_NAME" value="testFirstOccurrence" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DpTest.testMinChange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ArrayTest.testRotate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -112,14 +123,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
-      <option name="METHOD_NAME" value="testMinChange" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.ArrayTest" />
+      <option name="METHOD_NAME" value="testRotate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DpTest.testMinDistance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TreeTest.testExteriorBinaryTree" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -128,14 +139,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
-      <option name="METHOD_NAME" value="testMinDistance" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.TreeTest" />
+      <option name="METHOD_NAME" value="testExteriorBinaryTree" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DpTest.testknapsack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TreeTest.testVerticalOrderHard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -144,14 +155,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.DpTest" />
-      <option name="METHOD_NAME" value="testknapsack" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.TreeTest" />
+      <option name="METHOD_NAME" value="testVerticalOrderHard" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PuzzlesTest.testStoneGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TreeTest.testVerticalOrderMed" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="kata-java1" />
       <extension name="coverage">
         <pattern>
@@ -160,8 +171,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.dtchesno.kata.test" />
-      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.PuzzlesTest" />
-      <option name="METHOD_NAME" value="testStoneGame" />
+      <option name="MAIN_CLASS_NAME" value="com.dtchesno.kata.test.TreeTest" />
+      <option name="METHOD_NAME" value="testVerticalOrderMed" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -181,19 +192,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.PuzzlesTest.testStoneGame" />
-      <item itemvalue="JUnit.DpTest.testknapsack" />
-      <item itemvalue="JUnit.DpTest.testMinChange" />
-      <item itemvalue="JUnit.DpTest.testDeleteDistance" />
-      <item itemvalue="JUnit.DpTest.testMinDistance" />
+      <item itemvalue="JUnit.TreeTest.testVerticalOrderMed" />
+      <item itemvalue="JUnit.TreeTest.testVerticalOrderHard" />
+      <item itemvalue="JUnit.TreeTest.testExteriorBinaryTree" />
+      <item itemvalue="JUnit.ArrayTest.testRotate" />
+      <item itemvalue="JUnit.ArrayTest.testFirstOccurrence" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DpTest.testMinDistance" />
-        <item itemvalue="JUnit.DpTest.testDeleteDistance" />
-        <item itemvalue="JUnit.DpTest.testMinChange" />
-        <item itemvalue="JUnit.DpTest.testknapsack" />
-        <item itemvalue="JUnit.PuzzlesTest.testStoneGame" />
+        <item itemvalue="JUnit.ArrayTest.testFirstOccurrence" />
+        <item itemvalue="JUnit.ArrayTest.testRotate" />
+        <item itemvalue="JUnit.TreeTest.testExteriorBinaryTree" />
+        <item itemvalue="JUnit.TreeTest.testVerticalOrderHard" />
+        <item itemvalue="JUnit.TreeTest.testVerticalOrderMed" />
       </list>
     </recent_temporary>
   </component>
@@ -203,7 +214,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="07e19c97-bd1d-4234-a34c-a383936823b7" name="Default Changelist" comment="" />
+      <changelist id="1d1dab49-0c0b-4ac6-8c37-50ecae7a7d2d" name="Changes" comment="" />
       <created>1584249598160</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -227,21 +238,21 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/misc/TaskScheduler.java</url>
-          <line>57</line>
+          <line>55</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/misc/TaskScheduler.java</url>
-          <line>70</line>
+          <line>68</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/misc/TaskScheduler.java</url>
-          <line>115</line>
+          <line>113</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching2.java</url>
           <line>60</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
@@ -252,33 +263,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
-          <line>338</line>
+          <line>335</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
-          <line>346</line>
+          <line>343</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
-          <line>411</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/misc/MiscSolution.java</url>
-          <line>174</line>
+          <line>204</line>
           <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java</url>
-          <line>102</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java</url>
-          <line>329</line>
-          <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/sort/Tasks.java</url>
@@ -292,38 +288,208 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
-          <line>286</line>
+          <line>307</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java</url>
-          <line>298</line>
-          <option name="timeStamp" value="69" />
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java</url>
+          <line>126</line>
+          <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
-          <line>171</line>
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java</url>
           <line>249</line>
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
-          <line>257</line>
-          <option name="timeStamp" value="78" />
+          <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
           <line>260</line>
-          <option name="timeStamp" value="79" />
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java</url>
+          <line>110</line>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/FileSystem.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/FileSystem.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="118" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/AlienDictionary.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/AlienDictionary.java</url>
+          <line>5</line>
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>429</line>
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java</url>
+          <line>185</line>
+          <option name="timeStamp" value="132" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>352</line>
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>342</line>
+          <option name="timeStamp" value="139" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>346</line>
+          <option name="timeStamp" value="140" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>349</line>
+          <option name="timeStamp" value="141" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="148" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="149" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="150" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="151" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="152" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>248</line>
+          <option name="timeStamp" value="153" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>256</line>
+          <option name="timeStamp" value="155" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>378</line>
+          <option name="timeStamp" value="156" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/GraphTest.java</url>
+          <line>157</line>
+          <option name="timeStamp" value="164" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/CareerCupTest.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="170" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/LRUCacheTest.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/TreeTest.java</url>
+          <line>302</line>
+          <option name="timeStamp" value="181" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/StructTest.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="184" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/StructTest.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Trie.java</url>
+          <line>6</line>
+          <option name="timeStamp" value="186" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="191" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="192" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/DpSolution.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="194" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/Graph.java</url>
+          <line>283</line>
+          <option name="timeStamp" value="205" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="206" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/dp/WildcardMatching.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="207" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>548</line>
+          <option name="timeStamp" value="208" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/ArrayStringTasks.java</url>
+          <line>570</line>
+          <option name="timeStamp" value="209" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/struct/TreeNode.java</url>
-          <line>297</line>
-          <option name="timeStamp" value="82" />
+          <line>449</line>
+          <option name="timeStamp" value="210" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/dtchesno/kata/test/ArrayTest.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="211" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

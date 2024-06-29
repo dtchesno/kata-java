@@ -1,126 +1,113 @@
 package com.dtchesno.kata.traversal;
 
+import groovy.lang.Tuple4;
 import javafx.util.Pair;
-
 import java.util.*;
+import static java.util.Map.of;
 
 public class Traversal {
 
     private static final int[][] directions = new int[][] { {0, -1}, {-1, 0}, {0, 1}, {1, 0}};
 
-    // https://leetcode.com/problems/shortest-distance-from-all-buildings/description/
+    // 317 https://leetcode.com/problems/shortest-distance-from-all-buildings/description/
     public static int shortestDistance(int[][] grid) {
         int minDistance = Integer.MAX_VALUE;
-        int[][] partial = new int[grid.length][grid[0].length];
-        int emptyLandValue = 0;
+        int[][] distance = new int[grid.length][grid[0].length];
+        int emptyLand = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != 1) {
-                    continue;
-                }
-                minDistance = shortestDistanceBfs(grid, i, j, partial, emptyLandValue);
-                if (minDistance == Integer.MAX_VALUE) {
-                    return -1;
-                }
-                emptyLandValue--;
+                if (grid[i][j] != 1) continue;
+                minDistance = shortestDistanceBfs(i, j, grid, emptyLand, distance);
+                if (minDistance == Integer.MAX_VALUE) return -1;
+                emptyLand--;
             }
         }
-        return minDistance;
+        return minDistance == Integer.MAX_VALUE ? -1 : minDistance;
     }
 
-    private static int shortestDistanceBfs(int[][] grid, int i, int j, int[][] partial, int emptyLandValue) {
+    private static int shortestDistanceBfs(int i, int j, int[][] grid, int emptyLand, int[][] distance) {
         int minDistance = Integer.MAX_VALUE;
         Queue<Pair<Integer, Integer>> q = new LinkedList<>();
         q.add(new Pair(i, j));
         q.add(null);
-        int distance = 1;
-        while (!q.isEmpty() && q.peek() != null) {
+        int d = 1;
+        while (!q.isEmpty()) {
             Pair<Integer, Integer> top = q.poll();
-            for (int[] dir : directions) {
-                int i1 = top.getKey() + dir[0];
-                int j1 = top.getValue() + dir[1];
-                if (i1 < 0 || i1 >= grid.length || j1 < 0 || j1 >= grid[0].length || grid[i1][j1] != emptyLandValue) {
-                    continue;
-                }
-                grid[i1][j1] = emptyLandValue - 1;
+            if (top == null) continue;
+            for (int[] direction : directions) {
+                int i1 = top.getKey() + direction[0];
+                int j1 = top.getValue() + direction[1];
+                if (i1 < 0 || i1 >= grid.length || j1 < 0 || j1 >= grid[0].length || grid[i1][j1] != emptyLand) continue;
                 q.add(new Pair(i1, j1));
-                partial[i1][j1] += distance;
-                minDistance = Math.min(minDistance, partial[i1][j1]);
+                distance[i1][j1] += d;
+                grid[i1][j1] = emptyLand - 1;
+                minDistance = Math.min(minDistance, distance[i1][j1]);
             }
             if (q.peek() == null) {
-                q.remove();
                 q.add(null);
-                distance++;
+                d++;
             }
         }
         return minDistance;
     }
 
+
+    // 296 https://leetcode.com/problems/best-meeting-point/description/
     public static int minTotalDistance(int[][] grid) {
-        List<Integer> rows = minTotalDistanceCollectRows(grid);
-        List<Integer> cols = minTotalDistanceCollectCols(grid);
+        List<Integer> rows = new ArrayList<>();
+        List<Integer> cols = new ArrayList<>();
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    rows.add(i);
+                    cols.add(j);
+                }
+            }
+        }
+        Collections.sort(cols);
         return minTotalDistanceFromMedian(rows) + minTotalDistanceFromMedian(cols);
     }
 
-    private static List<Integer> minTotalDistanceCollectRows(int[][] grid) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != 1) {
-                    continue;
-                }
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    private static List<Integer> minTotalDistanceCollectCols(int[][] grid) {
-        List<Integer> result = new ArrayList<>();
-        for (int j = 0; j < grid[0].length; j++) {
-            for (int i = 0; i < grid.length; i++) {
-                if (grid[i][j] != 1) {
-                    continue;
-                }
-                result.add(j);
-            }
-        }
-        return result;
-    }
-
     private static int minTotalDistanceFromMedian(List<Integer> list) {
+        int distance = 0;
         int i = 0;
         int j = list.size() - 1;
-        int distance = 0;
         while (i < j) {
             distance += list.get(j--) - list.get(i++);
         }
         return distance;
     }
 
+
     // https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
     public static int shortestPath(int[][] grid, int K) {
-        Queue<ShortestPathState> q = new LinkedList<>();
-        ShortestPathState start = new ShortestPathState(0, 0, K, 0);
+        // i, j, k, distance
+        Queue<Tuple4<Integer, Integer, Integer, Integer>> q = new LinkedList<>();
+        Set<Tuple4<Integer, Integer, Integer, Integer>> seen = new HashSet<>();
+        var start = new Tuple4<>(0, 0, K, 0);
         q.add(start);
-        Set<ShortestPathState> seen = new HashSet<>();
         seen.add(start);
         while (!q.isEmpty()) {
-            ShortestPathState top = q.poll();
-            if (top.i == grid.length - 1 && top.j == grid[0].length - 1) {
-                return top.steps;
-            }
+            var top = q.poll();
+            int i = top.getFirst();
+            int j = top.getSecond();
+            int k = top.getThird();
+            int d = top.getFourth();
+
+            if (i == grid.length - 1 && j == grid[0].length - 1) return top.getFourth();
+
             for (int[] dir : directions) {
-                int i0 = top.i + dir[0];
-                int j0 = top.j + dir[1];
-                if (i0 < 0 || i0 >= grid.length || j0 < 0 || j0 >= grid[0].length) {
-                    continue;
-                }
-                int k = top.k - (grid[i0][j0] == 1 ? 1 : 0);
-                ShortestPathState next = new ShortestPathState(i0, j0, k, top.steps + 1);
-                if (k < 0 || seen.contains(next)) {
-                    continue;
-                }
+                int i1 = i + dir[0];
+                int j1 = j + dir[1];
+
+                if (i1 < 0 || i1 >= grid.length || j1 < 0 || j1 >= grid[0].length) continue;
+
+                int k1 = grid[i1][j1] == 1 ? k - 1 : k;
+                var next = new Tuple4(i1, j1, k1, d + 1);
+
+                if (k1 < 0 || seen.contains(next)) continue;
+
                 q.add(next);
                 seen.add(next);
             }
@@ -128,31 +115,76 @@ public class Traversal {
         return -1;
     }
 
-    private static class ShortestPathState {
-        int i;
-        int j;
-        int k;
-        int steps;
+//    private static class ShortestPathState {
+//        int i;
+//        int j;
+//        int k;
+//        int steps;
+//
+//        private ShortestPathState(int i, int j, int k, int steps) {
+//            this.i = i;
+//            this.j = j;
+//            this.k = k;
+//            this.steps = steps;
+//        }
+//
+//        @Override
+//        public int hashCode() {
+//            return Objects.hash(i, j, k);
+//        }
+//
+//        @Override
+//        public boolean equals(Object other) {
+//            if (!(other instanceof ShortestPathState)) {
+//                return false;
+//            }
+//            ShortestPathState that = (ShortestPathState) other;
+//            return i == that.i && j == that.j && k == that.k;
+//        }
+//    }
 
-        private ShortestPathState(int i, int j, int k, int steps) {
-            this.i = i;
-            this.j = j;
-            this.k = k;
-            this.steps = steps;
-        }
 
-        @Override
-        public int hashCode() {
-            return Objects.hash(i, j, k);
-        }
+    // 65 https://leetcode.com/problems/valid-number/
+    public static boolean isValidNumber(String s) {
+        List<Map<Literal, Integer>> dfa = new ArrayList<>();
 
-        @Override
-        public boolean equals(Object other) {
-            if (!(other instanceof ShortestPathState)) {
+        // init dfa
+        dfa.add(of(Literal.SIGN, 1, Literal.DIGIT, 2, Literal.DOT, 4));
+        dfa.add(of(Literal.DIGIT, 2, Literal.DOT, 4));
+        dfa.add(of(Literal.DIGIT, 2, Literal.DOT, 3, Literal.E,6));
+        dfa.add(of(Literal.DIGIT, 5));
+        dfa.add(of(Literal.DIGIT, 5));
+        dfa.add(of(Literal.DIGIT, 5, Literal.E, 6));
+        dfa.add(of(Literal.SIGN, 7, Literal.DIGIT, 8));
+        dfa.add(of(Literal.DIGIT, 8));
+        dfa.add(of(Literal.DIGIT, 8));
+
+        int state = 0;
+        for (char c : s.toCharArray()) {
+            Literal element = null;
+            if (c >= '0' && c <= '9') {
+                element = Literal.DIGIT;
+            } else if (c == '-' || c == '+') {
+                element = Literal.SIGN;
+            } else if (c == '.') {
+                element = Literal.DOT;
+            } else if (c == 'e' || c == 'E') {
+                element = Literal.E;
+            } else {
                 return false;
             }
-            ShortestPathState that = (ShortestPathState) other;
-            return i == that.i && j == that.j && k == that.k;
+            Integer newState = dfa.get(state).get(element);
+            if (newState == null) return false;
+            state = newState;
         }
+
+        return (state == 2) || (state == 3) || (state == 5) || (state == 8);
+    }
+
+    private enum Literal {
+        DIGIT,
+        SIGN,
+        DOT,
+        E
     }
 }
