@@ -5,6 +5,7 @@ public class PatternMatching {
     // Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*'.
     // '.' - any single character; '*' - 0 or many previous characters;; '.*' - 0 or many any character
     //
+    // 10. Regular Expression Matching
     // https://leetcode.com/problems/regular-expression-matching/, #10
     // Hard - facebook, amazon
     //
@@ -26,9 +27,7 @@ public class PatternMatching {
     }
 
     private static int isMatch(String s, String p, int i, int j, int[][] mem) {
-        if (mem[i][j] != 0) {
-            return mem[i][j];
-        }
+        if (mem[i][j] != 0) return mem[i][j];
 
         if (i == s.length() && j == p.length()) {
             mem[i][j] = 1;
@@ -37,7 +36,9 @@ public class PatternMatching {
         } else {
             boolean isMatch = i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');
             if (j + 1 < p.length() && p.charAt(j + 1) == '*') {
-                mem[i][j] = Math.max(isMatch(s, p, i, j + 2, mem), isMatch ? isMatch(s, p, i + 1, j, mem) : -1);
+                mem[i][j] = Math.max(
+                        isMatch(s, p, i, j + 2, mem),
+                        isMatch ? isMatch(s, p, i + 1, j, mem) : -1);
             } else {
                 mem[i][j] = isMatch ? isMatch(s, p, i + 1, j + 1, mem) : -1;
             }

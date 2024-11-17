@@ -9,6 +9,7 @@ public class Traversal {
 
     private static final int[][] directions = new int[][] { {0, -1}, {-1, 0}, {0, 1}, {1, 0}};
 
+    // 317. Shortest Distance from All Buildings
     // 317 https://leetcode.com/problems/shortest-distance-from-all-buildings/description/
     public static int shortestDistance(int[][] grid) {
         int minDistance = Integer.MAX_VALUE;
@@ -80,6 +81,7 @@ public class Traversal {
     }
 
 
+    // 1293. Shortest Path in a Grid with Obstacles Elimination
     // https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
     public static int shortestPath(int[][] grid, int K) {
         // i, j, k, distance
@@ -114,34 +116,6 @@ public class Traversal {
         }
         return -1;
     }
-
-//    private static class ShortestPathState {
-//        int i;
-//        int j;
-//        int k;
-//        int steps;
-//
-//        private ShortestPathState(int i, int j, int k, int steps) {
-//            this.i = i;
-//            this.j = j;
-//            this.k = k;
-//            this.steps = steps;
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            return Objects.hash(i, j, k);
-//        }
-//
-//        @Override
-//        public boolean equals(Object other) {
-//            if (!(other instanceof ShortestPathState)) {
-//                return false;
-//            }
-//            ShortestPathState that = (ShortestPathState) other;
-//            return i == that.i && j == that.j && k == that.k;
-//        }
-//    }
 
 
     // 65 https://leetcode.com/problems/valid-number/

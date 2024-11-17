@@ -312,17 +312,26 @@ public class TreeNode {
     }
 
     private static int findKthLargestElements(TreeNode root, int k, int[] result) {
-        if (root == null) return 0;
+        if (root == null || k == 0) return k;
         k = findKthLargestElements(root.right, k, result);
         if (k > 0) {
             result[k - 1] = root.key;
             k--;
         }
-        if (k > 0) {
-            k = findKthLargestElements(root.left, k, result);
-        }
-        return k;
+        return findKthLargestElements(root.left, k, result);
     }
+//    private static int findKthLargestElements(TreeNode root, int k, int[] result) {
+//        if (root == null) return 0;
+//        k = findKthLargestElements(root.right, k, result);
+//        if (k > 0) {
+//            result[k - 1] = root.key;
+//            k--;
+//        }
+//        if (k > 0) {
+//            k = findKthLargestElements(root.left, k, result);
+//        }
+//        return k;
+//    }
 
 
     // test whether tree can be cut once, so, two parts will have same sum of node values
@@ -410,7 +419,7 @@ public class TreeNode {
     }
 
 
-    // find all nodes with distance K in binary tree
+    // 863. All Nodes Distance K in Binary Tree
     // https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
     // Solution:
     //  - dfs to establish parent path
@@ -508,8 +517,31 @@ public class TreeNode {
 //    }
 
     // Aziz 10.15 pg169
+    // 545. Boundary of Binary Tree
     // https://leetcode.com/problems/boundary-of-binary-tree/description/
     // [selected - 2]
+//    public static List<Integer> exteriorBinaryTree(TreeNode root) {
+//        List<Integer> result = new ArrayList<>();
+//        if (root == null) return result;
+//        result.add(root.key);
+//        exteriorBinaryTreeLeft(root.left, true, result);
+//        exteriorBinaryTreeRight(root.right, true, result);
+//        return result;
+//    }
+//
+//    private static void exteriorBinaryTreeLeft(TreeNode root, boolean isBoundary, List<Integer> result) {
+//        if (root == null) return;
+//        if (isBoundary || root.left == null && root.right == null) result.add(root.key);
+//        exteriorBinaryTreeLeft(root.left, isBoundary, result);
+//        exteriorBinaryTreeRight(root.right, isBoundary && root.left == null, result);
+//    }
+//
+//    private static void exteriorBinaryTreeRight(TreeNode root, boolean isBoundary, List<Integer> result) {
+//        if (root == null) return;
+//        exteriorBinaryTreeLeft(root.left, isBoundary && root.right == null, result);
+//        exteriorBinaryTreeRight(root.right, isBoundary, result);
+//        if (isBoundary || root.left == null && root.right == null) result.add(root.key);
+//    }
     public static List<Integer> exteriorBinaryTree(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if (root == null) return result;
@@ -519,20 +551,19 @@ public class TreeNode {
         return result;
     }
 
-    private static void exteriorBinaryTreeLeft(TreeNode root, boolean isBoundary, List<Integer> result) {
-        if (root == null) return;
-        if (isBoundary || root.left == null && root.right == null) result.add(root.key);
-        exteriorBinaryTreeLeft(root.left, isBoundary, result);
-        exteriorBinaryTreeRight(root.right, isBoundary && root.left == null, result);
+    private static void exteriorBinaryTreeLeft(TreeNode node, boolean isBoundary, List<Integer> result) {
+        if (node == null) return;
+        if (isBoundary || node.left == null && node.right == null) result.add(node.key);
+        exteriorBinaryTreeLeft(node.left, isBoundary, result);
+        exteriorBinaryTreeRight(node.right, isBoundary && node.left == null, result);
     }
 
-    private static void exteriorBinaryTreeRight(TreeNode root, boolean isBoundary, List<Integer> result) {
-        if (root == null) return;
-        exteriorBinaryTreeLeft(root.left, isBoundary && root.right == null, result);
-        exteriorBinaryTreeRight(root.right, isBoundary, result);
-        if (isBoundary || root.left == null && root.right == null) result.add(root.key);
+    private static void exteriorBinaryTreeRight(TreeNode node, boolean isBoundary, List<Integer> result) {
+        if (node == null) return;
+        exteriorBinaryTreeLeft(node.left, isBoundary && node.right == null, result);
+        exteriorBinaryTreeRight(node.right, isBoundary, result);
+        if (isBoundary || node.left == null && node.right == null) result.add(node.key);
     }
-
 
     private static boolean isLeaf(TreeNode node) {
         return node != null && node.left == null && node.right == null;
@@ -612,18 +643,14 @@ public class TreeNode {
     }
 
     private static Pair<Integer, TreeNode> lcaDeepestLeavesDFS(TreeNode root, int level) {
-        if (root == null) return new Pair(level, root);
+        if (root == null) return new Pair<>(level, root);
+
         var left = lcaDeepestLeavesDFS(root.left, level + 1);
         var right = lcaDeepestLeavesDFS(root.right, level + 1);
-        if (left.getKey() == right.getKey()) {
-            return new Pair(left.getKey(), root);
-        } else if (left.getKey() > right.getKey()) {
-            return left;
-        } else {
-            return right;
-        }
+        if (left.getKey() > right.getKey()) return left;
+        if (right.getKey() > left.getKey()) return right;
+        return new Pair<>(left.getKey(), root);
     }
-
 
     // leetcode 987: // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]
     public static List<List<Integer>> verticalOrderHard(TreeNode root) {
@@ -656,25 +683,18 @@ public class TreeNode {
     // https://leetcode.com/problems/binary-tree-vertical-order-traversal/ (medium) [tree, bfs]
     public static List<List<Integer>> verticalOrderMed(TreeNode root) {
         TreeMap<Integer, List<Integer>> columns = new TreeMap<>();
-
-        // (column index, node); left to right; 0 is root
         Queue<Pair<Integer, TreeNode>> q = new LinkedList<>();
-        q.add(new Pair(0, root));
+        q.add(new Pair<>(0, root));
         while (!q.isEmpty()) {
             var top = q.poll();
-            if (top.getValue() == null) {
-                continue;
-            }
-            var column = columns.getOrDefault(top.getKey(), new ArrayList<>());
-            columns.put(top.getKey(), column);
+            var column = columns.computeIfAbsent(top.getKey(), (key) -> new ArrayList<>());
             column.add(top.getValue().key);
-            q.add(new Pair(top.getKey() - 1, top.getValue().left));
-            q.add(new Pair(top.getKey() + 1, top.getValue().right));
+            if (top.getValue().left != null) q.add(new Pair<>(top.getKey() - 1, top.getValue().left));
+            if (top.getValue().right != null) q.add(new Pair<>(top.getKey() + 1, top.getValue().right));
         }
-
         List<List<Integer>> result = new ArrayList<>();
-        for (var column : columns.values()) {
-            result.add(column);
+        for (var c : columns.values()) {
+            result.add(c);
         }
         return result;
     }

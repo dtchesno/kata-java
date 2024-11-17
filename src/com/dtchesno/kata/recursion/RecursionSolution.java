@@ -13,6 +13,7 @@ public class RecursionSolution {
     private static void permuteBraces(int l, int r, String str, List<String> result) {
         if (l == 0 && r == 0) {
             result.add(str);
+            return;
         }
         if (l > 0) {
             permuteBraces(l - 1, r, str + "(", result);
@@ -76,7 +77,6 @@ public class RecursionSolution {
             s.push(s2.pop());
         }
     }
-
 
     // generate all permutations of given list: byte-by-byte #12 pg.12
     // [selected - 2]

@@ -34,6 +34,7 @@ public class DpSolution {
     // find max length of non-decreasing seq, next element doesn't have to immediately follow previous
     // e.g. 0,8,4,12,2,10,6,14,1,9 -> [0,4,10,14] or [0,2,6,9]
     // Aziz 17.12 pg.330
+    // 300. Longest Increasing Subsequence
     // https://leetcode.com/problems/longest-increasing-subsequence/
     // [selected - 3]
     public static int lengthOfLIS(int[] array) {
@@ -49,22 +50,21 @@ public class DpSolution {
         return result.size();
     }
 
-    private static void lengthOfLISInsert(List<Integer> result, int val) {
+    private static void lengthOfLISInsert(List<Integer> result, int value) {
         int left = 0;
         int right = result.size() - 1;
         while (left < right) {
             int mid = (left + right) / 2;
-            if (val == result.get(mid)) {
+            if (value == result.get(mid)) {
                 return;
-            } else if (val < result.get(mid)) {
+            } else if (value < result.get(mid)) {
                 right = mid;
             } else {
                 left = mid + 1;
             }
         }
-        result.set(left, val);
+        result.set(left, value);
     }
-
 
     // knapsack 0-1 (each item could be taken 0 or 1 times)
     // Aziz 17.6 pg.317

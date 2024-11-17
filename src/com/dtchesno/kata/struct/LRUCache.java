@@ -23,16 +23,13 @@ public class LRUCache {
         Integer oldValue = cache.get(key);
         if (oldValue != null) {
             cache.remove(key);
-            cache.put(key, value);
-            return;
         }
-        if (cache.size() == capacity) {
-            // delete
+        cache.put(key, value);
+        if (cache.size() > capacity) {
             var it = cache.keySet().iterator();
             it.next();
             it.remove();
         }
-        cache.put(key, value);
     }
 
     public int size() {

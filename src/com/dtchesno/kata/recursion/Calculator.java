@@ -49,46 +49,4 @@ public class Calculator {
         }
         return value;
     }
-
-//    public int calculate(String s) {
-//        Queue<Character> q = new LinkedList<>();
-//        for (char c : s.toCharArray()) {
-//            if (Character.isWhitespace(c)) continue;
-//            q.add(c);
-//        }
-//        q.add('+');
-//        return calculate(q);
-//    }
-//
-//    private static int calculate(Queue<Character> q) {
-//        int num = 0;
-//        Stack<Integer> s = new Stack<>();
-//        char sign = '+';
-//        while (!q.isEmpty()) {
-//            char c = q.poll();
-//            if (c == '(') {
-//                num = calculate(q);
-//            } else if (Character.isDigit(c)) {
-//                num = num * 10 + (c - '0');
-//            } else {
-//                if (sign == '+') {
-//                    s.push(num);
-//                } else if (sign == '-') {
-//                    s.push(-num);
-//                } else if (sign == '*') {
-//                    s.push(s.pop() * num);
-//                } else if (sign == '/') {
-//                    s.push(s.pop() / num);
-//                }
-//                if (c == ')') break;
-//                sign = c;
-//                num = 0;
-//            }
-//        }
-//        int result = 0;
-//        for (int val : s) {
-//            result += val;
-//        }
-//        return result;
-//    }
 }

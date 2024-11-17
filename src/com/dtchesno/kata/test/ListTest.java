@@ -127,5 +127,25 @@ public class ListTest {
         assertEquals(0, sum.get(1).value);
         assertEquals(8, sum.get(2).value);
         assertEquals(1, sum.get(3).value);
+        assertEquals(null, sum.get(4));
+
+        ListNode l21 = new ListNode(new int[] {9,9,9,9,9,9,9}, false);
+        ListNode l22 = new ListNode(new int[] {9,9,9,9}, false);
+        ListNode sum2 = ListNode.add(l21, l22, 0);
+        assertEquals(8, sum2.get(0).value);
+        assertEquals(9, sum2.get(1).value);
+        assertEquals(9, sum2.get(2).value);
+        assertEquals(9, sum2.get(3).value);
+        assertEquals(0, sum2.get(4).value);
+        assertEquals(0, sum2.get(5).value);
+        assertEquals(0, sum2.get(6).value);
+        assertEquals(1, sum2.get(7).value);
+        assertEquals(null, sum2.get(8));
+
+        ListNode l31 = new ListNode(new int[] {0}, false);
+        ListNode l32 = new ListNode(new int[] {0}, false);
+        ListNode sum3 = ListNode.add(l31, l32, 0);
+        assertEquals(0, sum3.get(0).value);
+        assertEquals(null, sum3.get(1));
     }
 }

@@ -442,22 +442,19 @@ public class ArrayStringTasks {
     }
 
 
+    // 239. Sliding Window Maximum
     // https://leetcode.com/problems/sliding-window-maximum/description/
     public static int[] maxSlidingWindow(int[] nums, int k) {
         int[] result = new int[nums.length - k + 1];
         Deque<Integer> q = new LinkedList<>();
         for (int i = 0; i < k; i++) {
-            while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) {
-                q.pollLast();
-            }
+            while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) q.pollLast();
             q.add(i);
         }
         result[0] = nums[q.peek()];
         for (int i = k; i < nums.length; i++) {
-            while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) {
-                q.pollLast();
-            }
-            if (!q.isEmpty() && q.peek() < i - k + 1) q.poll();
+            while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) q.pollLast();
+            if (!q.isEmpty() && q.peek() <= i - k) q.poll();
             q.add(i);
             result[i - k + 1] = nums[q.peek()];
         }
@@ -465,11 +462,51 @@ public class ArrayStringTasks {
     }
 
 
+    // 2402. Meeting Rooms III
     // https://leetcode.com/problems/meeting-rooms-iii/
+//    public static int mostBooked(int n, int[][] meetings) {
+//        // sort meetings by start date
+//        List<int[]> _meetings = new ArrayList<>();
+//        for (int[] m : meetings) {
+//            _meetings.add(m);
+//        }
+//        Collections.sort(_meetings, (a, b) -> a[0] - b[0]);
+//
+//        // room queues: (id, available time)
+//        Queue<int[]> available = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+//        Queue<int[]> inUse = new PriorityQueue<>((a, b) -> a[1] != b[1] ? a[1] - b[1] : a[0] - b[0]);
+//        for (int i = 0; i < n; i++) {
+//            available.add(new int[] { i, 0 });
+//        }
+//
+//        int[] count = new int[n];
+//        for (int[] m : _meetings) {
+//            while (!inUse.isEmpty() && inUse.peek()[1] <= m[0]) {
+//                available.add(inUse.poll());
+//            }
+//            if (available.isEmpty()) available.add(inUse.poll());
+//
+//            int[] room = available.poll();
+//            count[room[0]]++;
+//            //room[1] = m[1];
+//            room[1] = room[1] <= m[0] ? m[1] : m[1] + (room[1] - m[0]);
+//            inUse.add(room);
+//        }
+//
+//        int iMax = 0;
+//        int max = count[iMax];
+//        for (int i = 1; i < n; i++) {
+//            if (count[i] > max) {
+//                iMax = i;
+//                max = count[iMax];
+//            }
+//        }
+//        return iMax;
+//    }
+
     public static int mostBooked(int n, int[][] meetings) {
-        // sort meetings by start date
         List<int[]> _meetings = new ArrayList<>();
-        for (int[] m : meetings) {
+        for (var m : meetings) {
             _meetings.add(m);
         }
         Collections.sort(_meetings, (a, b) -> a[0] - b[0]);
@@ -505,7 +542,6 @@ public class ArrayStringTasks {
         }
         return iMax;
     }
-
 
     // https://leetcode.com/problems/longest-increasing-subsequence/
     public static int longestIncreasingSubseq(int[] seq) {

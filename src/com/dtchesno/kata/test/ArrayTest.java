@@ -148,9 +148,9 @@ public class ArrayTest {
 
     @Test
     public void testFindAnagrams() {
-//        Assert.assertEquals(
-//                Arrays.asList(new Integer[] { 0, 6 }),
-//                ArrayStringTasks.findAnagrams("cbaebabacd", "abc"));
+        Assert.assertEquals(
+                Arrays.asList(new Integer[] { 0, 6 }),
+                ArrayStringTasks.findAnagrams("cbaebabacd", "abc"));
         Assert.assertEquals(
                 Arrays.asList(new Integer[] { 0, 1, 2 }),
                 ArrayStringTasks.findAnagrams("abab", "ab"));

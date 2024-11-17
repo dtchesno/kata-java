@@ -46,7 +46,6 @@ public class ListNode {
         return false;
     }
 
-
     // split a linked list in halves
     // https://www.byte-by-byte.com/splitlinkedlist/
     // byte-by-byte #41 pg31
@@ -89,7 +88,6 @@ public class ListNode {
         return current;
     }
 
-
     // 0, 1, 2, 3, 4, 5 -> 0, 5, 1, 4, 2, 3 // n0, nlast, n1, nlast-1...
     public static ListNode reorder(ListNode root) {
         ListNode ptr = root.next;
@@ -129,25 +127,19 @@ public class ListNode {
     // cracking #2.4 pg.50
     // [selected - 2]
     public static ListNode add(ListNode l1, ListNode l2, int carry) {
-        if (l1 == null && l2 == null && carry == 0) {
-            return null;
-        }
+        if (l1 == null && l2 == null && carry == 0) return null;
 
         int value = carry;
-
         if (l1 != null) {
             value += l1.value;
             l1 = l1.next;
         }
-
         if (l2 != null) {
             value += l2.value;
             l2 = l2.next;
         }
-
-        ListNode node = new ListNode(value % 10);
-        ListNode next = add(l1, l2, value / 10);
-        node.next = next;
+        var node = new ListNode(value % 10);
+        node.next = add(l1, l2, value / 10);
         return node;
     }
 
