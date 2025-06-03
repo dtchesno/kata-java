@@ -261,7 +261,7 @@ public class TreeTest {
         TreeNode t = new TreeNode(new Integer[] { 3, 5, 1, 6, 2, 0, 8, null, null, 7, 4 });
         assertEquals(
             new HashSet(Arrays.asList(7, 4, 1)),
-            new HashSet(TreeNode.distanсeK(t, t.left, 2))
+            new HashSet(TreeNode.distanceK(t, t.left, 2))
         );
     }
 
@@ -281,6 +281,9 @@ public class TreeTest {
 
         TreeNode t2 = new TreeNode(new Integer[] {1,null,2,3,4});
         assertEquals(Arrays.asList(1,3,4,2), TreeNode.exteriorBinaryTree(t2));
+
+        TreeNode t3 = new TreeNode(new Integer[] { 1, 2, 3, 4, 5, null, null, null, null, 6, 10, 7, 8});
+        assertEquals(Arrays.asList(1, 2, 4, 7, 8, 10, 3), TreeNode.exteriorBinaryTree(t3));
     }
 
     @Test
@@ -316,6 +319,12 @@ public class TreeTest {
 
         TreeNode root3 = new TreeNode(new Integer[] { 1 });
         assertEquals(1, root.lcaDeepestLeaves(root3).key);
+
+        TreeNode root4 = new TreeNode(new Integer[] { 1, 2, null });
+        assertEquals(2, root.lcaDeepestLeaves(root4).key);
+
+        TreeNode root5 = new TreeNode(new Integer[] { 1, 2, 3, 4, 5, 6, null });
+        assertEquals(1, root.lcaDeepestLeaves(root5).key);
     }
 
     @Test
@@ -375,5 +384,30 @@ public class TreeTest {
                         Arrays.asList(7)
                 ),
                 TreeNode.verticalOrderHard(root));
+    }
+
+    @Test
+    public void testRightSideView() {
+        Assert.assertEquals(
+            List.of(1, 3, 4),
+            TreeNode.rightSideView(TreeNode.buildBinaryTree(new Integer[] {1,2,3,null,5,null,4})));
+        Assert.assertEquals(
+                List.of(1, 3),
+                TreeNode.rightSideView(TreeNode.buildBinaryTree(new Integer[] {1,null,3})));
+        Assert.assertEquals(List.of(), TreeNode.rightSideView(null));
+    }
+
+    @Test
+    public void testSumNumbers() {
+        Assert.assertEquals(10, TreeNode.sumNumbers(TreeNode.buildBinaryTree(new Integer[] {1,0})));
+        Assert.assertEquals(25, TreeNode.sumNumbers(TreeNode.buildBinaryTree(new Integer[] {1,2,3})));
+        Assert.assertEquals(1026, TreeNode.sumNumbers(TreeNode.buildBinaryTree(new Integer[] {4,9,0,5,1})));
+    }
+
+    @Test
+    public void testSerialize() {
+        Assert.assertEquals(null, TreeNode.deserialize(TreeNode.serialize(null)));
+        var tree = TreeNode.buildBinaryTree(new Integer[] {1,2,3,null,null,4,5});
+        Assert.assertTrue(TreeNode.equal(tree, TreeNode.deserialize(TreeNode.serialize(tree))));
     }
 }

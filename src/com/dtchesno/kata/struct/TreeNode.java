@@ -1,10 +1,13 @@
 package com.dtchesno.kata.struct;
 
-import com.intellij.openapi.vcs.history.VcsRevisionNumber;
+import com.intellij.execution.wsl.WSLCommandLineOptions;
 import com.intellij.ui.treeStructure.Tree;
-import it.unimi.dsi.fastutil.ints.AbstractIntList;
 import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.org.objectweb.asm.util.TraceRecordComponentVisitor;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TreeNode {
     public TreeNode left = null;
@@ -385,6 +388,7 @@ public class TreeNode {
 
 
     // compute distance between nodes
+    // 1740. Find Distance in a Binary Tree
     // https://leetcode.com/problems/find-distance-in-a-binary-tree/
     // [selected - 1]
     public static int distance(TreeNode root, TreeNode node1, TreeNode node2) {
@@ -395,26 +399,21 @@ public class TreeNode {
         return d[0] + d[1];
     }
 
-    private static int[] distanceH(TreeNode root, TreeNode node1, TreeNode node2) {
-        if (root == null) {
-            return new int[] {-1, -1};
-        }
+    private static int[] distanceH(TreeNode node, TreeNode p, TreeNode q) {
+        if (node == null) return new int[] { -1, -1 };
 
-        int[] left = distanceH(root.left, node1, node2);
-        if (left[0] != -1 && left[1] != -1) {
-            return left;
-        }
+        int[] left = distanceH(node.left, p, q);
+        if (left[0] != -1 && left[1] != -1) return left;
 
-        int[] right = distanceH(root.right, node1, node2);
-        if (right[0] != -1 && right[1] != -1) {
-            return right;
-        }
+        int[] right = distanceH(node.right, p, q);
+        if (right[0] != -1 && right[1] != -1) return right;
 
         int d1 = Math.max(left[0], right[0]);
         int d2 = Math.max(left[1], right[1]);
+
         return new int[] {
-                root == node1 ? 0 : d1 != -1 ? d1 + 1 : -1,
-                root == node2 ? 0 : d2 != -1 ? d2 + 1 : -1
+            node == p ? 0 : d1 != -1 ? d1 + 1 : -1,
+            node == q ? 0 : d2 != -1 ? d2 + 1 : -1
         };
     }
 
@@ -426,9 +425,9 @@ public class TreeNode {
     //  - use 'seen' HashSet to avoid going same path via parent
     //  - bfs from target to left/right/parent, adding null and increasing distance when 'layer' is done (when peek is null from prev.layer)
     //  - return bfs queue content except top null entry
-    public static List<Integer> distanсeK(TreeNode root, TreeNode target, int K) {
-        Map<TreeNode, TreeNode> parent = new HashMap();
-        distanсeKdfsParent(root, null, target, parent);
+    public static List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
+        Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+        distanceKDFSParent(root, null, target, parentMap);
 
         Queue<TreeNode> q = new LinkedList<>();
         Set<TreeNode> seen = new HashSet<>();
@@ -436,27 +435,23 @@ public class TreeNode {
         q.add(null);
         seen.add(target);
         seen.add(null);
-        int distance = 0;
-        while (!q.isEmpty() && distance < K) {
+
+        while (!q.isEmpty() && K > 0) {
             TreeNode top = q.poll();
+
             if (top == null) continue;
-            TreeNode p = parent.get(top);
+
+            TreeNode p = parentMap.get(top);
+            if (!seen.contains(p)) q.add(p);
+
             TreeNode l = top.left;
+            if (!seen.contains(l)) q.add(l);
+
             TreeNode r = top.right;
-            if (!seen.contains(p)) {
-                q.add(p);
-                seen.add(p);
-            }
-            if (!seen.contains(l)) {
-                q.add(l);
-                seen.add(l);
-            }
-            if (!seen.contains(r)) {
-                q.add(r);
-                seen.add(r);
-            }
+            if (!seen.contains(r)) q.add(r);
+
             if (q.peek() == null) {
-                distance++;
+                K--;
                 q.add(null);
             }
         }
@@ -469,15 +464,16 @@ public class TreeNode {
         return result;
     }
 
-    private static void distanсeKdfsParent(TreeNode node, TreeNode parent, TreeNode target, Map<TreeNode, TreeNode> map) {
+    private static void distanceKDFSParent(TreeNode node, TreeNode parent, TreeNode target, Map<TreeNode, TreeNode> map) {
         if (node == null) {
             return;
         }
         map.put(node, parent);
         if (node == target) return;
-        distanсeKdfsParent(node.left, node, target, map);
-        distanсeKdfsParent(node.right, node, target, map);
+        distanceKDFSParent(node.left, node, target, map);
+        distanceKDFSParent(node.right, node, target, map);
     }
+
 
     // another approach for above - dfs to find parent, then dfs from target down, and same for each predecessor
 //    public static List<Integer> distanсeK(TreeNode root, TreeNode target, int K) {
@@ -520,28 +516,6 @@ public class TreeNode {
     // 545. Boundary of Binary Tree
     // https://leetcode.com/problems/boundary-of-binary-tree/description/
     // [selected - 2]
-//    public static List<Integer> exteriorBinaryTree(TreeNode root) {
-//        List<Integer> result = new ArrayList<>();
-//        if (root == null) return result;
-//        result.add(root.key);
-//        exteriorBinaryTreeLeft(root.left, true, result);
-//        exteriorBinaryTreeRight(root.right, true, result);
-//        return result;
-//    }
-//
-//    private static void exteriorBinaryTreeLeft(TreeNode root, boolean isBoundary, List<Integer> result) {
-//        if (root == null) return;
-//        if (isBoundary || root.left == null && root.right == null) result.add(root.key);
-//        exteriorBinaryTreeLeft(root.left, isBoundary, result);
-//        exteriorBinaryTreeRight(root.right, isBoundary && root.left == null, result);
-//    }
-//
-//    private static void exteriorBinaryTreeRight(TreeNode root, boolean isBoundary, List<Integer> result) {
-//        if (root == null) return;
-//        exteriorBinaryTreeLeft(root.left, isBoundary && root.right == null, result);
-//        exteriorBinaryTreeRight(root.right, isBoundary, result);
-//        if (isBoundary || root.left == null && root.right == null) result.add(root.key);
-//    }
     public static List<Integer> exteriorBinaryTree(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if (root == null) return result;
@@ -553,22 +527,26 @@ public class TreeNode {
 
     private static void exteriorBinaryTreeLeft(TreeNode node, boolean isBoundary, List<Integer> result) {
         if (node == null) return;
+
         if (isBoundary || node.left == null && node.right == null) result.add(node.key);
         exteriorBinaryTreeLeft(node.left, isBoundary, result);
-        exteriorBinaryTreeRight(node.right, isBoundary && node.left == null, result);
+        exteriorBinaryTreeLeft(node.right, isBoundary && node.left == null, result);
     }
 
     private static void exteriorBinaryTreeRight(TreeNode node, boolean isBoundary, List<Integer> result) {
         if (node == null) return;
-        exteriorBinaryTreeLeft(node.left, isBoundary && node.right == null, result);
+
+        exteriorBinaryTreeRight(node.left, isBoundary && node.right == null, result);
         exteriorBinaryTreeRight(node.right, isBoundary, result);
         if (isBoundary || node.left == null && node.right == null) result.add(node.key);
     }
+
 
     private static boolean isLeaf(TreeNode node) {
         return node != null && node.left == null && node.right == null;
     }
 
+    // nodes distance (search tree)
     // https://leetcode.com/discuss/interview-question/125084/given-a-binary-search-tree-find-the-distance-between-2-nodes
     public static int distanceBST(TreeNode root, TreeNode node1, TreeNode node2) {
         TreeNode p = root;
@@ -607,36 +585,49 @@ public class TreeNode {
         return distanceBST(root.right, v) + 1;
     }
 
-    // leetcode 236
+    // 236. Lowest Common Ancestor of a Binary Tree
     // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description
     public static TreeNode findLCA(TreeNode root, TreeNode p, TreeNode q) {
         sLca = null;
-        traverse(root, p, q);
+        findLcaDfs(root, p, q);
         return sLca;
     }
 
     private static TreeNode sLca;
 
-    private static int traverse(TreeNode root, TreeNode p, TreeNode q) {
+    private static int findLcaDfs(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) return 0;
-        if (sLca != null) return 2;
 
-        int left = traverse(root.left, p, q);
-        if (sLca != null) return left;
-        if (left == 1 && (root == p || root == q)) {
-            sLca = root;
-            return 2;
-        }
+        int lCount = findLcaDfs(root.left, p, q);
+        if (lCount == 2) return 2;
 
-        int right = traverse(root.right, p, q);
-        if (sLca != null) return right;
+        int rCount = findLcaDfs(root.right, p, q);
+        if (rCount == 2) return 2;
 
-        int count = left + right + (root == p || root == q ? 1 : 0);
+        int count = (root == p || root == q ? 1 : 0) + lCount + rCount;
         if (count == 2) sLca = root;
         return count;
     }
 
 
+    // not clean in terms of true/false returns as left or right traverse could find two childs
+//    private static boolean traverse(TreeNode root, TreeNode p, TreeNode q) {
+//        if (root == null || sLca != null) {
+//            return false;
+//        }
+//
+//        int left = traverse(root.left, p, q) ? 1 : 0;
+//        int right = traverse(root.right, p, q) ? 1 : 0;
+//        int mid = root == p || root == q ? 1 : 0;
+//
+//        if (left + right + mid == 2) {
+//            sLca = root;
+//        }
+//
+//        return left + right + mid > 0;
+//    }
+
+    // 1123. Lowest Common Ancestor of Deepest Leaves
     // https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
     public static TreeNode lcaDeepestLeaves(TreeNode root) {
         return lcaDeepestLeavesDFS(root, 0).getValue();
@@ -652,52 +643,71 @@ public class TreeNode {
         return new Pair<>(left.getKey(), root);
     }
 
-    // leetcode 987: // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]
+
+    // 987. Vertical Order Traversal of a Binary Tree
+    // https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/ (hard) [tree, bfs]
     public static List<List<Integer>> verticalOrderHard(TreeNode root) {
+        // column -> (row, value)
+        TreeMap<Integer, List<Pair<Integer, Integer>>> columns = new TreeMap<>();
+
+        // column, node
+        Queue<Pair<Integer, TreeNode>> q = new LinkedList<>();
+        q.add(new Pair(0, root));
+        q.add(null);
+        int row = 0;
+
+        while (!q.isEmpty()) {
+            Pair<Integer, TreeNode> top = q.poll();
+
+            if (top == null) continue;
+
+            int column = top.getKey();
+            TreeNode node = top.getValue();
+
+            List<Pair<Integer, Integer>> col = columns.computeIfAbsent(top.getKey(), k -> new ArrayList<>());
+
+            col.add(new Pair<>(row, node.key));
+            if (node.left != null) q.add(new Pair(column - 1, node.left));
+            if (node.right != null) q.add(new Pair(column + 1, node.right));
+
+            if (q.peek() == null) {
+                row++;
+                q.add(null);
+            }
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+        for (var col : columns.values()) {
+            Collections.sort(col, (a, b) -> a.getKey() != b.getKey()
+                ? a.getKey() - b.getKey()
+                : a.getValue() - b.getValue());
+            result.add(col.stream().map(p -> p.getValue()).collect(Collectors.toList()));
+        }
+        return result;
+    }
+
+    // 314. Binary Tree Vertical Order
+    // https://leetcode.com/problems/binary-tree-vertical-order-traversal/ (medium) [tree, bfs]
+    public static List<List<Integer>> verticalOrderMed(TreeNode root) {
         TreeMap<Integer, List<Integer>> columns = new TreeMap<>();
         Queue<Pair<Integer, TreeNode>> q = new LinkedList<>();
         q.add(new Pair(0, root));
         while (!q.isEmpty()) {
             Pair<Integer, TreeNode> top = q.poll();
-            List<Integer> col = columns.get(top.getKey());
-            if (col == null) {
-                col = new ArrayList<>();
-                columns.put(top.getKey(), col);
-            }
-            col.add(top.getValue().key);
-            if (top.getValue().left != null) {
-                q.add(new Pair(top.getKey() - 1, top.getValue().left));
-            }
-            if (top.getValue().right != null) {
-                q.add(new Pair(top.getKey() + 1, top.getValue().right));
-            }
+            int i = top.getKey();
+            TreeNode node = top.getValue();
+            List<Integer> column = columns.computeIfAbsent(i, key -> new ArrayList<>());
+            column.add(node.key);
+            if (node.left != null) q.add(new Pair(i - 1, node.left));
+            if (node.right != null) q.add(new Pair(i + 1, node.right));
         }
         List<List<Integer>> result = new ArrayList<>();
-        for (var col : columns.values()) {
-            Collections.sort(col);
-            result.add(col);
-        }
-        return result;
-    }
-
-    // https://leetcode.com/problems/binary-tree-vertical-order-traversal/ (medium) [tree, bfs]
-    public static List<List<Integer>> verticalOrderMed(TreeNode root) {
-        TreeMap<Integer, List<Integer>> columns = new TreeMap<>();
-        Queue<Pair<Integer, TreeNode>> q = new LinkedList<>();
-        q.add(new Pair<>(0, root));
-        while (!q.isEmpty()) {
-            var top = q.poll();
-            var column = columns.computeIfAbsent(top.getKey(), (key) -> new ArrayList<>());
-            column.add(top.getValue().key);
-            if (top.getValue().left != null) q.add(new Pair<>(top.getKey() - 1, top.getValue().left));
-            if (top.getValue().right != null) q.add(new Pair<>(top.getKey() + 1, top.getValue().right));
-        }
-        List<List<Integer>> result = new ArrayList<>();
-        for (var c : columns.values()) {
+        for (List<Integer> c : columns.values()) {
             result.add(c);
         }
         return result;
     }
+
 
     private static Map<Integer, ArrayList<Pair<Integer, Integer>>> map = new HashMap<>();
     private static int minColumn = 0;
@@ -720,31 +730,131 @@ public class TreeNode {
         dfs(root.right, row + 1, col + 1);
     }
 
-    // leetcode 96): https://leetcode.com/problems/binary-tree-cameras/
+    // 968. Binary Tree Cameras
+    // https://leetcode.com/problems/binary-tree-cameras/
     public static int minCameraCover(TreeNode root) {
-        Set<TreeNode> cameras = new HashSet<>();
+//        Set<TreeNode> cameras = new HashSet<>();
+        cameraCount = 0;
         Set<TreeNode> covered = new HashSet<>();
         covered.add(null);
-        minCameraCoverDFS(root, null, cameras, covered);
-        return cameras.size() + (covered.contains(root) ? 0 : 1);
+        minCameraCoverDFS(null, root, covered);
+        return covered.contains(root) ? cameraCount : cameraCount + 1;
     }
+    private static int cameraCount = 0;
 
-    private static void minCameraCoverDFS(TreeNode node, TreeNode parent,  Set<TreeNode> cameras, Set<TreeNode> covered) {
+    private static void minCameraCoverDFS(TreeNode parent, TreeNode node, Set<TreeNode> covered) {
         if (node == null) return;
 
-        minCameraCoverDFS(node.left, node, cameras, covered);
-        minCameraCoverDFS(node.right, node, cameras, covered);
+        minCameraCoverDFS(node, node.left, covered);
+        minCameraCoverDFS(node, node.right, covered);
 
         if (!covered.contains(node.left) || !covered.contains(node.right)) {
-            cameras.add(node);
+            cameraCount++;
+            covered.add(node);
             covered.add(node.left);
             covered.add(node.right);
             covered.add(parent);
-            covered.add(node);
         }
-        return;
     }
 
-    // done
-    // https://leetcode.com/problems/binary-tree-right-side-view/ (medium) [tree, bfs]
+    // 199. Binary Tree Right Side View
+    // https://leetcode.com/problems/binary-tree-right-side-view/description/
+    public static List<Integer> rightSideView(TreeNode root) {
+        if (root == null) return List.of();
+        List<Integer> result = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        while (!q.isEmpty()) {
+            TreeNode top = q.poll();
+            if (top == null) continue;
+            if (top.left != null) q.offer(top.left);
+            if (top.right != null) q.offer(top.right);
+            if (q.peek() == null) {
+                result.add(top.key);
+                q.offer(null);
+            }
+        }
+        return result;
+    }
+
+    // 129. Sum Root to Leaf Numbers
+    // https://leetcode.com/problems/sum-root-to-leaf-numbers
+    public static int sumNumbers(TreeNode root) {
+        return sumNumbers(root, 0);
+    }
+
+    private static int sumNumbers(TreeNode root, int current) {
+        int value = 10 * current + root.key;
+
+        if (root.left == null && root.right == null) return value;
+
+        int left = root.left == null ? 0 : sumNumbers(root.left, value);
+        int right = root.right == null ? 0 : sumNumbers(root.right, value);
+        return left + right;
+    }
+
+    // 297. Serialize and Deserialize Binary Tree
+    // https://leetcode.com/problems/serialize-and-deserialize-binary-tree
+    public static String serialize(TreeNode root) {
+        if (root == null) return "";
+
+        List<String> tree = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            TreeNode top = q.poll();
+
+            if (top == null) {
+                tree.add("");
+                continue;
+            }
+            tree.add(String.valueOf(top.key));
+
+            q.add(top.left);
+            q.add(top.right);
+        }
+
+        return String.join(",", tree);
+    }
+
+    // Decodes your encoded data to tree.
+    public static TreeNode deserialize(String data) {
+        if (data.length() == 0) return null;
+
+        List<String> tree = Arrays.asList(data.split(","));
+
+        TreeNode root = new TreeNode(Integer.valueOf(tree.get(0)));
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        int offset = 1;
+
+        while (!q.isEmpty() && offset < tree.size()) {
+            TreeNode top = q.poll();
+
+            String leftString = tree.get(offset++);
+            String rightString = tree.get(offset++);
+
+            if (!leftString.isEmpty()) {
+                top.left = new TreeNode(Integer.valueOf(leftString));
+                q.add(top.left);
+            }
+            if (!rightString.isEmpty()) {
+                top.right = new TreeNode(Integer.valueOf(rightString));
+                q.add(top.right);
+            }
+        }
+
+        return root;
+    }
+
+    public static boolean equal(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) return true;
+        if (t1 == null || t2 == null) return false;
+
+        if (t1.key != t2.key) return false;
+
+        return equal(t1.left, t2. left) && equal(t1.right, t2.right);
+    }
 }

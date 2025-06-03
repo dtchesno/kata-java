@@ -37,6 +37,35 @@ public class DpSolution {
     // 300. Longest Increasing Subsequence
     // https://leetcode.com/problems/longest-increasing-subsequence/
     // [selected - 3]
+//    public static int lengthOfLIS(int[] array) {
+//        List<Integer> result = new ArrayList<>();
+//        result.add(array[0]);
+//
+//        for (int i = 1; i < array.length; i++) {
+//            if (array[i] > result.get(result.size() - 1)) {
+//                result.add(array[i]);
+//            } else {
+//                lengthOfLISInsert(array[i], result);
+//            }
+//        }
+//        return result.size();
+//    }
+//
+//    private static void lengthOfLISInsert(int value, List<Integer> result) {
+//        int left = 0;
+//        int right = result.size() - 1;
+//        while (left < right) {
+//            int mid = (left + right) / 2;
+//            if (value == result.get(mid)) {
+//                return;
+//            } else if (value < result.get(mid)) {
+//                right = mid;
+//            } else {
+//                left = mid + 1;
+//            }
+//        }
+//        result.set(left, value);
+//    }
     public static int lengthOfLIS(int[] array) {
         List<Integer> result = new ArrayList<>();
         result.add(array[0]);
@@ -44,20 +73,21 @@ public class DpSolution {
             if (array[i] > result.get(result.size() - 1)) {
                 result.add(array[i]);
             } else {
-                lengthOfLISInsert(result, array[i]);
+                lengthOfLISInsert(array[i], result);
             }
         }
         return result.size();
     }
 
-    private static void lengthOfLISInsert(List<Integer> result, int value) {
+    private static void lengthOfLISInsert(int value, List<Integer> result) {
         int left = 0;
         int right = result.size() - 1;
+
         while (left < right) {
             int mid = (left + right) / 2;
             if (value == result.get(mid)) {
                 return;
-            } else if (value < result.get(mid)) {
+            } if (value < result.get(mid)) {
                 right = mid;
             } else {
                 left = mid + 1;
@@ -86,8 +116,8 @@ public class DpSolution {
 
         mem[weight][i] = items[i][0] <= weight
                 ? Math.max(
-                        items[i][1] + knapsackDP(weight - items[i][0], items, i + 1, mem),
-                        knapsackDP(weight, items, i + 1, mem))
+                items[i][1] + knapsackDP(weight - items[i][0], items, i + 1, mem),
+                knapsackDP(weight, items, i + 1, mem))
                 : knapsackDP(weight, items, i + 1, mem);
 
         return mem[weight][i];
@@ -102,25 +132,25 @@ public class DpSolution {
         int[][][] mem = new int[matrix.length][matrix.length][];
         int len = matrix.length;
         int last = matrix[len - 1][len - 1];
-        mem[len - 1][len - 1] = last >= 0 ? new int[] { last, 0 } : new int[] { 0, last };
+        mem[len - 1][len - 1] = last >= 0 ? new int[]{last, 0} : new int[]{0, last};
         return maxMatrixProductDP(matrix, 0, 0, mem)[0];
     }
 
     // return int[2] max positive & min negative results
     private static int[] maxMatrixProductDP(int[][] matrix, int i, int j, int[][][] mem) {
         if (i == matrix.length || j == matrix.length) {
-            return new int[] { Integer.MIN_VALUE, Integer.MAX_VALUE };
+            return new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE};
         }
 
         if (mem[i][j] != null) return mem[i][j];
 
         int current = matrix[i][j];
-        int[] right = maxMatrixProductDP(matrix, i,j + 1, mem);
-        int[] down = maxMatrixProductDP(matrix, i + 1,j, mem);
+        int[] right = maxMatrixProductDP(matrix, i, j + 1, mem);
+        int[] down = maxMatrixProductDP(matrix, i + 1, j, mem);
 
         mem[i][j] = (current >= 0)
-                ? new int[] { current * Math.max(right[0], down[0]), current * Math.min(right[1], down[1])}
-                : new int[] { current * Math.min(right[1], down[1]), current * Math.max(right[0], down[0])};
+                ? new int[]{current * Math.max(right[0], down[0]), current * Math.min(right[1], down[1])}
+                : new int[]{current * Math.min(right[1], down[1]), current * Math.max(right[0], down[0])};
         return mem[i][j];
     }
 
@@ -131,7 +161,7 @@ public class DpSolution {
     // [selected - 1]
     public static int minChange(int sum, int[] coins) {
         int[] mem = new int[sum + 1];
-        for (int coin: coins) {
+        for (int coin : coins) {
             if (coin > sum) continue;
             mem[coin] = 1;
         }
@@ -171,7 +201,7 @@ public class DpSolution {
         char[] w1 = word1.toCharArray();
         char[] w2 = word2.toCharArray();
         int[][] mem = new int[w1.length + 1][w2.length + 1];
-        for (int[] arr: mem) {
+        for (int[] arr : mem) {
             Arrays.fill(arr, -1);
         }
         //return minDistanceDP(w1, w1.length, w2, w2. length, mem);
@@ -216,7 +246,7 @@ public class DpSolution {
     }
 
     private static int lcs(char[] word1, char[] word2, int i, int j, int[][] mem) {
-        if (i == word1.length || j== word2.length) {
+        if (i == word1.length || j == word2.length) {
             return 0;
         }
 
@@ -320,10 +350,10 @@ public class DpSolution {
         }
 
         mem[i][j] = matrix[i][j]
-            ? 1 + Math.min(squareSubMatrix(matrix, i + 1, j + 1, mem),
-                    Math.min(squareSubMatrix(matrix, i + 1, j, mem),
-                            squareSubMatrix(matrix, i, j + 1, mem)))
-            : 0;
+                ? 1 + Math.min(squareSubMatrix(matrix, i + 1, j + 1, mem),
+                Math.min(squareSubMatrix(matrix, i + 1, j, mem),
+                        squareSubMatrix(matrix, i, j + 1, mem)))
+                : 0;
 
         return mem[i][j];
     }
@@ -397,6 +427,7 @@ public class DpSolution {
     }
 
 
+    // 139. Word Break
     // https://leetcode.com/problems/word-break
     public static boolean wordBreak(String s, List<String> wordDict) {
         int[] mem = new int[s.length()];
@@ -404,16 +435,73 @@ public class DpSolution {
     }
 
     private static boolean wordBreakDP(String s, int offset, List<String> wordDict, int[] mem) {
-         if (offset == s.length()) return true;
-         if (mem[offset] != 0) return mem[offset] == 1;
+        if (offset == s.length()) return true;
+        if (mem[offset] != 0) return mem[offset] == 1;
 
-         mem[offset] = -1;
-         for (String w : wordDict) {
-             if (s.startsWith(w, offset) && wordBreakDP(s, offset + w.length(), wordDict, mem)) {
-                 mem[offset] = 1;
-                 break;
-             }
-         }
-         return mem[offset] == 1;
+        mem[offset] = -1;
+        for (String w : wordDict) {
+            if (s.startsWith(w, offset) && wordBreakDP(s, offset + w.length(), wordDict, mem)) {
+                mem[offset] = 1;
+                break;
+            }
+        }
+        return mem[offset] == 1;
     }
+
+    // 329. Longest Increasing Path in a Matrix
+    // https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/
+    public static int longestIncreasingPath(int[][] matrix) {
+        int[][] mem = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) Arrays.fill(mem[i], -1);
+
+        int max = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (mem[i][j] == -1) {
+                    mem[i][j] = longestIncreasingPathDP(-1, i, j, matrix, mem);
+                }
+                max = Math.max(max, mem[i][j]);
+            }
+        }
+        return max;
+    }
+
+    private static int longestIncreasingPathDP(int prev, int i, int j, int[][] matrix, int[][] mem) {
+        if (i < 0 || i == matrix.length || j < 0 || j == matrix[0].length || matrix[i][j] <= prev) return 0;
+        if (mem[i][j] != -1) return mem[i][j];
+
+        int left = longestIncreasingPathDP(matrix[i][j], i, j - 1, matrix, mem);
+        int right = longestIncreasingPathDP(matrix[i][j], i, j + 1, matrix, mem);
+        int up = longestIncreasingPathDP(matrix[i][j], i - 1, j, matrix, mem);
+        int down = longestIncreasingPathDP(matrix[i][j], i + 1, j, matrix, mem);
+
+        mem[i][j] = 1 + Math.max(left, Math.max(right, Math.max(up, down)));
+        return mem[i][j];
+    }
+
+    // 1216. Valid Palindrome III
+    // https://leetcode.com/problems/valid-palindrome-iii/description/
+//    public static boolean isValidPalindrome(String s, int k) {
+//        Map<Integer, Integer> mem = new HashMap<>();
+//        return isValidPalindromeDP(s, 0, s.length() - 1, k, mem);
+//    }
+//
+//    // "bacabaaa", 2
+//    private static boolean isValidPalindromeDP(String s, int start, int end, int k, Map<Integer, Boolean> mem) {
+//        if (start >= end) return true;
+//        if (k < 0) return false;
+//
+//        Integer k1 = mem.get(start * 10000 + end);
+//        if (k1 != null && ) return m;
+//
+//        boolean isValid;
+//        if (s.charAt(start) == s.charAt(end)) {
+//            isValid = isValidPalindromeDP(s, start + 1, end - 1, k, mem);
+//        } else {
+//            isValid = isValidPalindromeDP(s, start + 1, end, k - 1, mem)
+//                || isValidPalindromeDP(s, start, end - 1, k - 1, mem);
+//        }
+//        mem.put(start * 10000 + end, isValid);
+//        return isValid;
+//    }
 }

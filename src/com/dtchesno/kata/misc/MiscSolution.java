@@ -1,12 +1,13 @@
 package com.dtchesno.kata.misc;
 
+import org.apache.xmlbeans.impl.tool.StreamInstanceValidator;
+import org.junit.Assert;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Stack;
+import java.text.CollationElementIterator;
+import java.util.*;
 
 
 public class MiscSolution {
@@ -23,43 +24,6 @@ public class MiscSolution {
         }
         return balance == 0;
     }
-//    public static boolean areBracesBalanced(String str) {
-//        Stack<Character> s = new Stack<>();
-//
-//        for (char c : str.toCharArray()) {
-//            if (c == '(') {
-//                s.push(c);
-//            }
-//            if (c == ')') {
-//                if (s.isEmpty() || s.peek() != '(') {
-//                    return false;
-//                }
-//                s.pop();
-//            }
-//        }
-//
-//        return s.isEmpty();
-//    }
-
-//    public static boolean isBracesBalanced(String str) {
-//        int count = 0;
-//        for (char c: str.toCharArray()) {
-//            switch (c) {
-//                case '(':
-//                    count++;
-//                    break;
-//                case ')':
-//                    count--;
-//                    break;
-//                default:
-//                    return false;
-//            }
-//            if (count < 0) {
-//                return false;
-//            }
-//        }
-//        return count == 0;
-//    }
 
     private static class Pair {
         String first;
@@ -277,6 +241,8 @@ public class MiscSolution {
         return left;
     }
 
+
+    // 84. Largest Rectangle in Histogram
     // https://leetcode.com/problems/largest-rectangle-in-histogram/
     // use stack to store indices, starting with -1;
     // we use indices to calculate weight, height could be taken from input by popped index;
@@ -302,6 +268,8 @@ public class MiscSolution {
         return maxArea;
     }
 
+
+    // 42. Trapping Rain Water
     // https://leetcode.com/problems/trapping-rain-water/
     public static int trap(int[] heights) {
         int total = 0;
@@ -317,5 +285,94 @@ public class MiscSolution {
             s.push(i);
         }
         return total;
+    }
+
+
+    // 31. Next Permutation
+    // https://leetcode.com/problems/next-permutation
+    // 556. Next Greater Element III
+    // https://leetcode.com/problems/next-greater-element-iii
+    public static int nextLargestNumber(int input) {
+        List<Integer> digits = new ArrayList<>();
+
+        // 120 -> 0, 2, 1
+        while (input > 0) {
+            digits.add(input % 10);
+            input /= 10;
+        }
+
+        // find where to swap on high end - (i + 1)
+        int i = 0;
+        while (i + 1 < digits.size() && digits.get(i + 1) >= digits.get(i)) i++;
+        if (i + 1 == digits.size()) return -1;
+
+        // find where to swap on low end
+        int j = i;
+        while (j > 0 && digits.get(i + 1) < digits.get(j - 1)) j--;
+
+        // swap and revers
+        Collections.swap(digits, i + 1, j);
+        reverse(digits, 0, i);
+
+        long result = 0;
+        for (int k = digits.size() - 1; k >= 0; k--) {
+            result = result * 10 + digits.get(k);
+        }
+        return result > Integer.MAX_VALUE ? -1 : (int)result;
+    }
+
+    // 1842. Next Palindrome Using Same Digits
+    // https://leetcode.com/problems/next-palindrome-using-same-digits/description/
+    public static String nextPalindrome(String input) {
+        int number = Integer.parseInt(input.substring(0, input.length() / 2));
+        int nextNumber = nextLargestNumber(number);
+
+        if (nextNumber == -1) return "";
+
+        var sb = new StringBuilder();
+
+        // 123 -> 3, 2, 1 (low digits)
+        while (nextNumber != 0) {
+            sb.append(nextNumber % 10);
+            nextNumber /= 10;
+        }
+
+        String low = sb.toString();
+        String high = sb.reverse().toString();
+        String mid = input.length() % 2 == 1 ? String.valueOf(input.charAt(input.length() / 2 + 1)) : "";
+
+        return high + mid + low;
+    }
+
+    private static void swap(Integer[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    private static void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    // now reverse all digits up to i
+    private static void reverse(Integer[] array, int i, int j) {
+        while (i < j) {
+            swap(array, i++, j--);
+        }
+    }
+
+    // now reverse all digits up to i
+    private static void reverse(int[] array, int i, int j) {
+        while (i < j) {
+            swap(array, i++, j--);
+        }
+    }
+
+    private static void reverse(List<Integer> l, int i, int j) {
+        while (i < j) {
+            Collections.swap(l, i++, j--);
+        }
     }
 }

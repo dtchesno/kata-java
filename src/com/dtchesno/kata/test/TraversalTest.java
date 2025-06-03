@@ -1,12 +1,11 @@
 package com.dtchesno.kata.test;
 
-import com.dtchesno.kata.misc.MiscSolution;
-import com.dtchesno.kata.struct.ArrayStringTasks;
 import com.dtchesno.kata.traversal.Traversal;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 
 import java.util.Arrays;
 
@@ -23,7 +22,6 @@ public class TraversalTest {
     public void tearDown() throws Exception {
     }
 
-
     @Test
     public void testShortestDistance() {
         assertEquals(-1, Traversal.shortestDistance(new int[][] {{1}}));
@@ -39,10 +37,9 @@ public class TraversalTest {
 
     @Test
     public void testShortestPath() {
-        Assert.assertEquals(6, Traversal.shortestPath(new int[][] {
-                {0,0,0},{1,1,0}, {0,0,0}, {0,1,1},{0,0,0}}, 1));
-        Assert.assertEquals(-1, Traversal.shortestPath(new int[][] {
-                {0,1,1},{1,1,1}, {1,0,0}}, 1));
+        Assert.assertEquals(6, Traversal.shortestPath(new int[][] { {0,0,0},{1,1,0}, {0,0,0}, {0,1,1},{0,0,0}}, 1));
+        Assert.assertEquals(-1, Traversal.shortestPath(new int[][] { {0,1,1},{1,1,1}, {1,0,0}}, 1));
+        Assert.assertEquals(13, Traversal.shortestPath(new int[][] {  {0,1,0,0,0,1,0,0},{0,1,0,1,0,1,0,1},{0,0,0,1,0,0,1,0} }, 1));
     }
 
     @Test
@@ -70,5 +67,26 @@ public class TraversalTest {
         Assert.assertFalse(Traversal.isValidNumber("95a54e53"));
         Assert.assertFalse(Traversal.isValidNumber("e"));
         Assert.assertFalse(Traversal.isValidNumber("."));
+    }
+
+    @Test
+    public void testShortestPathBinaryMatrix() {
+        Assert.assertEquals(2, Traversal.shortestPathBinaryMatrix(new int [][] {{0,1},{1,0}}));
+        Assert.assertEquals(4, Traversal.shortestPathBinaryMatrix(new int [][] {{0,0,0},{1,1,0},{1,1,0}}));
+        Assert.assertEquals(-1, Traversal.shortestPathBinaryMatrix(new int [][] {{1,0,0},{1,1,0},{1,1,0}}));
+    }
+
+    @Test
+    public void testFindBuildings() {
+        assertTrue(Arrays.equals(new int[] {0,2,3}, Traversal.findBuildings(new int[] {4,2,3,1})));
+        assertTrue(Arrays.equals(new int[] {0,1,2,3}, Traversal.findBuildings(new int[] {4,3,2,1})));
+        assertTrue(Arrays.equals(new int[] {3}, Traversal.findBuildings(new int[] {1,3,2,4})));
+    }
+
+    @Test
+    public void testLargestIsland() {
+        assertEquals(3, Traversal.largestIsland(new int[][] {{1, 0}, {0, 1}}));
+        assertEquals(4, Traversal.largestIsland(new int[][] {{1, 1}, {1, 0}}));
+        assertEquals(4, Traversal.largestIsland(new int[][] {{1, 1}, {1, 1}}));
     }
 }

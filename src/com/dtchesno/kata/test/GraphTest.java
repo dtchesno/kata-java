@@ -100,10 +100,8 @@ public class GraphTest {
 
     @Test
     public void testBuildOrder() {
-        assertEquals(Arrays.asList(0, 1, 2, 3, 4),
-                Graph.buildOrder(new int[][] { {}, {0}, {0}, {1,2}, {3} }));
-        assertEquals(Arrays.asList(3, 0, 1, 2, 4),
-                Graph.buildOrder(new int[][] { {3}, {0}, {0}, {}, {3} }));
+        assertEquals(Arrays.asList(0, 1, 2, 3, 4), Graph.buildOrder(new int[][] { {}, {0}, {0}, {1,2}, {3} }));
+        assertEquals(Arrays.asList(3, 0, 1, 2, 4), Graph.buildOrder(new int[][] { {3}, {0}, {0}, {}, {3} }));
     }
 
     @Test

@@ -86,12 +86,20 @@ public class RecursionTest {
     }
 
     @Test
-    public void testCalculator() {
+    public void testCalculator3() {
         Calculator calc = new Calculator();
-        assertEquals(2, calc.calculate("1 +1"));
-        assertEquals(3, calc.calculate(" 2-1 + 2 "));
-        assertEquals(23, calc.calculate("(1+(4+5+2)-3)+(6+8)"));
-        assertEquals(4, calc.calculate("6-4/2"));
-        assertEquals(21, calc.calculate("2*(5+5*2)/3+(6/2+8)"));
+        assertEquals(2, calc.calculate3("1 +1"));
+        assertEquals(3, calc.calculate3(" 2-1 + 2 "));
+        assertEquals(23, calc.calculate3("(1+(4+5+2)-3)+(6+8)"));
+        assertEquals(4, calc.calculate3("6-4/2"));
+        assertEquals(21, calc.calculate3("2*(5+5*2)/3+(6/2+8)"));
+    }
+
+    @Test
+    public void testCalculator2() {
+        Calculator calc = new Calculator();
+        assertEquals(7, calc.calculate2("3 +2*2"));
+        assertEquals(1, calc.calculate2(" 3/2 "));
+        assertEquals(5, calc.calculate2(" 3+5 / 2"));
     }
 }

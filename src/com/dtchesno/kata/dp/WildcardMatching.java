@@ -15,8 +15,6 @@ public class WildcardMatching {
     }
 
     private static int isMatchDP(String s, String p, int i, int j, int[][] mem) {
-        if (i > s.length() || j > p.length()) return -1;
-
         if (mem[i][j] != 0) return mem[i][j];
 
         if (i == s.length() && j == p.length()) {
@@ -24,13 +22,25 @@ public class WildcardMatching {
         } else if (j == p.length()) {
             mem[i][j] = -1;
         } else if (p.charAt(j) == '*') {
-            mem[i][j] = Math.max(isMatchDP(s, p, i, j + 1, mem), isMatchDP(s, p, i + 1, j, mem));
-        } else if (i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '?')) {
-            mem[i][j] = isMatchDP(s, p, i + 1, j + 1, mem);
+            mem[i][j] = Math.max(
+                isMatchDP(s, p, i, j + 1, mem),
+                i < s.length() ? isMatchDP(s, p, i + 1, j, mem) : -1);
         } else {
-            mem[i][j] = -1;
+            mem[i][j] = (i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '?'))
+                ? isMatchDP(s, p, i + 1, j + 1, mem)
+                : -1;
         }
 
         return mem[i][j];
     }
 }
+
+
+
+
+
+
+
+
+
+

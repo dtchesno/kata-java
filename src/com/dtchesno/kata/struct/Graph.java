@@ -1,5 +1,6 @@
 package com.dtchesno.kata.struct;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Graph {
@@ -215,6 +216,7 @@ public class Graph {
     }
 
 
+    // 802. Find Eventual Safe States
     // https://leetcode.com/articles/find-eventual-safe-states/
     public static Integer[] listEventualSafeNodes(int[][] g) {
         List<Integer> result = new ArrayList<>();
@@ -264,6 +266,7 @@ public class Graph {
     }
 
 
+    // 787. Cheapest Flights Within K Stops
     // find cheapest price from src to dst up to k stops in directed weighted graph
     // e.g. [[0,1,100], [1,2,100], [0,2,500]], src=0, dst=2, k=1; result=200 (0->1->2)
     // https://leetcode.com/problems/cheapest-flights-within-k-stops/
@@ -434,26 +437,27 @@ public class Graph {
     }
 
 
+    // 785. Is Graph Bipartite?
     // https://leetcode.com/problems/is-graph-bipartite/submissions/
     public static boolean isBipartite(int[][] graph) {
         int[] state = new int[graph.length];
         Arrays.fill(state, -1);
-        for (int v = 0; v < graph.length; v++) {
-            if (state[v] != -1) continue;
-            state[v] = 0;
-            if (!isBipartiteDFS(v, graph, state)) return false;
+        for (int u = 0; u < graph.length; u++) {
+            if (state[u] != -1) continue;
+            state[u] = 0;
+            if (!isBipartiteDFS(u, graph, state)) return false;
         }
         return true;
     }
 
-    private static boolean isBipartiteDFS(int v, int[][] graph, int[] state) {
-        for (int u : graph[v]) {
-            if (state[u] != -1) {
-                if (state[v] == state[u]) return false;
-                continue;
+    private static boolean isBipartiteDFS(int u, int[][] graph, int[] state) {
+        for (int v : graph[u]) {
+            if (state[u] == state[v]) {
+                return false;
+            } else if (state[v] == -1) {
+                state[v] = (state[u] + 1) % 2;
+                if (!isBipartiteDFS(v, graph, state)) return false;
             }
-            state[u] = (state[v] + 1) % 2;
-            if (!isBipartiteDFS(u, graph, state)) return false;
         }
         return true;
     }

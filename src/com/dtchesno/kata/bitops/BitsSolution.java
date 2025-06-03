@@ -6,8 +6,13 @@ public class BitsSolution {
     // Cracking... 5.1 pg.133
     // [selected - 1]
     // Input: N=10000000000,M=10011,i=2,j=6 Output:N = 10001001100
+    //
+    // j=3, i=2
+    // 10
+    // 10 + 1 = 11
+    // 11 - 1 = 10
     public static int replace(int n, int m, int i, int j) {
-        int mask = (1 << (j - i) + 1) - 1;
+        int mask = (1 << (j - i + 1)) - 1;
 
         // this is what we want to apply as patch
         m &= mask;
@@ -23,34 +28,31 @@ public class BitsSolution {
     // print decimal string in binary format; e.g. 3.5 -> 11.1 (2 + 1 + 1/2)
     // Cracking... 5.2 pg.133
     public static String printBinary(String n) {
-        int decPos = n.indexOf('.');
-        int intPart = Integer.parseInt(n.substring(0, decPos ));
-        double decPart = Double.parseDouble(n.substring(decPos , n.length()));
+        int dotPos = n.indexOf('.');
+        int intPart = Integer.parseInt(n.substring(0, dotPos));
+        double doublePart = Double.parseDouble(n.substring(dotPos));
 
-        // have to be reversed at the end
-        StringBuffer intString = new StringBuffer();
+        StringBuilder intSB = new StringBuilder();
         while (intPart > 0) {
-            intString.append(intPart & 1);
-            intPart >>= 1;
+            intSB.append(intPart & 1);
+            intPart >>>= 1;
         }
 
-        StringBuffer decString = new StringBuffer();
-        while (decPart > 0) {
-            if (decString.length() > 32) {
-                return "ERROR";
-            }
-            decPart *= 2;
-            if (decPart >= 1 ) {
-                decString.append('1');
-                decPart -= 1;
+        StringBuilder doubleSB = new StringBuilder();
+        while (doublePart > 0) {
+            doublePart *= 2;
+            if (doublePart >= 1) {
+                doubleSB.append('1');
+                doublePart -= 1;
             } else {
-                decString.append('0');
+                doubleSB.append('0');
             }
+            if (doubleSB.length() > 32) return "ERROR";
         }
 
-        String i = intString.reverse().toString();
-        String d = decString.toString();
-        return (i.length() > 0 ? i : "0") + '.' + (d.length() > 0 ? d : "0");
+        String left = intSB.length() > 0 ? intSB.reverse().toString() : "0";
+        String right = doubleSB.length() > 0 ? doubleSB.toString() : "0";
+        return left + "." + right;
     }
 
     // return prev & next numbers with same number of 1 bits
@@ -140,7 +142,7 @@ public class BitsSolution {
             missing ^= i;
             missing ^= array[i];
         }
-        return missing ^= array.length;
+        return missing ^ array.length;
     }
 
     // Aziz 12.10 pg 203
@@ -213,5 +215,40 @@ public class BitsSolution {
         int lower = value & mask;
         int upper = value & (~mask);
         return (lower << (32 - n)) | (upper >>> n);
+    }
+
+
+    /**
+     * COMMON BIT TASKS!!!
+     */
+
+    public static boolean getBitB(int num, int i) {
+        return (num & (1 << i)) != 0;
+    }
+
+    public static int setBit(int num, int i) {
+        return num | (1 << i);
+    }
+
+    public static int clearBit(int num, int i) {
+        int mask = ~(1 << i);
+        return num & mask;
+    }
+
+    public static int toggleBit(int num, int i) {
+        int mask = (1 << i);
+        return num ^ mask;
+    }
+
+    // i - inclusive
+    public int clearBitsHigh(int num, int i) {
+        int mask = (1 << i) - 1;
+        return num & mask;
+    }
+
+    // i - inclusive
+    public int clearBitsLow(int num, int i) {
+        int mask = ~((1 << (i + 1)) - 1);
+        return num & mask;
     }
 }

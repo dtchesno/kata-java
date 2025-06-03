@@ -34,11 +34,12 @@ public class PatternMatching {
         } else if (j == p.length()) {
             mem[i][j] = -1;
         } else {
-            boolean isMatch = i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.');
-            if (j + 1 < p.length() && p.charAt(j + 1) == '*') {
+            boolean isMatch = (i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.'));
+            if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
                 mem[i][j] = Math.max(
-                        isMatch(s, p, i, j + 2, mem),
-                        isMatch ? isMatch(s, p, i + 1, j, mem) : -1);
+                    isMatch(s, p, i, j + 2, mem),               // skip '*'
+                    isMatch ? isMatch(s, p, i + 1, j, mem) : -1 // use '.*'
+                );
             } else {
                 mem[i][j] = isMatch ? isMatch(s, p, i + 1, j + 1, mem) : -1;
             }

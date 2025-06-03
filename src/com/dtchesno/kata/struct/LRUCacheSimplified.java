@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class LRUCacheSimplified {
+public class LRUCacheSimplified implements ILRUCache {
 
     private static class Entry extends Pair<Integer, Integer> {
         Entry(int key, int value) {

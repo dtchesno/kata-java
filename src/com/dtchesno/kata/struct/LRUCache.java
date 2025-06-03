@@ -2,7 +2,7 @@ package com.dtchesno.kata.struct;
 
 import java.util.LinkedHashMap;
 
-public class LRUCache {
+public class LRUCache implements ILRUCache {
 
     private int capacity;
     private LinkedHashMap<Integer, Integer> cache = new LinkedHashMap<>();
@@ -26,9 +26,9 @@ public class LRUCache {
         }
         cache.put(key, value);
         if (cache.size() > capacity) {
-            var it = cache.keySet().iterator();
-            it.next();
-            it.remove();
+           var it = cache.keySet().iterator();
+           it.next();
+           it.remove();
         }
     }
 

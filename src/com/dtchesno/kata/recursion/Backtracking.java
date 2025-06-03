@@ -1,20 +1,21 @@
 package com.dtchesno.kata.recursion;
 
-import com.ibm.icu.lang.UCharacterEnums;
-
 import java.util.*;
 
 public class Backtracking {
 
+    private static final int[][] directions = new int[][] { {0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+
+    // 301. Remove Invalid Parentheses
     // https://leetcode.com/problems/remove-invalid-parentheses/ (hard) [backtracking, bfs]
     public static List<String> removeInvalidParentheses(String s) {
-        Set<String> result = new HashSet<>();
         int left = 0;
         int right = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
+
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
                 left++;
-            } else if (s.charAt(i) == ')') {
+            } else if (c == ')') {
                 if (left > 0) {
                     left--;
                 } else {
@@ -22,17 +23,17 @@ public class Backtracking {
                 }
             }
         }
+        List<String> result = new ArrayList<>();
         removeInvalidParenthesesBT(new StringBuilder(s), 0, 0, left, right, result);
-        return new ArrayList<>(result);
+        return result;
     }
 
-    private static void removeInvalidParenthesesBT(StringBuilder sb, int offset, int balance, int left, int right, Set<String> result) {
+    private static void removeInvalidParenthesesBT(StringBuilder sb, int offset, int balance, int left, int right, List<String> result) {
         if (offset == sb.length()) {
-            if (balance == 0) {
-                result.add(sb.toString());
-            }
+            if (balance == 0) result.add(sb.toString());
             return;
         }
+
         char c = sb.charAt(offset);
         if (c == '(') {
             removeInvalidParenthesesBT(sb, offset + 1, balance + 1, left, right, result);
@@ -56,7 +57,8 @@ public class Backtracking {
     }
 
 
-    // leetcode 39 - https://leetcode.com/problems/combination-sum/description/
+    // 39. Combination Sum
+    // https://leetcode.com/problems/combination-sum/description/
     // backtracking vs DP - we look for ALL unique combinations
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
@@ -68,25 +70,20 @@ public class Backtracking {
 
     private static void combinationSumBT(int[] candidates, int target, List<Integer> acc, List<List<Integer>> result) {
         if (target == 0) {
-            if (!acc.isEmpty()) {
-                result.add(new ArrayList<>(acc));
-            }
+            result.add(new ArrayList<>(acc));
             return;
         }
-        for (int i = 0; i < candidates.length; i++) {
-            if (candidates[i] > target) {
-                break;
-            }
-            if (!acc.isEmpty() && candidates[i] < acc.get(acc.size() - 1)) {
-                continue;
-            }
-            acc.add(candidates[i]);
-            combinationSumBT(candidates, target - candidates[i], acc, result);
+
+        for (int c : candidates) {
+            if (c > target) break;
+            if (!acc.isEmpty() && c < acc.get(acc.size() - 1)) continue;
+            acc.add(c);
+            combinationSumBT(candidates, target - c, acc, result);
             acc.remove(acc.size() - 1);
         }
     }
 
-
+    // 79. Word Search
     // leetcode 79 - https://leetcode.com/problems/word-search/description/
     // Using backtrack approach since we need to 'test' all possible start points before we found the word exists
     // or return false if not.
@@ -102,18 +99,14 @@ public class Backtracking {
     }
 
     private static boolean wordSearchExistBT(char[][] board, String word, int offset, int i, int j) {
-        if (offset == word.length()) {
-            return true;
-        }
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || word.charAt(offset) != board[i][j]) {
-            return false;
-        }
+        if (offset == word.length()) return true;
+        if (i < 0 || i == board.length || j < 0 || j == board[0].length|| board[i][j] != word.charAt(offset)) return false;
+
         board[i][j] = '$';
-        if (wordSearchExistBT(board, word, offset + 1, i - 1, j)
-                || wordSearchExistBT(board, word, offset + 1, i, j - 1)
-                || wordSearchExistBT(board, word, offset + 1, i + 1, j)
-                || wordSearchExistBT(board, word, offset + 1, i, j + 1)) {
-            return true;
+        for (int[] d : directions) {
+            int i1 = i + d[0];
+            int j1 = j + d[1];
+            if (wordSearchExistBT(board, word, offset + 1, i1, j1)) return true;
         }
         board[i][j] = word.charAt(offset);
         return false;

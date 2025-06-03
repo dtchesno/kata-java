@@ -4,6 +4,7 @@ import java.util.*;
 
 public class RecursionSolution {
 
+    // permute braces
     public static List<String> permuteBraces(int n) {
         List<String> result = new ArrayList<>();
         permuteBraces(n, n, "", result);
@@ -15,14 +16,10 @@ public class RecursionSolution {
             result.add(str);
             return;
         }
-        if (l > 0) {
-            permuteBraces(l - 1, r, str + "(", result);
-        }
-        if (r > 0 && r > l) {
-            permuteBraces(l, r - 1, str + ")", result);
-        }
-        return;
+        if (l > 0) permuteBraces(l - 1, r, str + "(", result);
+        if (r > l) permuteBraces(l, r - 1, str + ")", result);
     }
+
 
     // reverse stack: byte-by-byte #20
     // sort stacks: byte-by-byte #28

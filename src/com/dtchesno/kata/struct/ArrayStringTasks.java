@@ -1,6 +1,5 @@
 package com.dtchesno.kata.struct;
 
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ArrayStringTasks {
@@ -9,21 +8,22 @@ public class ArrayStringTasks {
     // {1, 2, 3, 4, 5, 6, 7}, 4 -> {4, 5, 6, 7, 1, 2, 3}
     // [selected - 2]
     public static int[] rotateRight(int[] arr, int k) {
-        reverse(arr, 0, arr.length - k - 1);
+        reverse(arr, 0, arr.length - 1 - k);
         reverse(arr, arr.length - k, arr.length - 1);
         reverse(arr, 0, arr.length - 1);
         return arr;
     }
 
-    private static void reverse(int[] arr, int i, int j) {
-        while (i < j) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-            i++;
-            j--;
+    private static void reverse(int[] arr, int left, int right) {
+        while (left < right) {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
         }
     }
+
 
     // reverse all words in sentence
     // Aziz 7.6 pg.101
@@ -58,6 +58,7 @@ public class ArrayStringTasks {
         }
     }
 
+
     // convert to/from Roman
     // [selected - 3]
     public static String toRoman(int number) {
@@ -66,10 +67,10 @@ public class ArrayStringTasks {
         StringBuffer result = new StringBuffer();
         for (int i = 0; i < values.length && number > 0; i++) {
             int k = number / values[i];
-            number %= values[i];
             while (k-- > 0) {
                 result.append(digits[i]);
             }
+            number %= values[i];
         }
         return result.toString();
     }
@@ -125,69 +126,80 @@ public class ArrayStringTasks {
     // Input: s = "axxxxyyyyb", part = "xy" => Output: "ab"
     // https://leetcode.com/problems/remove-all-occurrences-of-a-substring/
     public static String removeOccurrences(String s, String part) {
-        if (part.length() > s.length()) {
-            return s;
-        }
-
-        if (part.equals(s)) {
-            return "";
-        }
-
-        int phash = 0;
-        int power = 1;
-        for (int i = 0; i < part.length(); i++) {
-            phash = phash * 26 + part.charAt(i);
-            if (i > 0) {
-                power *= 26;
-            }
-        }
+        if (part.length() > s.length()) return s;
 
         StringBuilder sb = new StringBuilder(s);
-        int[] shash = new int[sb.length()];
-        int pos = 0;
-        while (pos < sb.length()) {
-            // update shash
-            shash[pos] = 0;
-            if (pos >= part.length()) {
-                shash[pos] = shash[pos - 1] - (sb.charAt(pos - part.length())) * power;
-            } else {
-                shash[pos] = (pos == 0) ? 0 : shash[pos - 1];
+        int i = part.length();
+        do {
+            while (i - part.length() >= 0 && sb.substring(i - part.length(), i).equals(part)) {
+                sb.delete(i - part.length(), i);
+                i -= part.length();
             }
-            shash[pos] = shash[pos] * 26 + sb.charAt(pos);
-
-            // check hash and part match
-            if (shash[pos] == phash && part.equals(sb.substring(pos + 1 - part.length(), pos + 1))) {
-                sb.delete(pos + 1 - part.length(), pos + 1);
-                pos -= part.length();
-            }
-            pos++;
-        }
-
-        String remainder = sb.toString();
-        return remainder.equals(part) ? "" : remainder;
+            i++;
+        } while (i <= sb.length());
+        return sb.toString();
     }
+//    public static String removeOccurrences(String s, String part) {
+//        if (part.length() > s.length()) {
+//            return s;
+//        }
+//
+//        if (part.equals(s)) {
+//            return "";
+//        }
+//
+//        int phash = 0;
+//        int power = 1;
+//        for (int i = 0; i < part.length(); i++) {
+//            phash = phash * 26 + part.charAt(i);
+//            if (i > 0) {
+//                power *= 26;
+//            }
+//        }
+//
+//        StringBuilder sb = new StringBuilder(s);
+//        int[] shash = new int[sb.length()];
+//        int pos = 0;
+//        while (pos < sb.length()) {
+//            // update shash
+//            shash[pos] = 0;
+//            if (pos >= part.length()) {
+//                shash[pos] = shash[pos - 1] - (sb.charAt(pos - part.length())) * power;
+//            } else {
+//                shash[pos] = (pos == 0) ? 0 : shash[pos - 1];
+//            }
+//            shash[pos] = shash[pos] * 26 + sb.charAt(pos);
+//
+//            // check hash and part match
+//            if (shash[pos] == phash && part.equals(sb.substring(pos + 1 - part.length(), pos + 1))) {
+//                sb.delete(pos + 1 - part.length(), pos + 1);
+//                pos -= part.length();
+//            }
+//            pos++;
+//        }
+//
+//        String remainder = sb.toString();
+//        return remainder.equals(part) ? "" : remainder;
+//    }
 
 
     // find any subarray which sum == 0
     // byte-by-byte #11 pg.11
+    // https://www.byte-by-byte.com/zerosum/
     // [selected - 2]
     public static int[] findZeroSum(int[] a) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
+
         int sum = 0;
-        int i = -1;
-        int j = 0;
-        for (; j < a.length; j++) {
-            sum += a[j];
-            if (map.containsKey(sum)) {
-                i = map.get(sum) + 1;
-                break;
+        for (int i = 0; i < a.length; i++) {
+            sum += a[i];
+            Integer j = map.get(sum);
+            if (j != null) {
+                return Arrays.copyOfRange(a, j + 1, i + 1);
             }
-            map.put(sum, j);
+            map.put(sum, i);
         }
-        if (i == -1) {
-            return new int[0];
-        }
-        return Arrays.copyOfRange(a, i, j + 1);
+        return new int[0];
     }
 
 
@@ -217,29 +229,40 @@ public class ArrayStringTasks {
     }
 
     // Byte-by-byte pg.5
+    // 4. Median of Two Sorted Arrays
     // leetcode: https://leetcode.com/problems/median-of-two-sorted-arrays/description/
     // move along arrays - find left and right (could be the same - single element); take med of elements
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int iLeft = (nums1.length + nums2.length - 1) / 2;
+        int iLeft = (nums1.length + nums2.length) / 2 - 1;
+        int left = -1;
         int i = 0;
         int j = 0;
-        int left = 0;
+
         while (i + j <= iLeft) {
             if (i == nums1.length) {
                 left = nums2[j++];
             } else if (j == nums2.length) {
                 left = nums1[i++];
-            } else if (nums1[i] <= nums2[j]) {
+            } else if (nums1[i] < nums2[j]) {
                 left = nums1[i++];
             } else {
                 left = nums2[j++];
             }
         }
 
-        if ((nums1.length + nums2.length) % 2 == 1) return left;
+        int right = -1;
 
-        int right = i == nums1.length ? nums2[j] : j == nums2.length ? nums1[i] : Math.min(nums1[i], nums2[j]);
-        return ((double) left + right) / 2;
+        if (i == nums1.length) {
+            right = nums2[j++];
+        } else if (j == nums2.length) {
+            right = nums1[i++];
+        } else if (nums1[i] < nums2[j]) {
+            right = nums1[i++];
+        } else {
+            right = nums2[j++];
+        }
+
+        return ((nums1.length + nums2.length) % 2 == 0) ? ((double) left + right) / 2 : right;
     }
 
 
@@ -269,70 +292,41 @@ public class ArrayStringTasks {
         return resultList.stream().mapToInt(i -> i).toArray();
     }
 
+    // 128. Longest Consecutive Sequence
     // leetcode: https://leetcode.com/problems/longest-consecutive-sequence/description/
     public static int longestConsecutive(int[] nums) {
-        HashSet<Integer> map = new HashSet<>();
-
-        for (int val : nums) {
-            map.add(val);
+        Set<Integer> cache = new HashSet<>();
+        for (int n : nums) {
+            cache.add(n);
         }
 
         int maxLen = 0;
-        for (int val : nums) {
-            // value already part of some sequence
-            if (!map.contains(val)) {
-                continue;
-            }
+        for (int n : nums) {
+            if (!cache.contains(n)) continue;
 
-            // will try to expand from here, so, start with len 1
+            // look left & right
             int len = 1;
-
-            // go forward
-            int next = val + 1;
-            while (map.contains(next)) {
-                map.remove(next);
-                next++;
+            int prev = n;
+            while (cache.contains(prev - 1)) {
                 len++;
-            }
-
-            // go backward
-            int prev = val - 1;
-            while (map.contains(prev)) {
-                map.remove(prev);
                 prev--;
-                len++;
+                cache.remove(prev);
             }
-
+            prev = n;
+            while (cache.contains(prev + 1)) {
+                len++;
+                prev++;
+                cache.remove(prev);
+            }
+            cache.remove(n);
             maxLen = Math.max(maxLen, len);
         }
-
         return maxLen;
     }
 
-//    public static int longestConsecutive(int[] nums) {
-//        Set<Integer> cache = new TreeSet<>();
-//        for (int n : nums) {
-//            cache.add(n);
-//        }
-//
-//        int maxLen = 0;
-//        int len = 1;
-//        int prev = Integer.MIN_VALUE;
-//        for (int n : cache) {
-//            if (n == prev + 1) {
-//                len++;
-//                prev = n;
-//                maxLen = Math.max(maxLen, len);
-//            } else {
-//                maxLen = Math.max(maxLen, len);
-//                len = 1;
-//                prev = n;
-//            }
-//        }
-//        return maxLen;
-//    }
 
-    // leetcode: https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
+    // 438. Find All Anagrams in a String
+    // https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
     // build byte array for ASCII (256); set counts per char index; iterate and compare arrays; one in - one out
     public static List<Integer> findAnagrams(String s, String p) {
         if (p.isEmpty() || p.length() > s.length()) {
@@ -362,6 +356,28 @@ public class ArrayStringTasks {
 
         return result;
     }
+
+//    public static List<Integer> findAnagrams(String s, String p) {
+//        int bufLength = 'z' - 'a' + 1;
+//        int[] sBuf = new int[bufLength];
+//        int[] pBuf = new int[bufLength];
+//        for (int i = 0; i < p.length(); i++) {
+//            sBuf[s.charAt(i) - 'a']++;
+//            pBuf[s.charAt(i) - 'a']++;
+//        }
+//
+//        List<Integer> result = new ArrayList<>();
+//        for (int i = 0; i <= s.length() - p.length(); i++) { // i < 7
+//            if (Arrays.equals(sBuf, pBuf)) {
+//                result.add(i);
+//            }
+//            sBuf[s.charAt(i) - 'a']--;
+//            if (i + p.length() < s.length()) {
+//                sBuf[s.charAt(i + p.length()) - 'a']++;
+//            }
+//        }
+//        return result;
+//    }
 
     // while not checking arrays every time, it has cost to call update method;
     // leetcode shows slightly lower perf
@@ -464,72 +480,35 @@ public class ArrayStringTasks {
 
     // 2402. Meeting Rooms III
     // https://leetcode.com/problems/meeting-rooms-iii/
-//    public static int mostBooked(int n, int[][] meetings) {
-//        // sort meetings by start date
-//        List<int[]> _meetings = new ArrayList<>();
-//        for (int[] m : meetings) {
-//            _meetings.add(m);
-//        }
-//        Collections.sort(_meetings, (a, b) -> a[0] - b[0]);
-//
-//        // room queues: (id, available time)
-//        Queue<int[]> available = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-//        Queue<int[]> inUse = new PriorityQueue<>((a, b) -> a[1] != b[1] ? a[1] - b[1] : a[0] - b[0]);
-//        for (int i = 0; i < n; i++) {
-//            available.add(new int[] { i, 0 });
-//        }
-//
-//        int[] count = new int[n];
-//        for (int[] m : _meetings) {
-//            while (!inUse.isEmpty() && inUse.peek()[1] <= m[0]) {
-//                available.add(inUse.poll());
-//            }
-//            if (available.isEmpty()) available.add(inUse.poll());
-//
-//            int[] room = available.poll();
-//            count[room[0]]++;
-//            //room[1] = m[1];
-//            room[1] = room[1] <= m[0] ? m[1] : m[1] + (room[1] - m[0]);
-//            inUse.add(room);
-//        }
-//
-//        int iMax = 0;
-//        int max = count[iMax];
-//        for (int i = 1; i < n; i++) {
-//            if (count[i] > max) {
-//                iMax = i;
-//                max = count[iMax];
-//            }
-//        }
-//        return iMax;
-//    }
-
     public static int mostBooked(int n, int[][] meetings) {
-        List<int[]> _meetings = new ArrayList<>();
-        for (var m : meetings) {
-            _meetings.add(m);
-        }
-        Collections.sort(_meetings, (a, b) -> a[0] - b[0]);
+        Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
 
-        // room queues: (id, available time)
-        Queue<int[]> available = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        Queue<int[]> inUse = new PriorityQueue<>((a, b) -> a[1] != b[1] ? a[1] - b[1] : a[0] - b[0]);
+        // rooms - id, available time
+        PriorityQueue<int[]> available = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        PriorityQueue<int[]> inUse = new PriorityQueue<>((a, b) -> a[1] != b[1] ? a[1] - b[1] : a[0] - b[0]);
+
         for (int i = 0; i < n; i++) {
             available.add(new int[] { i, 0 });
         }
 
+        // keep track on number of meetings in the room
         int[] count = new int[n];
-        for (int[] m : _meetings) {
-            while (!inUse.isEmpty() && inUse.peek()[1] <= m[0]) {
+
+        for (int[] m : meetings) {
+
+            // release room which are free before next meeting starts
+            while (!inUse.isEmpty() && inUse.peek()[1] <= m[1]) {
                 available.add(inUse.poll());
             }
+
+            // if no rooms available, pull 'best room, meeting will be delayed
             if (available.isEmpty()) available.add(inUse.poll());
 
             int[] room = available.poll();
-            count[room[0]]++;
-            //room[1] = m[1];
-            room[1] = room[1] <= m[0] ? m[1] : m[1] + (room[1] - m[0]);
+            int start = Math.max(m[0], room[1]);
+            room[1] = start + m[1] - m[0];
             inUse.add(room);
+            count[room[0]]++;
         }
 
         int iMax = 0;
@@ -543,6 +522,7 @@ public class ArrayStringTasks {
         return iMax;
     }
 
+    // 300. Longest Increasing Subsequence
     // https://leetcode.com/problems/longest-increasing-subsequence/
     public static int longestIncreasingSubseq(int[] seq) {
         List<Integer> result = new ArrayList<>();
@@ -575,113 +555,237 @@ public class ArrayStringTasks {
     }
 
 
-    // 76 https://leetcode.com/problems/minimum-window-substring
-    // debt: a->0, b->-1, total = 0
-    // "acbbaca"
-    // "aba"
-    // queue: 0->a, 2->b, 3->b, 4->a
-    // result: acbba
+    // 76. Minimum Window Substring
+    // https://leetcode.com/problems/minimum-window-substring
+    // move left & right pointers; keep found count & dictionaries on S & T counts up-to-data
     public static String minWindow(String s, String t) {
-        if (s.length() == 0 || t.length() == 0) return "";
-
         Map<Character, Integer> dictT = new HashMap<>();
         for (char c : t.toCharArray()) {
-            int count = dictT.getOrDefault(c, 0);
-            dictT.put(c, count + 1);
+            dictT.put(c, dictT.getOrDefault(c, 0) + 1);
         }
 
         String minWindow = null;
         int left = 0;
         int right = 0;
         int found = 0;
-        Map<Character, Integer> dictW = new HashMap<>();
+        Map<Character, Integer> dictS = new HashMap<>();
+
         while (right < s.length()) {
             char c = s.charAt(right);
-            int count = dictW.getOrDefault(c, 0);
-            dictW.put(c, count + 1);
 
-            if (dictT.get(c) == dictW.get(c)) found++;
+            if (!dictT.containsKey(c)) {
+                right++;
+                continue;
+            }
+
+            int count = dictS.getOrDefault(c, 0) + 1;
+            dictS.put(c, count);
+
+            if (count == dictT.get(c)) found++;
 
             while (left <= right && found == dictT.size()) {
+                char c2 = s.charAt(left);
+
+                if (!dictT.containsKey(c2)) {
+                    left++;
+                    continue;
+                }
+
                 if (minWindow == null || minWindow.length() > right - left + 1) {
                     minWindow = s.substring(left, right + 1);
                 }
-                char c2 = s.charAt(left);
-                dictW.put(c2, dictW.get(c2) - 1);
-                if (dictT.containsKey(c2) && dictW.get(c2) < dictT.get(c2)) found--;
+
+                int count2 = dictS.getOrDefault(c2, 0) - 1;
+                dictS.put(c2, count2);
+
+                if (count2 < dictT.get(c2)) found--;
+
                 left++;
             }
+
             right++;
         }
+
         return minWindow != null ? minWindow : "";
     }
 
-//    public static String minWindow(String s, String t) {
-//        Map<Character, Integer> debt = new HashMap<>();
-//        for (char c : t.toCharArray()) {
-//            debt.put(c, debt.getOrDefault(c, 0) + 1);
-//        }
-//
-//        String minWindow = "";
-//        int remainedDebt = t.length();
-//        LinkedList<int[]> match = new LinkedList<>();
-//        for (int i = 0; i < s.length(); i++) {
-//            char c = s.charAt(i);
-//            if (!debt.containsKey(c)) {
-//                continue;
-//            }
-//            match.add(new int[] { i, s.charAt(i) });
-//
-//            int currentCharDebt = debt.get(c) - 1;
-//            debt.put(c, currentCharDebt);
-//
-//            // keep going, we already done with char
-//            if (currentCharDebt < 0) {
-//                continue;
-//            }
-//
-//            remainedDebt--;
-//
-//            if (remainedDebt == 0) {
-//                minWindow = getMinWindowAndDrain(minWindow, s, match, debt);
-//
-//                // we removed some chars from the beginning and owe again
-//                remainedDebt = 1;
-//            }
-//        }
-//
-//        return minWindow;
-//    }
-//
-//    private static String getMinWindowAndDrain(
-//            String currentMinWindow,
-//            String s,
-//            LinkedList<int[]> match,
-//            Map<Character, Integer> debt) {
-//
-//        // drain match list while debt is negative, as no impact on match window
-//        while (!match.isEmpty()) {
-//            char ch = (char)match.getFirst()[1];
-//            int d = debt.get(ch);
-//            if (d == 0) {
-//                break;
-//            }
-//            debt.put(ch, d + 1);
-//            match.remove();
-//        }
-//
-//        // now, get current match window
-//        String window = s.substring(match.getFirst()[0], match.getLast()[0] + 1);
-//
-//        // lastly remove first char in match list which brings debt to 1 to slide further
-//        char firstChar = (char)match.getFirst()[1];
-//        debt.put(firstChar, 1);
-//        match.remove();
-//
-//        return window.length() < currentMinWindow.length() || currentMinWindow.equals("") ? window : currentMinWindow;
-//    }
+
+    // 443. String Compression
+    // https://leetcode.com/problems/string-compression
+    public static int compressString(char[] chars) {
+        var sb = new StringBuilder();
+        int count = 1;
+        char lastChar = chars[0];
+        for (int i = 1; i < chars.length; i++) {
+            if (chars[i] == lastChar) {
+                count++;
+            } else {
+                sb.append(lastChar).append(count);
+                lastChar = chars[i];
+                count = 1;
+            }
+        }
+        sb.append(lastChar).append(count);
+        for (int i = 0; i < sb.length(); i++) {
+            chars[i] = sb.charAt(i);
+        }
+        return sb.length();
+    }
+
+
+    // 38. Count and Say
+    // https://leetcode.com/problems/count-and-say
+    public static String countAndSay(int n) {
+        if (n == 1) return "1";
+
+        String base = countAndSay(n - 1);
+        var result = new StringBuilder();
+        char current = base.charAt(0);
+        int count = 1;
+
+        for (int i = 1; i < base.length(); i++) {
+            char c = base.charAt(i);
+            if (c == current) {
+                count++;
+            } else {
+                result.append(count).append(current);
+                current = c;
+                count = 1;
+            }
+        }
+        result.append(count).append(current);
+        return result.toString();
+    }
+
+    // simplifyPath
+    // 71. Simplify Path
+    // https://leetcode.com/problems/simplify-path/ (medium) [string, stack]
+    public static String simplifyPath(String path) {
+        final String CURRENT_DIR = ".";
+        final String PARENT_DIR = "..";
+
+        String[] originalElements = path.split("/");
+        List<String> elements = new ArrayList<>();
+
+        for (String e : originalElements) {
+            switch (e) {
+                case "":
+                    // skip multiple '/'
+                    break;
+                case CURRENT_DIR:
+                    // skip multiple '.'
+                    break;
+                case PARENT_DIR:
+                    if (!elements.isEmpty()) elements.remove(elements.size() - 1);
+                    break;
+                default:
+                    elements.add(e);
+            }
+        }
+
+        return "/" + String.join("/", elements);
+    }
+
+    // 1249. Minimum Remove to Make Valid Parentheses
+    // https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses
+    public static String minRemoveToMakeValid(String s) {
+        StringBuilder sb = minRemoveToMakeValidRemoveInvalidClosing(s, '(', ')');
+        sb = minRemoveToMakeValidRemoveInvalidClosing(sb.reverse().toString(), ')', '(');
+        return sb.reverse().toString();
+    }
+
+    private static StringBuilder minRemoveToMakeValidRemoveInvalidClosing(String s, char open, char close) {
+        StringBuilder sb = new StringBuilder();
+        int balance = 0;
+        for (char c : s.toCharArray()) {
+            if (c == open) {
+                balance++;
+            } else if (c == close) {
+                if (balance == 0) continue;
+                balance--;
+            }
+            sb.append(c);
+        }
+        return sb;
+    }
+
+    public static int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+        for (int i = 0; i < nums.length; i++) {
+            q.add(nums[i]);
+            if (q.size() > k) q.poll();
+        }
+        return q.peek();
+    }
+
+    // 560. Subarray Sum Equals K
+    // https://leetcode.com/problems/subarray-sum-equals-k
+    public static int subarraySum(int[] nums, int k) {
+        int count = 0;
+        int sum = 0;
+
+        // sum -> count
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            count += map.getOrDefault(sum - k, 0);
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+        return count;
+    }
+
+    // 56. Merge Intervals
+    // https://leetcode.com/problems/merge-intervals
+    public static int[][] mergeIntervals(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        List<int[]> result = new ArrayList<>();
+        int[] current = intervals[0];
+        result.add(current);
+        for (int i = 1; i < intervals.length; i++) {
+            if (current[1] >= intervals[i][0]) {
+                current[1] = Math.max(current[1], intervals[i][1]);
+            } else {
+                current = intervals[i];
+                result.add(current);
+            }
+        }
+        return result.toArray(new int[result.size()][]);
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    // dvdf
+    // longestSubstring = 3
+    // start = 1
+    // map = {v,1} {d,2}
+    // i = 3
+    public static int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) return 0;
+
+        int longestSubstring = 1;
+        Map<Character, Integer> map = new HashMap<>();
+        int start = 0;
+        map.put(s.charAt(0), 0);
+
+        for (int i = 1; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                int j = map.remove(c);
+                if (j >= start) start = j + 1;
+            }
+            longestSubstring = Math.max(longestSubstring, i - start + 1);
+            map.put(c, i);
+        }
+        return longestSubstring;
+    }
 
     // done
     // https://leetcode.com/problems/valid-number/ (hard) [string, dfa]
-    // https://leetcode.com/problems/simplify-path/ (medium) [string, stack]
+    // https://leetcode.com/problems/nested-list-weight-sum/ (medium)
 }
