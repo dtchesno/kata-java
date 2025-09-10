@@ -392,28 +392,25 @@ public class TreeNode {
     // https://leetcode.com/problems/find-distance-in-a-binary-tree/
     // [selected - 1]
     public static int distance(TreeNode root, TreeNode node1, TreeNode node2) {
-        if (node1 == node2) {
-            return 0;
-        }
+        if (node1 == node2) return 0;
         int[] d = distanceH(root, node1, node2);
         return d[0] + d[1];
     }
 
-    private static int[] distanceH(TreeNode node, TreeNode p, TreeNode q) {
-        if (node == null) return new int[] { -1, -1 };
+    private static int[] distanceH(TreeNode root, TreeNode node1, TreeNode node2) {
+        if (root == null) return new int[] {-1,-1};
 
-        int[] left = distanceH(node.left, p, q);
+        int[] left = distanceH(root.left, node1, node2);
         if (left[0] != -1 && left[1] != -1) return left;
 
-        int[] right = distanceH(node.right, p, q);
+        int[] right = distanceH(root.right, node1, node2);
         if (right[0] != -1 && right[1] != -1) return right;
 
         int d1 = Math.max(left[0], right[0]);
         int d2 = Math.max(left[1], right[1]);
-
         return new int[] {
-            node == p ? 0 : d1 != -1 ? d1 + 1 : -1,
-            node == q ? 0 : d2 != -1 ? d2 + 1 : -1
+            root == node1 ? 0 : (d1 != -1) ? d1 + 1: -1,
+            root == node2 ? 0 : (d2 != -1) ? d2 + 1: -1,
         };
     }
 
@@ -541,7 +538,6 @@ public class TreeNode {
         if (isBoundary || node.left == null && node.right == null) result.add(node.key);
     }
 
-
     private static boolean isLeaf(TreeNode node) {
         return node != null && node.left == null && node.right == null;
     }
@@ -598,13 +594,13 @@ public class TreeNode {
     private static int findLcaDfs(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) return 0;
 
-        int lCount = findLcaDfs(root.left, p, q);
-        if (lCount == 2) return 2;
+        int left = findLcaDfs(root.left, p, q);
+        if (left == 2) return 2;
 
-        int rCount = findLcaDfs(root.right, p, q);
-        if (rCount == 2) return 2;
+        int right = findLcaDfs(root.right, p, q);
+        if (right == 2) return 2;
 
-        int count = (root == p || root == q ? 1 : 0) + lCount + rCount;
+        int count = (left + right) + (root == p || root == q ? 1 : 0);
         if (count == 2) sLca = root;
         return count;
     }
@@ -640,7 +636,7 @@ public class TreeNode {
         var right = lcaDeepestLeavesDFS(root.right, level + 1);
         if (left.getKey() > right.getKey()) return left;
         if (right.getKey() > left.getKey()) return right;
-        return new Pair<>(left.getKey(), root);
+        return new Pair(left.getKey(), root);
     }
 
 
@@ -733,28 +729,25 @@ public class TreeNode {
     // 968. Binary Tree Cameras
     // https://leetcode.com/problems/binary-tree-cameras/
     public static int minCameraCover(TreeNode root) {
-//        Set<TreeNode> cameras = new HashSet<>();
-        cameraCount = 0;
         Set<TreeNode> covered = new HashSet<>();
         covered.add(null);
-        minCameraCoverDFS(null, root, covered);
-        return covered.contains(root) ? cameraCount : cameraCount + 1;
+        int count = minCameraCoverDFS(null, root, covered);
+        return covered.contains(root) ? count : count + 1;
     }
-    private static int cameraCount = 0;
 
-    private static void minCameraCoverDFS(TreeNode parent, TreeNode node, Set<TreeNode> covered) {
-        if (node == null) return;
+    private static int minCameraCoverDFS(TreeNode parent, TreeNode node, Set<TreeNode> covered) {
+        if (node == null) return 0;
 
-        minCameraCoverDFS(node, node.left, covered);
-        minCameraCoverDFS(node, node.right, covered);
+        int count = 0;
+        count += minCameraCoverDFS(node, node.left, covered);
+        count += minCameraCoverDFS(node, node.right, covered);
 
         if (!covered.contains(node.left) || !covered.contains(node.right)) {
-            cameraCount++;
+            count++;
             covered.add(node);
-            covered.add(node.left);
-            covered.add(node.right);
             covered.add(parent);
         }
+        return count;
     }
 
     // 199. Binary Tree Right Side View
@@ -777,6 +770,7 @@ public class TreeNode {
         }
         return result;
     }
+
 
     // 129. Sum Root to Leaf Numbers
     // https://leetcode.com/problems/sum-root-to-leaf-numbers
@@ -823,7 +817,7 @@ public class TreeNode {
     public static TreeNode deserialize(String data) {
         if (data.length() == 0) return null;
 
-        List<String> tree = Arrays.asList(data.split(","));
+        List<String> tree = Arrays.asList(data.split(",", -1));
 
         TreeNode root = new TreeNode(Integer.valueOf(tree.get(0)));
         Queue<TreeNode> q = new LinkedList<>();

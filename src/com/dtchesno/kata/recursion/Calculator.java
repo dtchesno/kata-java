@@ -1,5 +1,7 @@
 package com.dtchesno.kata.recursion;
 
+import com.intellij.util.xml.converters.values.CharacterValueConverter;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -15,41 +17,48 @@ public class Calculator {
                 q.add(c);
             }
         }
-        q.add('+');
         return calculate3(q);
     }
 
     private int calculate3(Queue<Character> q) {
         Stack<Integer> s = new Stack<>();
-        char sign = '+';
         int value = 0;
+        char sign = '+';
 
         while (!q.isEmpty()) {
             char c = q.poll();
 
             if (c == '(') {
                 value = calculate3(q);
+            } else if (c == ')') {
+                break;
             } else if (Character.isDigit(c)) {
                 value = value * 10 + (c - '0');
             } else {
-                if (sign == '+') {
-                    s.push(value);
-                } else if (sign == '-') {
-                    s.push(-value);
-                } else if (sign == '*') {
-                    s.push(s.pop() * value);
-                } else if (sign == '/') {
-                    s.push(s.pop() / value);
-                }
-                if (c == ')') break;
-                sign = c;
+                calculate3PushValue(s, sign, value);
                 value = 0;
+                sign = c;
             }
         }
+        calculate3PushValue(s, sign, value);
 
         int result = 0;
-        while (!s.isEmpty()) result += s.pop();
+        while (!s.isEmpty()) {
+            result += s.pop();
+        }
         return result;
+    }
+
+    private static void calculate3PushValue(Stack<Integer> s, char sign, int value) {
+        if (sign == '+') {
+            s.push(value);
+        } else if (sign == '-') {
+            s.push(-value);
+        } else if (sign == '*') {
+            s.push(s.pop() * value);
+        } else if (sign == '/') {
+            s.push(s.pop() / value);
+        }
     }
 
 

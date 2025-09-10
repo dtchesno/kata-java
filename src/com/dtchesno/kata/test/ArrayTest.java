@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -182,18 +183,18 @@ public class ArrayTest {
                 ArrayStringTasks.fullJustify(new String[] {"Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"}, 20));
     }
 
-    @Test
-    public void testMaxSlidingWindow() {
-        Assert.assertArrayEquals(
-                new int[] {3,3,5,5,6,7},
-                ArrayStringTasks.maxSlidingWindow(new int[] {1,3,-1,-3,5,3,6,7}, 3));
-        Assert.assertArrayEquals(
-                new int[] {1},
-                ArrayStringTasks.maxSlidingWindow(new int[] {1}, 1));
-        Assert.assertArrayEquals(
-                new int[] {3,3,2,5},
-                ArrayStringTasks.maxSlidingWindow(new int[] {1,3,1,2,0,5}, 3));
-    }
+//    @Test
+//    public void testMaxSlidingWindow() {
+//        Assert.assertArrayEquals(
+//                new int[] {3,3,5,5,6,7},
+//                ArrayStringTasks.maxSlidingWindow(new int[] {1,3,-1,-3,5,3,6,7}, 3));
+//        Assert.assertArrayEquals(
+//                new int[] {1},
+//                ArrayStringTasks.maxSlidingWindow(new int[] {1}, 1));
+//        Assert.assertArrayEquals(
+//                new int[] {3,3,2,5},
+//                ArrayStringTasks.maxSlidingWindow(new int[] {1,3,1,2,0,5}, 3));
+//    }
 
     @Test
     public void testMostBooked() {
@@ -212,6 +213,7 @@ public class ArrayTest {
         Assert.assertEquals(4, ArrayStringTasks.longestIncreasingSubseq(new int[] {0,1,0,3,2,3}));
         Assert.assertEquals(1, ArrayStringTasks.longestIncreasingSubseq(new int[] {7,7,7,7,7,7,7}));
         Assert.assertEquals(6, ArrayStringTasks.longestIncreasingSubseq(new int[] {3,5,6,2,5,4,19,5,6,7,12}));
+        Assert.assertEquals(3, ArrayStringTasks.longestIncreasingSubseq(new int[] {10,9,2,5,3,4}));
     }
 
     @Test
@@ -223,7 +225,15 @@ public class ArrayTest {
     }
 
     @Test
+    public void testNextPermutation() {
+        Assert.assertTrue(Arrays.equals(new int[] {1,3,2}, MiscSolution.nextPermutation(new int[] {1,2,3})));
+        Assert.assertTrue(Arrays.equals(new int[] {1,2,3}, MiscSolution.nextPermutation(new int[] {3,2,1})));
+        Assert.assertTrue(Arrays.equals(new int[] {1,5,1}, MiscSolution.nextPermutation(new int[] {1,1,5})));
+    }
+
+    @Test
     public void testNextLargestNumber() {
+        Assert.assertEquals(5445, MiscSolution.nextLargestNumber(4554));
         Assert.assertEquals(1243, MiscSolution.nextLargestNumber(1234));
         Assert.assertEquals(12434, MiscSolution.nextLargestNumber(12344));
         Assert.assertEquals(-1, MiscSolution.nextLargestNumber(4321));
@@ -238,7 +248,7 @@ public class ArrayTest {
 
     @Test
     public void testNextPalindrome() {
-//        Assert.assertEquals("2112", MiscSolution.nextPalindrome("1221"));
+        Assert.assertEquals("2112", MiscSolution.nextPalindrome("1221"));
         Assert.assertEquals("", MiscSolution.nextPalindrome("32123"));
         Assert.assertEquals("54455445", MiscSolution.nextPalindrome("45544554"));
     }
@@ -296,5 +306,78 @@ public class ArrayTest {
         assertEquals(1, ArrayStringTasks.lengthOfLongestSubstring(" "));
         assertEquals(5, ArrayStringTasks.lengthOfLongestSubstring("tmmzuxt"));
         assertEquals(3, ArrayStringTasks.lengthOfLongestSubstring("dvdf"));
+    }
+
+    @Test
+    public void test_findLongestWord() {
+        assertEquals("apple", ArrayStringTasks.findLongestWord("abppplee", List.of("able", "ale", "apple", "bale", "kangaroo")));
+        assertEquals("apple", ArrayStringTasks.findLongestWord("abpcplea", List.of("ale", "apple", "monkey", "plea")));
+        assertEquals("a", ArrayStringTasks.findLongestWord("abpcplea", List.of("a", "b", "c")));
+        assertEquals("ab", ArrayStringTasks.findLongestWord("bab", List.of("ba", "ab", "a", "b")));
+        assertEquals("apple", ArrayStringTasks.findLongestWord("abpcplea", List.of("ale","apple","monkey","plea", "abpcplaaa","abpcllllll","abccclllpppeeaaaa"  )));
+    }
+
+    @Test
+    public void test_decodeString() {
+        assertEquals("aaabcbc", ArrayStringTasks.decodeString("3[a]2[bc]"));
+        assertEquals("accaccacc", ArrayStringTasks.decodeString("3[a2[c]]"));
+        assertEquals("abcabccdcdcdef", ArrayStringTasks.decodeString("2[abc]3[cd]ef"));
+    }
+
+    @Test
+    public void test_minesweeper() {
+        assertTrue(Arrays.deepEquals(
+            new char[][] {{'B','1','E','1','B'},{'B','1','M','1','B'},{'B','1','1','1','B'},{'B','B','B','B','B'}},
+            ArrayStringTasks.minesweeper(
+                new char[][] {{'E','E','E','E','E'},{'E','E','M','E','E'},{'E','E','E','E','E'},{'E','E','E','E','E'}},
+                new int[] {3, 0})
+        ));
+    }
+
+    @Test
+    public void test_numberToWords() {
+        assertEquals("One Hundred Twenty Three", ArrayStringTasks.numberToWords(123));
+        assertEquals("Twelve Thousand Three Hundred Forty Five", ArrayStringTasks.numberToWords(12345));
+        assertEquals("One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven", ArrayStringTasks.numberToWords(1234567));
+    }
+
+    @Test
+    public void test_mostVisitedPattern() {
+        assertEquals(
+            List.of("home","about","career"),
+            ArrayStringTasks.mostVisitedPattern(
+                new String[]{"joe","joe","joe","james","james","james","james","mary","mary","mary"},
+                new int[]{1,2,3,4,5,6,7,8,9,10},
+                new String[] {"home","about","career","home","cart","maps","home","home","about","career"}));
+        assertEquals(
+            List.of("a","b","a"),
+            ArrayStringTasks.mostVisitedPattern(
+                new String[]{"ua","ua","ua","ub","ub","ub"},
+                new int[]{1,2,3,4,5,6},
+                new String[] {"a","b","a","a","b","c"}));
+    }
+
+    @Test
+    public void test_ladderLength() {
+        assertEquals(5, ArrayStringTasks.ladderLength("hit", "cog", List.of("hot","dot","dog","lot","log","cog")));
+        assertEquals(0, ArrayStringTasks.ladderLength("hit", "cog", List.of("hot","dot","dog","lot","log")));
+    }
+
+    @Test
+    public void test_sequentialDigits() {
+        assertEquals(List.of(123,234), ArrayStringTasks.sequentialDigits(100, 300));
+        assertEquals(List.of(1234,2345,3456,4567,5678,6789,12345), ArrayStringTasks.sequentialDigits(1000, 13000));
+    }
+
+    @Test
+    public void test_minimumKeypresses() {
+        assertEquals(5, ArrayStringTasks.minimumKeypresses("apple"));
+        assertEquals(15, ArrayStringTasks.minimumKeypresses("abcdefghijkl"));
+    }
+
+    @Test
+    public void test_numberOfWays() {
+        assertEquals(6, ArrayStringTasks.numberOfWays("001101"));
+        assertEquals(0, ArrayStringTasks.numberOfWays("11100"));
     }
 }

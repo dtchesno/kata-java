@@ -6,7 +6,6 @@ import org.junit.Assert;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.CollationElementIterator;
 import java.util.*;
 
 
@@ -290,59 +289,103 @@ public class MiscSolution {
 
     // 31. Next Permutation
     // https://leetcode.com/problems/next-permutation
+    public static int[] nextPermutation(int[] nums) {
+        // i - where we need to put greater element
+        int i = nums.length - 1;
+        while (i > 0 && nums[i] <= nums[i - 1]) i--;
+        i--;
+
+        if (i == -1) {
+            reverse(nums,0, nums.length - 1);
+            return nums;
+        }
+
+        // 1,(i,2),3
+        // j - which element to swap with
+        int j = nums.length - 1;
+        while (j >= 0 && nums[i] >= nums[j]) j--;
+
+        swap(nums, i, j);
+        reverse(nums, i + 1, nums.length - 1);
+
+        return nums;
+    }
+
     // 556. Next Greater Element III
     // https://leetcode.com/problems/next-greater-element-iii
     public static int nextLargestNumber(int input) {
         List<Integer> digits = new ArrayList<>();
 
-        // 120 -> 0, 2, 1
+        // digits (lowest at beginning)
         while (input > 0) {
             digits.add(input % 10);
             input /= 10;
         }
 
-        // find where to swap on high end - (i + 1)
+        // i - largest to move back
         int i = 0;
-        while (i + 1 < digits.size() && digits.get(i + 1) >= digits.get(i)) i++;
-        if (i + 1 == digits.size()) return -1;
+        while (i < digits.size() - 1 && digits.get(i) <= digits.get(i + 1)) i++;
+        i++;
+        if (i == digits.size()) return -1;
 
-        // find where to swap on low end
-        int j = i;
-        while (j > 0 && digits.get(i + 1) < digits.get(j - 1)) j--;
+        // j - where to put ith, all left (inverted) <=, all right >
+        int j = 0;
+        while (digits.get(j) <= digits.get(i)) j++;
 
-        // swap and revers
-        Collections.swap(digits, i + 1, j);
-        reverse(digits, 0, i);
+        // swap i & j, and revert left (inverted up to i)
+        Collections.swap(digits, i, j);
+        Collections.reverse(digits.subList(0, i));
 
         long result = 0;
         for (int k = digits.size() - 1; k >= 0; k--) {
             result = result * 10 + digits.get(k);
         }
-        return result > Integer.MAX_VALUE ? -1 : (int)result;
+        return result > Integer.MAX_VALUE ? -1 : (int) result;
     }
+
 
     // 1842. Next Palindrome Using Same Digits
     // https://leetcode.com/problems/next-palindrome-using-same-digits/description/
+//    public static String nextPalindrome(String input) {
+//        int number = Integer.parseInt(input.substring(0, input.length() / 2));
+//        int next = nextLargestNumber(number);
+//
+//        if (next == -1) return "";
+//
+//        // 12321; 21 -> 1,2
+//        var sb = new StringBuilder();
+//        while (next != 0) {
+//            sb.append(next % 10);
+//            next /= 10;
+//        }
+//        String low = sb.toString();
+//        String high = sb.reverse().toString();
+//        String mid = input.length() % 2 == 1 ? String.valueOf(input.charAt(input.length() / 2)) : "";
+//        return high + mid + low;
+//    }
     public static String nextPalindrome(String input) {
-        int number = Integer.parseInt(input.substring(0, input.length() / 2));
-        int nextNumber = nextLargestNumber(number);
+        // take high part - it's palindrome
+        char[] digits = input.substring(0, input.length() / 2).toCharArray();
 
-        if (nextNumber == -1) return "";
+        // do the same as next permutation, but not inverted
+        int i = digits.length - 1;
+        while (i > 0 && digits[i] <= digits[i -1]) i--;
+        i--;
+        if (i < 0) return "";
 
-        var sb = new StringBuilder();
+        int j = digits.length - 1;
+        while (digits[j] <= digits[i]) j--;
 
-        // 123 -> 3, 2, 1 (low digits)
-        while (nextNumber != 0) {
-            sb.append(nextNumber % 10);
-            nextNumber /= 10;
-        }
+        swap(digits, i, j);
+        reverse(digits, i + 1, digits.length - 1);
 
-        String low = sb.toString();
-        String high = sb.reverse().toString();
-        String mid = input.length() % 2 == 1 ? String.valueOf(input.charAt(input.length() / 2 + 1)) : "";
-
+        StringBuilder sb = new StringBuilder(new String(digits));
+        String high = sb.toString();
+        String low = sb.reverse().toString();
+        String mid = input.length() % 2 == 0 ? "" : String.valueOf(input.charAt(input.length() / 2 + 1));
         return high + mid + low;
     }
+
 
     private static void swap(Integer[] array, int i, int j) {
         int temp = array[i];
@@ -356,6 +399,18 @@ public class MiscSolution {
         array[j] = temp;
     }
 
+    private static void swap(char[] array, int i, int j) {
+        char temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    private static <T> void swap(T[] array, int i, int j) {
+        T temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
     // now reverse all digits up to i
     private static void reverse(Integer[] array, int i, int j) {
         while (i < j) {
@@ -363,8 +418,20 @@ public class MiscSolution {
         }
     }
 
-    // now reverse all digits up to i
     private static void reverse(int[] array, int i, int j) {
+        while (i < j) {
+            swap(array, i++, j--);
+        }
+    }
+
+    private static void reverse(char[] array, int i, int j) {
+        while (i < j) {
+            swap(array, i++, j--);
+        }
+    }
+
+    // now reverse all digits up to i
+    private static <T> void reverse(T[] array, int i, int j) {
         while (i < j) {
             swap(array, i++, j--);
         }

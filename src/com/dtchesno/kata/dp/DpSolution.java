@@ -1,5 +1,8 @@
 package com.dtchesno.kata.dp;
 
+import javafx.util.Pair;
+import org.jvnet.staxex.BinaryText;
+
 import java.util.*;
 
 public class DpSolution {
@@ -37,35 +40,6 @@ public class DpSolution {
     // 300. Longest Increasing Subsequence
     // https://leetcode.com/problems/longest-increasing-subsequence/
     // [selected - 3]
-//    public static int lengthOfLIS(int[] array) {
-//        List<Integer> result = new ArrayList<>();
-//        result.add(array[0]);
-//
-//        for (int i = 1; i < array.length; i++) {
-//            if (array[i] > result.get(result.size() - 1)) {
-//                result.add(array[i]);
-//            } else {
-//                lengthOfLISInsert(array[i], result);
-//            }
-//        }
-//        return result.size();
-//    }
-//
-//    private static void lengthOfLISInsert(int value, List<Integer> result) {
-//        int left = 0;
-//        int right = result.size() - 1;
-//        while (left < right) {
-//            int mid = (left + right) / 2;
-//            if (value == result.get(mid)) {
-//                return;
-//            } else if (value < result.get(mid)) {
-//                right = mid;
-//            } else {
-//                left = mid + 1;
-//            }
-//        }
-//        result.set(left, value);
-//    }
     public static int lengthOfLIS(int[] array) {
         List<Integer> result = new ArrayList<>();
         result.add(array[0]);
@@ -95,6 +69,7 @@ public class DpSolution {
         }
         result.set(left, value);
     }
+
 
     // knapsack 0-1 (each item could be taken 0 or 1 times)
     // Aziz 17.6 pg.317
@@ -155,6 +130,7 @@ public class DpSolution {
     }
 
 
+    // 322. Coin Change
     // find min # of coins to change amount
     // https://leetcode.com/problems/coin-change/
     // byte-by-byte #26 pg.25
@@ -233,6 +209,7 @@ public class DpSolution {
     }
 
 
+    // 1143. Longest Common Subsequence
     // https://leetcode.com/problems/longest-common-subsequence
     public static int longestCommonSubsequence(String text1, String text2) {
         int[][] mem = new int[text1.length()][text2.length()];
@@ -265,44 +242,39 @@ public class DpSolution {
     }
 
 
+    // 72. Edit Distance
     // find min # of operations (insert, delete, replace) to make word1 & word2 the same
     // https://leetcode.com/problems/edit-distance/
     // [selected - 1]
     public static int minDistance(String word1, String word2) {
-        int[][] mem = new int[word1.length()][word2.length()];
-        for (int i = 0; i < mem.length; i++) {
-            for (int j = 0; j < mem[0].length; j++) {
-                mem[i][j] = -1;
-            }
+        int[][] dp = new int[word1.length()][word2.length()];
+        for (int i = 0; i < dp.length; i++) {
+            Arrays.fill(dp[i], -1);
         }
-        minDistanceDP(word1, word2, 0, 0, mem);
-        return mem[0][0];
+        minDistanceDP(word1, word2, 0, 0, dp);
+        return dp[0][0];
     }
 
-    private static int minDistanceDP(String word1, String word2, int i, int j, int[][] mem) {
-        if (i == word1.length()) {
-            return word2.length() - j;
-        }
-        if (j == word2.length()) {
-            return word1.length() - i;
-        }
-        if (mem[i][j] != -1) {
-            return mem[i][j];
-        }
+    private static int minDistanceDP(String word1, String word2, int i, int j, int[][] dp) {
+        if (i == word1.length()) return word2.length() - j;
+        if (j == word2.length()) return word1.length() - i;
+
+        if (dp[i][j] != -1) return dp[i][j];
+
         if (word1.charAt(i) == word2.charAt(j)) {
-            mem[i][j] = minDistanceDP(word1, word2, i + 1, j + 1, mem);
+            dp[i][j] = minDistanceDP(word1, word2, i + 1, j + 1, dp);
         } else {
             // delete/insert
             int d1 = Math.min(
-                    minDistanceDP(word1, word2, i + 1, j, mem),
-                    minDistanceDP(word1, word2, i, j + 1, mem));
+                minDistanceDP(word1, word2, i + 1, j, dp),
+                minDistanceDP(word1, word2, i, j + 1, dp)
+            );
 
-            // replace
-            int d2 = minDistanceDP(word1, word2, i + 1, j + 1, mem);
+            int d2 = minDistanceDP(word1, word2, i + 1, j + 1, dp);
 
-            mem[i][j] = Math.min(d1, d2) + 1;
+            dp[i][j] = 1 + Math.min(d1, d2);
         }
-        return mem[i][j];
+        return dp[i][j];
     }
 
 
@@ -448,34 +420,34 @@ public class DpSolution {
         return mem[offset] == 1;
     }
 
+
     // 329. Longest Increasing Path in a Matrix
     // https://leetcode.com/problems/longest-increasing-path-in-a-matrix/description/
     public static int longestIncreasingPath(int[][] matrix) {
         int[][] mem = new int[matrix.length][matrix[0].length];
-        for (int i = 0; i < matrix.length; i++) Arrays.fill(mem[i], -1);
-
-        int max = 0;
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (mem[i][j] == -1) {
-                    mem[i][j] = longestIncreasingPathDP(-1, i, j, matrix, mem);
-                }
-                max = Math.max(max, mem[i][j]);
+        for (int i = 0; i < mem.length; i++) {
+            Arrays.fill(mem[i], -1);
+        }
+        int maxPath = Integer.MIN_VALUE;
+        for (int i = 0; i < mem.length; i++) {
+            for (int j = 0; j < mem[0].length; j++) {
+                mem[i][j] = longestIncreasingPathDP(-1, i, j, matrix, mem);
+                maxPath = Math.max(maxPath, mem[i][j]);
             }
         }
-        return max;
+        return maxPath;
     }
 
     private static int longestIncreasingPathDP(int prev, int i, int j, int[][] matrix, int[][] mem) {
         if (i < 0 || i == matrix.length || j < 0 || j == matrix[0].length || matrix[i][j] <= prev) return 0;
+
         if (mem[i][j] != -1) return mem[i][j];
 
         int left = longestIncreasingPathDP(matrix[i][j], i, j - 1, matrix, mem);
         int right = longestIncreasingPathDP(matrix[i][j], i, j + 1, matrix, mem);
         int up = longestIncreasingPathDP(matrix[i][j], i - 1, j, matrix, mem);
         int down = longestIncreasingPathDP(matrix[i][j], i + 1, j, matrix, mem);
-
-        mem[i][j] = 1 + Math.max(left, Math.max(right, Math.max(up, down)));
+        mem[i][j] = 1 + Math.max(Math.max(left, right), Math.max(up, down));
         return mem[i][j];
     }
 
@@ -504,4 +476,54 @@ public class DpSolution {
 //        mem.put(start * 10000 + end, isValid);
 //        return isValid;
 //    }
+
+    // 494. Target Sum
+    // https://leetcode.com/problems/target-sum/
+    public static int findTargetSumWays(int[] nums, int target) {
+        // (offset, sum), count
+        Map<Pair<Integer, Integer>, Integer> mem = new HashMap<>();
+        return findTargetSumWaysDP(nums, 0, 0, target, mem);
+    }
+
+    private static int findTargetSumWaysDP(int[] nums, int offset, int sum, int target, Map<Pair<Integer, Integer>, Integer> mem) {
+        if (offset == nums.length) {
+            return sum == target ? 1 : 0;
+        }
+
+        Pair<Integer, Integer> key = new Pair(offset, sum);
+        if (mem.containsKey(key)) return mem.get(key);
+
+        int addCount = findTargetSumWaysDP(nums, offset + 1, sum + nums[offset], target, mem);
+        int subtractCount = findTargetSumWaysDP(nums, offset + 1, sum - nums[offset], target, mem);
+        int count = addCount + subtractCount;
+        mem.put(key, count);
+        return count;
+    }
+
+
+    // 2328. Number of Increasing Paths in a Grid
+    // https://leetcode.com/problems/number-of-increasing-paths-in-a-grid
+    public static int countPaths(int[][] grid) {
+        int count = 0;
+        int[][] mem = new int[grid.length][grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                count += countPathsDP(-1, i, j, grid, mem);
+            }
+        }
+        return count;
+    }
+
+    private static int countPathsDP(int prev, int i, int j, int[][] grid, int[][] mem) {
+        if (i < 0 || i == grid.length || j < 0 || j == grid[0].length || grid[i][j] <= prev) return 0;
+
+        if (mem[i][j] != 0) return mem[i][j];
+
+        int left = countPathsDP(grid[i][j], i, j - 1, grid, mem);
+        int right = countPathsDP(grid[i][j], i, j + 1, grid, mem);
+        int up = countPathsDP(grid[i][j], i - 1, j, grid, mem);
+        int down = countPathsDP(grid[i][j], i + 1, j, grid, mem);
+        mem[i][j] = 1 + left + right + up + down;
+        return mem[i][j];
+    }
 }

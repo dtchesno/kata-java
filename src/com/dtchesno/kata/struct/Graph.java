@@ -271,32 +271,57 @@ public class Graph {
     // e.g. [[0,1,100], [1,2,100], [0,2,500]], src=0, dst=2, k=1; result=200 (0->1->2)
     // https://leetcode.com/problems/cheapest-flights-within-k-stops/
     public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        Map<Integer, List<int[]>> connections = new HashMap<>();
+        Map<Integer, List<int[]>> adj = new HashMap<>();
         for (int[] f : flights) {
-            int v1 = f[0];
-            int v2 = f[1];
-            int price = f[2];
-            List<int[]> c = connections.computeIfAbsent(v1, (key) -> new ArrayList<>());
-            c.add(new int[] {v2, price});
+            adj.computeIfAbsent(f[0], value -> new ArrayList<>()).add(new int[] { f[1], f[2] });
         }
 
-        // city, cost, r.stops
-        Queue<int[]> q = new PriorityQueue<>((a, b) -> a[1] - b[1]);
-        q.add(new int[] {src, 0, k});
-        while (!q.isEmpty()) {
+        int[] cost = new int[n];
+        Arrays.fill(cost, Integer.MAX_VALUE);
+
+        // (city, current cost)
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[] { src, 0 });
+        q.add(null);
+        cost[src] = 0;
+        int stops = 0;
+
+        while (stops <= k && !q.isEmpty()) {
             int[] top = q.poll();
-            if (top[0] == dst) return top[1];
-            if (top[2] < 0) continue;
-            List<int[]> c = connections.get(top[0]);
-            if (c == null) continue;
-            for (int[] connection : c) {
-                q.add(new int[] { connection[0], top[1] + connection[1], top[2] - 1});
+
+            if (top == null) continue;
+
+            int city = top[0];
+            int currentCost = top[1];
+
+            if (!adj.containsKey(city)) {
+                if (q.peek() == null) {
+                    stops++;
+                    q.add(null);
+                }
+                continue;
+            }
+
+            for (int[] next : adj.get(city)) {
+                int nextCity = next[0];
+                int price = next[1];
+
+                if (currentCost + price >= cost[nextCity]) continue;
+
+                cost[nextCity] = currentCost + price;
+                q.add(new int[] { nextCity, cost[nextCity] });
+            }
+
+            if (q.peek() == null) {
+                stops++;
+                q.add(null);
             }
         }
-        return -1;
+
+        return cost[dst] == Integer.MAX_VALUE ? -1 : cost[dst];
     }
 
-    // NOTE: as above, but checking already visited with less stops - does it help though???
+    // NOTE: checking already visited with less stops - does it help though???
 //    public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
 //        Map<Integer, List<int[]>> connections = new HashMap<>();
 //        for (int[] con : flights) {
@@ -459,6 +484,35 @@ public class Graph {
                 if (!isBipartiteDFS(v, graph, state)) return false;
             }
         }
+        return true;
+    }
+
+    // 207. Course Schedule
+    // https://leetcode.com/problems/course-schedule
+    public static boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> g = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) {
+            g.add(new ArrayList<>());
+        }
+        for (int[] pre : prerequisites) {
+            g.get(pre[0]).add(pre[1]);
+        }
+
+        int[] state = new int[numCourses];
+        for (int u = 0; u < numCourses; u++) {
+            if (state[u] != 0) continue;
+            if (!canFinishDfs(u, g, state)) return false;
+        }
+        return true;
+    }
+
+    private static boolean canFinishDfs(int u, List<List<Integer>> g, int[] state) {
+        state[u] = 1;
+        for (int v : g.get(u)) {
+            if (state[v] == 1) return false;
+            if (state[v] == 0 && !canFinishDfs(v, g, state)) return false;
+        }
+        state[u] = 2;
         return true;
     }
 }

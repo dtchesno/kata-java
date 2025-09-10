@@ -22,7 +22,7 @@ public class PatternMatchingTest {
     }
 
     @Test
-    public void PatterMatching_IsMatch() {
+    public void PatternMatching_IsMatch() {
         assertTrue(PatternMatching.isMatch("bbbba", ".*a*a"));
         assertFalse(PatternMatching.isMatch("aa", "a"));
         assertTrue(PatternMatching.isMatch("aa", "a*"));
@@ -36,7 +36,7 @@ public class PatternMatchingTest {
 
     @Test
     public void WildcardMatching_IsMatch() {
-        //assertFalse(WildcardMatching.isMatch("zacabz", "*a?b*"));
+        assertFalse(WildcardMatching.isMatch("zacabz", "*a?b*"));
         assertTrue(WildcardMatching.isMatch("", "*****"));
         assertFalse(WildcardMatching.isMatch("aa", "a"));
         assertTrue(WildcardMatching.isMatch("aa", "*"));

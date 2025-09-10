@@ -4,6 +4,8 @@ import java.util.*;
 
 // 269. Alien Dictionary
 // https://leetcode.com/problems/alien-dictionary
+// Input: words = ["wrt","wrf","er","ett","rftt"]
+// Output: "wertf"
 public class AlienDictionary {
 
     private Map<Character, List<Character>> orderMap;

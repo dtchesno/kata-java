@@ -1,75 +1,87 @@
 package com.dtchesno.kata.struct;
 
+import com.intellij.ide.util.newProjectWizard.modes.CreateModuleFromSourcesMode;
+
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
+// 146. LRU Cache
+// https://leetcode.com/problems/lru-cache/
 public class LRUCacheListPractice implements ILRUCache {
 
-    private static class Entry {
+    // public LRUCacheListPractice(int capacity)
+    // public int get(int key)
+    // public void put(int key, int value)
+    // public int size()
+
+    private static class Node {
+        Node prev;
+        Node next;
         int key;
         int value;
-        Entry next;
-        Entry prev;
 
-        Entry(int key, int value) {
+        Node(int key, int value) {
             this.key = key;
             this.value = value;
         }
     }
 
     private int capacity;
-
-    private Map<Integer, Entry> cache = new HashMap();
-    private Entry root;
-    private Entry tail;
+    private Map<Integer, Node> cache = new HashMap<>();
+    private Node root;
+    private Node tail;
 
     public LRUCacheListPractice(int capacity) {
         this.capacity = capacity;
-        root = new Entry(0, 0);
-        tail = new Entry(0, 0);
+        this.root = new Node(0, 0);
+        this.tail = new Node(0, 0);
         root.next = tail;
         tail.prev = root;
     }
 
     public int get(int key) {
-        Entry entry = cache.get(key);
-        if (entry == null) return -1;
-        remove(entry);
-        add(entry);
-        return entry.value;
+        Node n = cache.get(key);
+        if (n == null) return -1;
+        remove(n);
+        add(n);
+        return n.value;
     }
 
     public void put(int key, int value) {
-        Entry entry = cache.get(key);
-        if (entry != null) {
-            remove(entry);
-            entry.value = value;
+        Node n = cache.get(key);
+        if (n != null) {
+            remove(n);
+            n.value = value;
         } else {
-            entry = new Entry(key, value);
+            n = new Node(key, value);
         }
         if (cache.size() == capacity) {
             remove(root.next);
         }
-        add(entry);
+        add(n);
     }
 
     public int size() {
         return cache.size();
     }
 
-    private void remove(Entry entry) {
-        entry.prev.next = entry.next;
-        entry.next.prev = entry.prev;
-        cache.remove(entry.key);
+    private void add(Node n) {
+        Node last = tail.prev;
+        last.next = n;
+        n.prev = last;
+        n.next = tail;
+        tail.prev = n;
+        cache.put(n.key, n);
     }
 
-    private void add(Entry entry) {
-        entry.prev = tail.prev;
-        entry.next = tail;
-
-        tail.prev.next = entry;
-        tail.prev = entry;
-
-        cache.put(entry.key, entry);
+    private void remove(Node n) {
+        cache.remove(n.key);
+        Node prev = n.prev;
+        Node next = n.next;
+        prev.next = next;
+        next.prev = prev;
+        n.prev = null;
+        n.next = null;
     }
 }

@@ -1,5 +1,8 @@
 package com.dtchesno.kata.struct;
 
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+
 import java.util.*;
 
 public class ArrayStringTasks {
@@ -183,6 +186,7 @@ public class ArrayStringTasks {
 //    }
 
 
+    // zero sum subarray
     // find any subarray which sum == 0
     // byte-by-byte #11 pg.11
     // https://www.byte-by-byte.com/zerosum/
@@ -232,37 +236,78 @@ public class ArrayStringTasks {
     // 4. Median of Two Sorted Arrays
     // leetcode: https://leetcode.com/problems/median-of-two-sorted-arrays/description/
     // move along arrays - find left and right (could be the same - single element); take med of elements
-    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int iLeft = (nums1.length + nums2.length) / 2 - 1;
-        int left = -1;
-        int i = 0;
-        int j = 0;
+//    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+//        int iLeft = (nums1.length + nums2.length) / 2 - 1;
+//        int left = -1;
+//        int i = 0;
+//        int j = 0;
+//
+//        while (i + j <= iLeft) {
+//            if (i == nums1.length) {
+//                left = nums2[j++];
+//            } else if (j == nums2.length) {
+//                left = nums1[i++];
+//            } else if (nums1[i] < nums2[j]) {
+//                left = nums1[i++];
+//            } else {
+//                left = nums2[j++];
+//            }
+//        }
+//
+//        int right = -1;
+//
+//        if (i == nums1.length) {
+//            right = nums2[j++];
+//        } else if (j == nums2.length) {
+//            right = nums1[i++];
+//        } else if (nums1[i] < nums2[j]) {
+//            right = nums1[i++];
+//        } else {
+//            right = nums2[j++];
+//        }
+//
+//        return ((nums1.length + nums2.length) % 2 == 0) ? ((double) left + right) / 2 : right;
+//    }
 
-        while (i + j <= iLeft) {
-            if (i == nums1.length) {
-                left = nums2[j++];
-            } else if (j == nums2.length) {
-                left = nums1[i++];
-            } else if (nums1[i] < nums2[j]) {
-                left = nums1[i++];
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);
+
+        int leftPartitionSize = (nums1.length + nums2.length + 1) / 2;
+        int low = 0;
+        int high = nums1.length;
+
+        while (low <= high) {
+            // par1 & part2 is where right parts start
+            // since part1 & part2 are left partitions size for nums1 & nums2
+            int part1 = (low + high) / 2;
+            int part2 = leftPartitionSize - part1;
+
+            int maxLeft1 = (part1 == 0) ? Integer.MIN_VALUE : nums1[part1 - 1];
+            int minRight1 = (part1 == nums1.length) ? Integer.MAX_VALUE : nums1[part1];
+
+            int maxLeft2 = (part2 == 0) ? Integer.MIN_VALUE : nums2[part2 - 1];
+            int minRight2 = (part2 == nums2.length) ? Integer.MAX_VALUE : nums2[part2];
+
+            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {
+                if ((nums1.length + nums2.length) % 2 == 0) {
+                    int left = Math.max(maxLeft1, maxLeft2);
+                    int right = Math.min(minRight1, minRight2);
+                    return (double)(left + right) / 2;
+                } else {
+                    return Math.max(maxLeft1, maxLeft2);
+                }
+            }
+
+            if (maxLeft1 > minRight2) {
+                high = part1 - 1;
             } else {
-                left = nums2[j++];
+                // we do +1, since nums1[part1] is already evaluated in exit condition
+                // here maxLeft1 <= minRight2
+                // which means minRight1 > maxLeft2, so, part1 is not good for minRight1
+                low = part1 + 1;
             }
         }
-
-        int right = -1;
-
-        if (i == nums1.length) {
-            right = nums2[j++];
-        } else if (j == nums2.length) {
-            right = nums1[i++];
-        } else if (nums1[i] < nums2[j]) {
-            right = nums1[i++];
-        } else {
-            right = nums2[j++];
-        }
-
-        return ((nums1.length + nums2.length) % 2 == 0) ? ((double) left + right) / 2 : right;
+        return -1;
     }
 
 
@@ -460,22 +505,18 @@ public class ArrayStringTasks {
 
     // 239. Sliding Window Maximum
     // https://leetcode.com/problems/sliding-window-maximum/description/
-    public static int[] maxSlidingWindow(int[] nums, int k) {
-        int[] result = new int[nums.length - k + 1];
-        Deque<Integer> q = new LinkedList<>();
-        for (int i = 0; i < k; i++) {
-            while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) q.pollLast();
-            q.add(i);
-        }
-        result[0] = nums[q.peek()];
-        for (int i = k; i < nums.length; i++) {
-            while (!q.isEmpty() && nums[q.peekLast()] <= nums[i]) q.pollLast();
-            if (!q.isEmpty() && q.peek() <= i - k) q.poll();
-            q.add(i);
-            result[i - k + 1] = nums[q.peek()];
-        }
-        return result;
-    }
+    // Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+    //Output: [3,3,5,5,6,7]
+    //Explanation:
+    //Window position                Max
+    //---------------               -----
+    //[1  3  -1] -3  5  3  6  7       3
+    // 1 [3  -1  -3] 5  3  6  7       3
+    // 1  3 [-1  -3  5] 3  6  7       5
+    // 1  3  -1 [-3  5  3] 6  7       5
+    // 1  3  -1  -3 [5  3  6] 7       6
+    // 1  3  -1  -3  5 [3  6  7]      7
+
 
 
     // 2402. Meeting Rooms III
@@ -522,6 +563,7 @@ public class ArrayStringTasks {
         return iMax;
     }
 
+
     // 300. Longest Increasing Subsequence
     // https://leetcode.com/problems/longest-increasing-subsequence/
     public static int longestIncreasingSubseq(int[] seq) {
@@ -531,27 +573,26 @@ public class ArrayStringTasks {
             if (seq[i] > result.get(result.size() - 1)) {
                 result.add(seq[i]);
             } else {
-                int pos = longestIncreasingSubseqFindInsertPos(seq[i], result);
-                result.set(pos, seq[i]);
+                longestIncreasingSubseqInsert(seq[i], result);
             }
         }
         return result.size();
     }
 
-    private static int longestIncreasingSubseqFindInsertPos(int val, List<Integer> result) {
+    private static void longestIncreasingSubseqInsert(int val, List<Integer> result) {
         int left = 0;
-        int right = result.size() - 1;
-        while (left < right) {
+        int right = result.size();
+        while (left <= right) {
             int mid = (left + right) / 2;
             if (val == result.get(mid)) {
-                return mid;
+                return;
             } else if (val > result.get(mid)) {
                 left = mid + 1;
             } else {
-                right = mid;
+                right = mid - 1;
             }
         }
-        return left;
+        result.set(left, val);
     }
 
 
@@ -741,18 +782,19 @@ public class ArrayStringTasks {
     public static int[][] mergeIntervals(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
         List<int[]> result = new ArrayList<>();
-        int[] current = intervals[0];
+        int[] current = new int[] {intervals[0][0], intervals[0][1]};
         result.add(current);
         for (int i = 1; i < intervals.length; i++) {
             if (current[1] >= intervals[i][0]) {
                 current[1] = Math.max(current[1], intervals[i][1]);
             } else {
-                current = intervals[i];
+                current = new int[] {intervals[i][0], intervals[i][1]};
                 result.add(current);
             }
         }
-        return result.toArray(new int[result.size()][]);
+        return result.toArray(new int[0][0]);
     }
+
 
     private static void swap(int[] arr, int i, int j) {
         int temp = arr[i];
@@ -760,6 +802,8 @@ public class ArrayStringTasks {
         arr[j] = temp;
     }
 
+    // 3. Longest Substring Without Repeating Characters
+    // https://leetcode.com/problems/longest-substring-without-repeating-characters
     // dvdf
     // longestSubstring = 3
     // start = 1
@@ -783,6 +827,366 @@ public class ArrayStringTasks {
             map.put(c, i);
         }
         return longestSubstring;
+    }
+
+
+    // 524. Longest Word in Dictionary through Deleting
+    // https://leetcode.com/problems/longest-word-in-dictionary-through-deleting
+    // https://www.google.com/about/careers/applications/candidate-prep/swe?utm_source=email&utm_medium=recruiter-email&utm_campaign=external-resource&utm_content=cx
+    public static String findLongestWord(String s, List<String> words) {
+        String maxWord = "";
+        for ( String w : words) {
+            if (!findLongestWordIsMatch(s, w)) continue;
+            if (w.length() > maxWord.length()) {
+                maxWord = w;
+            } else if (w.length() == maxWord.length() && w.compareTo(maxWord) <= 0) {
+                maxWord = w;
+            }
+        }
+        return maxWord;
+    }
+
+    private static boolean findLongestWordIsMatch(String s, String w) {
+        int j = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (j == w.length()) return true;
+            if (s.charAt(i) == w.charAt(j)) j++;
+        }
+        return j == w.length();
+    }
+
+
+    // 394. Decode String
+    // https://leetcode.com/problems/decode-string
+    public static String decodeString(String s) {
+        Queue<Character> q = new LinkedList<>();
+        for (char c : s.toCharArray()) {
+            q.add(c);
+        }
+        return decodeString(q);
+    }
+
+    private static String decodeString(Queue<Character> q) {
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+
+        while (!q.isEmpty()) {
+            char c = q.poll();
+
+            if (c == '[') {
+                String nested = decodeString(q);
+                sb.append(nested.repeat(count));
+                count = 0;
+            } else if (c == ']') {
+                return sb.toString();
+            } else if (Character.isDigit(c)) {
+                count = count * 10 + c - '0';
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+
+    // 529. Minesweeper
+    // https://leetcode.com/problems/minesweeper
+    public static char[][] minesweeper(char[][] board, int[] click) {
+        if (board[click[0]][click[1]] == 'M') {
+            board[click[0]][click[1]] = 'X';
+            return board;
+        }
+        reveal(board, click[0], click[1]);
+        return board;
+    }
+
+    private static void reveal(char[][] board, int row, int col) {
+        final int[][] directions = new int[][] {
+                {-1,-1}, {-1,0}, {-1,1},
+                {0,-1}, {0,1},
+                {1,-1}, {1,0}, {1,1},
+        };
+
+        Queue<Pair<Integer, Integer>> q = new LinkedList<>();
+        Pair<Integer, Integer> start = Pair.of(row, col);
+        q.add(start);
+        Set<Pair<Integer, Integer>> seen = new HashSet<>();
+        seen.add(start);
+
+        while (!q.isEmpty()) {
+            Pair<Integer, Integer> top = q.poll();
+
+            int count = 0;
+            List<Pair<Integer, Integer>> candidates = new ArrayList<>();
+            for (int[] dir : directions) {
+                int i = top.getKey() + dir[0];
+                int j = top.getValue() + dir[1];
+                Pair<Integer, Integer> next = Pair.of(i, j);
+
+                if (i < 0 || i == board.length || j < 0 || j == board[0].length || seen.contains(next)) continue;
+
+                if (board[i][j] == 'M') {
+                    count++;
+                    // q.add(null);
+                    continue;
+                }
+                candidates.add(next);
+            }
+            board[top.getKey()][top.getValue()] = (count == 0) ? 'B' : (char)('0' + count);
+            if (count == 0) {
+                q.addAll(candidates);
+                seen.addAll(candidates);
+            }
+        }
+    }
+
+
+    // 273. Integer to English Words
+    // https://leetcode.com/problems/integer-to-english-words
+    // Input: num = 1234567
+    // Output: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+    public static String numberToWords(int num) {
+        Map<Integer, String> numberMap = new HashMap<>();
+        numberMap.put(90, "Ninety");
+        numberMap.put(80, "Eighty");
+        numberMap.put(70, "Seventy");
+        numberMap.put(60, "Sixty");
+        numberMap.put(50, "Fifty");
+        numberMap.put(40, "Forty");
+        numberMap.put(30, "Thirty");
+        numberMap.put(20, "Twenty");
+        numberMap.put(19, "Nineteen");
+        numberMap.put(18, "Eighteen");
+        numberMap.put(17, "Seventeen");
+        numberMap.put(16, "Sixteen");
+        numberMap.put(15, "Fifteen");
+        numberMap.put(14, "Fourteen");
+        numberMap.put(13, "Thirteen");
+        numberMap.put(12, "Twelve");
+        numberMap.put(11, "Eleven");
+        numberMap.put(10, "Ten");
+        numberMap.put(9, "Nine");
+        numberMap.put(8, "Eight");
+        numberMap.put(7, "Seven");
+        numberMap.put(6, "Six");
+        numberMap.put(5, "Five");
+        numberMap.put(4, "Four");
+        numberMap.put(3, "Three");
+        numberMap.put(2, "Two");
+        numberMap.put(1, "One");
+
+        if (num == 0) return "Zero";
+
+        String numbers = numberToWords(num % 1000, "", numberMap);
+        num /= 1000;
+
+        String thousands = numberToWords(num % 1000, "Thousand", numberMap);
+        num /= 1000;
+
+        String millions = numberToWords(num % 1000, "Million", numberMap);
+        num /= 1000;
+
+        String billions = numberToWords(num % 1000, "Billion", numberMap);
+
+        List<String> result = new ArrayList<>();
+        if (billions.length() > 0 ) result.add(billions);
+        if (millions.length() > 0 ) result.add(millions);
+        if (thousands.length() > 0 ) result.add(thousands);
+        if (numbers.length() > 0 ) result.add(numbers);
+        return String.join(" ", result);
+    }
+
+    public static String numberToWords(int num, String label, Map<Integer, String> map) {
+        StringBuilder sb = new StringBuilder();
+
+        int hundreds = num / 100;
+        if (hundreds > 0) {
+            sb.append(map.get(hundreds)).append(' ').append("Hundred").append(' ');
+        }
+        num %= 100;
+
+        for (int val : map.keySet()) {
+            if (num < val) continue;
+            sb.append(map.get(val)).append(' ');
+            num -= val;
+        }
+        return sb.length() == 0 ? "" : (sb.toString() + label).trim();
+    }
+
+    // 1152. Analyze User Website Visit Pattern
+    // https://leetcode.com/problems/analyze-user-website-visit-pattern/
+    public static List<String> mostVisitedPattern(String[] username, int[] timestamp, String[] website) {
+        // collect and sort by time all visits
+        List<Triple<String, Integer, String>> visits = new ArrayList<>();
+        for (int i = 0; i < username.length; i++) {
+            visits.add(Triple.of(username[i], timestamp[i], website[i]));
+        }
+        Collections.sort(visits, (a, b) -> a.getMiddle() - b.getMiddle());
+
+        // build map user to list of website visits
+        // user -> <website>
+        Map<String, List<String>> userVisits = new HashMap<>();
+        for (Triple<String, Integer, String> visit : visits) {
+            userVisits.computeIfAbsent(visit.getLeft(), k -> new ArrayList<>()).add(visit.getRight());
+        }
+
+        // build map of triple to count
+        // use TreeMap to return lex smallest id scores are the same
+        TreeMap<Triple<String, String, String>, Integer> counts = new TreeMap<>();
+        Set<Pair<String, Triple<String, String, String>>> seen = new HashSet<>();
+        for (String user : username) {
+            List<String> websites = userVisits.get(user);
+            for (int i = 0; i < websites.size() - 2; i++) {
+                for (int j = i + 1; j < websites.size() - 1; j++) {
+                    for (int k = j + 1; k < websites.size(); k++) {
+                        String first = websites.get(i);
+                        String second = websites.get(j);
+                        String third = websites.get(k);
+                        Triple<String, String, String> triple = Triple.of(first, second, third);
+                        if (seen.contains(Pair.of(user, triple))) continue;
+                        int count = counts.getOrDefault(triple, 0);
+                        counts.put(triple, count + 1);
+                        seen.add((Pair.of(user, triple)));
+                    }
+                }
+            }
+        }
+        Map.Entry<Triple<String, String, String>, Integer> mostVisited = null;
+        for (var entry : counts.entrySet()) {
+            if (mostVisited == null || mostVisited.getValue() < entry.getValue()) mostVisited = entry;
+        }
+        return List.of(mostVisited.getKey().getLeft(), mostVisited.getKey().getMiddle(), mostVisited.getKey().getRight());
+    }
+
+    // 127. Word Ladder
+    // https://leetcode.com/problems/word-ladder
+    public static int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Map<String, List<String>> patterns = new HashMap<>();
+        for (String w : wordList) {
+            for (int i = 0; i < w.length(); i++) {
+                String key = w.substring(0, i) + "*" + w.substring(i + 1);
+                patterns.computeIfAbsent(key, k -> new ArrayList<>()).add(w);
+            }
+        }
+
+        Queue<String> q = new LinkedList<>();
+        Set<String> seen = new HashSet<>();
+        q.add(beginWord);
+        seen.add(beginWord);
+        q.add(null);
+        int moves = 1;
+
+        while (!q.isEmpty()) {
+            String top = q.poll();
+
+            if (top == null) continue;
+
+            if (top.equals(endWord)) return moves;
+
+            for (int i = 0; i < top.length(); i++) {
+                String key = top.substring(0, i) + "*" + top.substring(i + 1);
+                List<String> candidates = patterns.get(key);
+
+                if (candidates == null) continue;
+
+                for (String candidate : candidates) {
+                    if (seen.contains(candidate)) continue;
+                    q.add(candidate);
+                    seen.add(candidate);
+                }
+            }
+
+            if (q.peek() == null) {
+                moves++;
+                q.add(null);
+            }
+        }
+
+        return 0;
+    }
+
+    // 1291. Sequential Digits
+    // https://leetcode.com/problems/sequential-digits/
+    public static List<Integer> sequentialDigits(int low, int high) {
+        String digits = "123456789";
+        int lowLen = String.valueOf(low).length();
+        int highLen = String.valueOf(high).length();
+
+        List<Integer> result = new ArrayList<>();
+        for (int len = lowLen; len <= highLen; len++) {
+            for (int i = 0; i <= digits.length() - len; i++) {
+                int num = Integer.parseInt(digits.substring(i, i + len));
+                if (num >= low && num <= high) {
+                    result.add(num);
+                }
+            }
+        }
+        return result;
+    }
+
+
+    // 2340. Minimum Adjacent Swaps to Make a Valid Array
+    // https://leetcode.com/problems/minimum-adjacent-swaps-to-make-a-valid-array
+    public static int minimumSwaps(int[] nums) {
+        int iMin = 0;
+        int iMax = 0;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] < nums[iMin]) iMin = i;
+            if (nums[i] >= nums[iMax]) iMax = i;
+        }
+
+        return iMin + (nums.length - 1 - iMax) - (iMin > iMax ? 1 : 0);
+    }
+
+
+    // 2268. Minimum Number of Keypresses
+    // https://leetcode.com/problems/minimum-number-of-keypresses
+    public static int minimumKeypresses(String s) {
+        int[] freq = new int['z' - 'a' + 1];
+        for (char c : s.toCharArray()) {
+            freq[c - 'a']++;
+        }
+
+        PriorityQueue<Integer> q = new PriorityQueue<>((a, b) -> b - a);
+        for (int f : freq) {
+            if (f > 0) q.add(f);
+        }
+
+        int count = 0;
+        int totalLetters = 0;
+        while (!q.isEmpty()) {
+            int multiplier = (totalLetters / 9) + 1;
+            count += multiplier * q.poll();
+            totalLetters++;
+        }
+        return count;
+    }
+
+
+    // 2222. Number of Ways to Select Buildings
+    // https://leetcode.com/problems/number-of-ways-to-select-buildings
+    // select 010, or 101, not required to be consecutive
+    public static long numberOfWays(String s) {
+        int count0 = 0;
+        int count01 = 0;
+        int count010 = 0;
+        int count1 = 0;
+        int count10 = 0;
+        int count101 = 0;
+
+        for (char c : s.toCharArray()) {
+            if (c == '0') {
+                count0++;
+                count10 += count1;
+                count010 += count01;
+            } else {
+                count1++;
+                count01 += count0;
+                count101 += count10;
+            }
+        }
+        return count010 + count101;
     }
 
     // done

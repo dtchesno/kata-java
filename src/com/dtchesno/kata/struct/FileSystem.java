@@ -2,14 +2,30 @@ package com.dtchesno.kata.struct;
 
 import java.util.*;
 
+// 588. Design In-Memory File System
+// https://leetcode.com/problems/design-in-memory-file-system
 public class FileSystem {
 
+//    public List<String> ls(String path) {
+//        return null;
+//    }
+//
+//    public void mkdir(String path) {
+//    }
+//
+//    public void addContentToFile(String filePath, String content) {
+//    }
+//
+//    public String readContentFromFile(String filePath) {
+//        return null;
+//    }
+
     private static class Node {
+        TreeMap<String, Node> childs = new TreeMap<>();
         String name;
-        Map<String, Node> childs = new TreeMap<>();
         String content;
 
-        private Node(String name) {
+        Node(String name) {
             this.name = name;
         }
     }
@@ -17,23 +33,25 @@ public class FileSystem {
     private Node root = new Node("");
 
     public List<String> ls(String path) {
-        List<String> result = new ArrayList<>();
         Node n = find(path, false);
         if (n.content != null) {
-            result.add(n.name);
+            return List.of(n.name);
         } else {
-            result.addAll(n.childs.keySet());
+            return new ArrayList<>(n.childs.keySet());
         }
-        return result;
     }
 
     public void mkdir(String path) {
-        find(path, true);
+        Node n = find(path, true);
     }
 
     public void addContentToFile(String filePath, String content) {
         Node n = find(filePath, true);
-        n.content = n.content == null ? content : n.content + content;
+        if (n.content == null) {
+            n.content = content;
+        } else {
+            n.content += content;
+        }
     }
 
     public String readContentFromFile(String filePath) {
@@ -41,17 +59,17 @@ public class FileSystem {
         return n.content;
     }
 
-    private Node find(String path, boolean isCreate) {
-        String[] names = path.split("/");
+    private Node find(String path, boolean doCreate) {
+        String[] segments = path.split("/");
+
         Node n = root;
-        for (int i = 1; i < names.length; i++) {
-            String name = names[i];
-            Node child = n.childs.get(name);
-            if (child == null && isCreate) {
-                child = new Node(name);
-                n.childs.put(name, child);
+        for (int i = 1; i < segments.length; i++) {
+            Node next = n.childs.get(segments[i]);
+            if (next == null && doCreate) {
+                next = new Node(segments[i]);
+                n.childs.put(segments[i], next);
             }
-            n = child;
+            n = next;
         }
         return n;
     }

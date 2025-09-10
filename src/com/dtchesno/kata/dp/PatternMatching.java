@@ -27,22 +27,20 @@ public class PatternMatching {
     }
 
     private static int isMatch(String s, String p, int i, int j, int[][] mem) {
+        if (j == p.length()) {
+            return i == s.length() ? 1 : -1;
+        }
+
         if (mem[i][j] != 0) return mem[i][j];
 
-        if (i == s.length() && j == p.length()) {
-            mem[i][j] = 1;
-        } else if (j == p.length()) {
-            mem[i][j] = -1;
+        boolean isMatch = (i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.'));
+        if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
+            mem[i][j] = Math.max(
+                isMatch(s, p, i, j + 2, mem), // skip '*'
+                isMatch ? isMatch(s, p, i + 1, j, mem) : -1 // use '*'
+            );
         } else {
-            boolean isMatch = (i < s.length() && (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.'));
-            if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
-                mem[i][j] = Math.max(
-                    isMatch(s, p, i, j + 2, mem),               // skip '*'
-                    isMatch ? isMatch(s, p, i + 1, j, mem) : -1 // use '.*'
-                );
-            } else {
-                mem[i][j] = isMatch ? isMatch(s, p, i + 1, j + 1, mem) : -1;
-            }
+            mem[i][j] = isMatch ? isMatch(s, p, i + 1, j + 1, mem) : -1;
         }
         return mem[i][j];
     }

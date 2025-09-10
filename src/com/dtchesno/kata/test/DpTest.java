@@ -34,11 +34,11 @@ public class DpTest {
 
     @Test
     public void testLongestNondecreasingSeq() {
-//        assertEquals(4, DpSolution.lengthOfLIS(new int[] {0, 8, 4, 12, 2, 10, 6, 14, 1, 9}));
-//        assertEquals(4, DpSolution.lengthOfLIS(new int[] {10,9,2,5,3,7,101,18}));
-//        assertEquals(4, DpSolution.lengthOfLIS(new int[] {0,1,0,3,2,3}));
-//        assertEquals(1, DpSolution.lengthOfLIS(new int[] {7,7,7,7,7,7,7}));
-//        assertEquals(3, DpSolution.lengthOfLIS(new int[] {4,10,4,3,8,9}));
+        assertEquals(4, DpSolution.lengthOfLIS(new int[] {0, 8, 4, 12, 2, 10, 6, 14, 1, 9}));
+        assertEquals(4, DpSolution.lengthOfLIS(new int[] {10,9,2,5,3,7,101,18}));
+        assertEquals(4, DpSolution.lengthOfLIS(new int[] {0,1,0,3,2,3}));
+        assertEquals(1, DpSolution.lengthOfLIS(new int[] {7,7,7,7,7,7,7}));
+        assertEquals(3, DpSolution.lengthOfLIS(new int[] {4,10,4,3,8,9}));
         assertEquals(6, DpSolution.lengthOfLIS(new int[] {3,5,6,2,5,4,19,5,6,7,12}));
     }
 
@@ -177,4 +177,16 @@ public class DpTest {
 //        assertTrue(DpSolution.isValidPalindrome("abbababa", 1));
 //        assertFalse(DpSolution.isValidPalindrome("bacabaaa", 2));
 //    }
+
+    @Test
+    public void test_findTargetSumWays() {
+        assertEquals(5, DpSolution.findTargetSumWays(new int[] {1,1,1,1,1}, 3));
+        assertEquals(1, DpSolution.findTargetSumWays(new int[] {1}, 1));
+    }
+
+    @Test
+    public void test_countPaths() {
+        assertEquals(8, DpSolution.countPaths(new int [][] {{1,1},{3,4}}));
+        assertEquals(3, DpSolution.countPaths(new int [][] {{1},{2}}));
+    }
 }
